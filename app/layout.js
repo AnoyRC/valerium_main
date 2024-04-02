@@ -2,11 +2,6 @@ import { Gloock, Noto_Sans } from "next/font/google";
 
 import "./globals.css";
 
-import { store } from "@/redux/store";
-
-import ReduxProvider from "@/provider/ReduxProvider";
-import { Toaster } from "sonner";
-
 const gloock = Gloock({
   subsets: ["latin"],
   weight: ["400"],
@@ -28,11 +23,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${gloock.className} ${notoSans.className}`}>
-        <ReduxProvider store={store}>
-          <Toaster />
-
-          {children}
-        </ReduxProvider>
+        {children}
       </body>
     </html>
   );
