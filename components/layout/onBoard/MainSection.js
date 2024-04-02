@@ -1,7 +1,7 @@
 const MainSection = () => {
   return (
     // Right side section
-    <div>MainSection</div>
+    <section className="flex-1 onboard-watermark"></section>
   );
 };
 
