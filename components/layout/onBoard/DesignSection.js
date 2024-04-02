@@ -6,7 +6,7 @@ const DesignSection = () => {
         <div className=" bg-black p-2 rounded-md mr-2.5">
           <img src="/valerium-logo.svg" alt="logo" />
         </div>
-        <span className="text-xl fon"> Valerium</span>
+        <span className="text-2xl font-gloock tracking-wider"> Valerium</span>
       </div>
       <p className=" absolute left-9 bottom-7">Alpha @0.0.2</p>
     </section>

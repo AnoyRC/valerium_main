@@ -6,12 +6,14 @@ const gloock = Gloock({
   subsets: ["latin"],
   weight: ["400"],
   display: "swap",
+  variable: "--font-gloock",
 });
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
   style: ["normal"],
   display: "swap",
+  variable: "--font-noto",
 });
 
 export const metadata = {
@@ -22,7 +24,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${gloock.className} ${notoSans.className}`}>
+      <body className={`${gloock.variable} ${notoSans.variable}`}>
         {children}
       </body>
     </html>

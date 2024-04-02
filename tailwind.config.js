@@ -12,6 +12,10 @@ module.exports = withMT({
 
   theme: {
     extend: {
+      fontFamily: {
+        gloock: ["var(--font-gloock)"],
+        noto: ["var(--font-noto)"],
+      },
       colors: {
         "highlight-pink": "#EA13F2",
         "highlight-red": "#E6213A",
