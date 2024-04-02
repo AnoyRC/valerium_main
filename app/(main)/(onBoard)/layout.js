@@ -1,5 +1,5 @@
-import DesignSection from "@/component/layout/onBoard/DesignSection";
-import MainSection from "@/component/layout/onBoard/MainSection";
+import DesignSection from "@/components/layout/onBoard/DesignSection";
+import MainSection from "@/components/layout/onBoard/MainSection";
 
 export const metadata = {
   title: "Valerium | OnBoard",
@@ -8,7 +8,7 @@ export const metadata = {
 
 const LoginLayout = ({ children }) => {
   return (
-    <main className="h-screen w-screen">
+    <main className="h-screen w-screen flex">
       <DesignSection />
       <MainSection>{children}</MainSection>
     </main>
