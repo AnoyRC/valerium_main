@@ -9,11 +9,13 @@ import { Toaster } from "sonner";
 
 const gloock = Gloock({
   subsets: ["latin"],
+  weight: ["400"],
   display: "swap",
 });
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
+  style: ["normal"],
   display: "swap",
 });
 
