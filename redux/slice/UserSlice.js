@@ -4,12 +4,14 @@ const userSlice = createSlice({
   name: "user",
 
   initialState: {
-    user: {},
+    domain: "",
+    address: "",
   },
 
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload;
+      state.domain = action.payload.domain;
+      state.address = action.payload.address;
     },
   },
 });

@@ -9,7 +9,9 @@
       "ValeriumForwarder": "0x16BB4A38944d00821bb15dBc2BACd8Ad0F57d8F0",
       "FactoryForwarder": "0xAf02c5B217214bCecA60257A038E9BBcF02b92db",
       "ValeriumProxyFactory": "0x8B9EeB8d12C85EE73d3ae6FaB0d0726625C80e7d",
-      "ValeriumVault": "0x1FdD0B22E4208F6CeE8F8C1Bdbf28bBBc359A86F"
+      "ValeriumVault": "0x1FdD0B22E4208F6CeE8F8C1Bdbf28bBBc359A86F",
+      "PasswordVerifier": "0x8c196a2cd0d097CE21726a6D8D6ccb56Cbcb8274",
+      "SignatureVerifier": "0x248263304f8B869A7645Dc2510bA5B2A8bA03795"
     },
     "tokens": [
       {

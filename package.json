@@ -11,9 +11,11 @@
   "dependencies": {
     "@magic-ext/webauthn": "^22.0.2",
     "@material-tailwind/react": "^2.1.9",
+    "@noir-lang/backend_barretenberg": "^0.22.0",
+    "@noir-lang/noir_js": "^0.22.0",
     "@reduxjs/toolkit": "^2.2.3",
     "axios": "^1.6.8",
-    "ethers": "^6.11.1",
+    "ethers": "^5.7.2",
     "lucide-react": "^0.364.0",
     "magic-sdk": "^28.0.2",
     "next": "14.1.4",

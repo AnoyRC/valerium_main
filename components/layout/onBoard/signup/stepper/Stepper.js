@@ -2,13 +2,15 @@
 
 import { Step, Stepper } from "@material-tailwind/react";
 import { Lock, Mail, UserRound } from "lucide-react";
+import { useSelector } from "react-redux";
 
 export default function Steps() {
+  const step = useSelector((state) => state.signup.step);
   return (
     <div className="relative flex items-center">
       <div className="absolute w-[300px] -translate-x-1/2">
         <Stepper
-          activeStep={0}
+          activeStep={step}
           className="rotate-90"
           lineClassName="bg-gray-400"
         >
