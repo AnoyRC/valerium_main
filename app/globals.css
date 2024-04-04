@@ -37,6 +37,19 @@ body {
     url(/light-background-grid.svg) 0% / cover no-repeat;
 }
 
+.light-dashboard-background {
+  background: url(/background-shade.svg) center no-repeat,
+    url(/light-background-grid.svg) 0% / cover no-repeat;
+}
+
 .onboard-watermark {
   background: url(/valerium-watermark.svg) center no-repeat;
+}
+
+.background {
+  background: linear-gradient(
+    180deg,
+    rgba(233, 233, 233, 0.85) 0%,
+    rgba(216, 216, 216, 0.85) 100.4%
+  );
 }
