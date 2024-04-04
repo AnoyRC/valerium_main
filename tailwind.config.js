@@ -16,6 +16,11 @@ module.exports = withMT({
         gloock: ["var(--font-gloock)"],
         noto: ["var(--font-noto)"],
       },
+
+      fontSize: {
+        "2xs": "0.625rem",
+      },
+
       colors: {
         "highlight-pink": "#EA13F2",
         "highlight-red": "#E6213A",
@@ -25,13 +30,16 @@ module.exports = withMT({
         "text-gray": "#4D4A4F",
         "text-dark": "#121212",
         "text-pink": "#FCADFF",
-        "text-light-grey": "#9E9E9E",
+        "text-light-gray": "#9E9E9E",
 
         "bg-off-black": "#0F0F0F",
         "bg-off-white": "#F9F9F9",
 
         "shadown-purple": "#8264BE",
         "shadow-red": "#DC6062",
+
+        "border-light": "#AAAAAA",
+        "border-dark": "#4B5563",
       },
 
       backgroundImage: {

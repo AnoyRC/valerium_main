@@ -4,7 +4,7 @@ import Tokens from "./tokens/Tokens";
 
 const RightSection = () => {
   return (
-    <article className=" flex-1 px-10">
+    <article className="flex-1 px-10">
       <TotalBalance />
       <AccountBalance />
       <Tokens />

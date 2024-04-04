@@ -1,7 +1,7 @@
 [
   {
     "chainId": 1891,
-    "chainName": "LightLink Pegasus Testnet",
+    "chainName": "Optimism",
     "isBase": true,
     "rpcUrl": "https://replicator.pegasus.lightlink.io/rpc/v1",
     "addresses": {
@@ -12,6 +12,16 @@
       "ValeriumVault": "0x1FdD0B22E4208F6CeE8F8C1Bdbf28bBBc359A86F",
       "PasswordVerifier": "0x8c196a2cd0d097CE21726a6D8D6ccb56Cbcb8274",
       "SignatureVerifier": "0x248263304f8B869A7645Dc2510bA5B2A8bA03795"
+    },
+    "style": {
+      "color-dark": "#000000",
+      "color-light": "#000000",
+      "gradient-color-dark": "#f8f8f8",
+      "gradient-color-light": "#f8f8f8",
+      "background-color-dark": "#f8f8f8",
+      "background-color-light": "#f8f8f8",
+      "background-shadow-effect": "#000000",
+      "logo": "https://valerium.io/images/logo.png"
     },
     "tokens": [
       {

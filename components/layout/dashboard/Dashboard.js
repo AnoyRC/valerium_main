@@ -4,7 +4,6 @@ import RightSection from "./RightSection";
 const Dashboard = () => {
   return (
     <>
-      <LeftSection></LeftSection>
       <RightSection></RightSection>
     </>
   );

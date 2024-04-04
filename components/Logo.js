@@ -1,11 +1,20 @@
+import Link from "next/link";
+import Image from "next/image";
+
 const Logo = () => {
   return (
-    <div className="flex items-center">
-      <div className=" bg-black p-2 rounded-md mr-2.5">
-        <img src="/valerium-logo.svg" alt="logo" />
+    <Link className="flex items-center gap-2.5" href="/dashboard">
+      <div className=" bg-black p-2 rounded-md">
+        <Image
+          src="/valerium-logo.svg"
+          alt="Valerium Logo"
+          width={24}
+          height={24}
+        />
       </div>
-      <span className="text-2xl font-gloock tracking-wider"> Valerium</span>
-    </div>
+
+      <span className="text-xl font-gloock tracking-wider"> Valerium</span>
+    </Link>
   );
 };
 
