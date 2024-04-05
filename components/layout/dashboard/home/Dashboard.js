@@ -1,10 +1,10 @@
 import TotalBalance from "./TotalBalance";
-import AccountBalance from "./accountBalance/AccountBalance";
+import AccountBalance from "./AccountBalance";
 import Tokens from "./tokens/Tokens";
 
 const Dashboard = () => {
   return (
-    <article className="flex-1 px-10 space-y-5">
+    <article className="flex-1 space-y-5">
       <TotalBalance totalBalance={34.567189} />
       <AccountBalance />
       <Tokens />

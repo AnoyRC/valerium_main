@@ -1,4 +1,4 @@
-import TokenInfo from "../tokenInfo/TokenInfo";
+import TokenInfo from "./TokenInfo";
 
 const Tokens = () => {
   return (
