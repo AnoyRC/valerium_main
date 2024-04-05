@@ -38,7 +38,7 @@ body {
 }
 
 .light-dashboard-background {
-  background: url(/background-shade.svg) center no-repeat,
+  background: url(/light-background-shade.svg) center no-repeat,
     url(/light-background-grid.svg) 0% / cover no-repeat;
 }
 

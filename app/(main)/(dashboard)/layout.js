@@ -7,7 +7,7 @@ export const metadata = {
 
 const LoginLayout = ({ children }) => {
   return (
-    <div className="h-screen w-screen flex bg-white font-noto">
+    <div className="h-screen w-screen flex bg-white font-noto light-dashboard-background">
       <Sidebar />
 
       <main className="flex-1">{children}</main>

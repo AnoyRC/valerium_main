@@ -9,7 +9,7 @@ import useLogin from "@/hooks/useLogin";
 import { Info, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ethers } from "ethers";
-import { setUser } from "@/redux/slice/UserSlice";
+import { setUser } from "@/redux/slice/hello";
 
 const Login = () => {
   const dispatch = useDispatch();

@@ -26,18 +26,22 @@ module.exports = withMT({
         "highlight-red": "#E6213A",
         "highlight-blue": "#0052FF",
 
+        // text colors
         "text-off-white": "#F2F2F3",
         "text-gray": "#4D4A4F",
         "text-dark": "#121212",
         "text-pink": "#FCADFF",
         "text-light-gray": "#9E9E9E",
 
+        // background colors
         "bg-off-black": "#0F0F0F",
         "bg-off-white": "#F9F9F9",
 
+        // shadow colors
         "shadown-purple": "#8264BE",
         "shadow-red": "#DC6062",
 
+        // border colors
         "border-light": "#AAAAAA",
         "border-dark": "#4B5563",
       },
@@ -55,6 +59,12 @@ module.exports = withMT({
           "linear-gradient(180deg, #1E1E1E 0%, #141414 100.4%)",
         "gradient-light-radial":
           "linear-gradient(180deg, #E9E9E9 0%, #D8D8D8 100.4%)",
+
+        "gradient-dark-linear/85":
+          "linear-gradient(180deg, rgba(30, 30, 30, 0.85) 0%, rgba(20, 20, 20, 0.85) 100.4%)",
+        "gradient-light-linear/85":
+          "linear-gradient(180deg, rgba(233, 233, 233, 0.85) 0%, rgba(216, 216, 216, 0.85) 100.4%)",
+
         "linear-blue":
           "linear-gradient(93deg, rgba(0, 82, 255, 0.80) 0%, rgba(0, 49, 153, 0.80) 100%)",
       },

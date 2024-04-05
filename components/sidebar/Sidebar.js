@@ -1,14 +1,12 @@
 import Logo from "@/components/Logo";
 
-import Alpha from "../ui/Alpha";
-import AccountChange from "../layout/dashboard/accountChange/AccountChange";
-import ChainSwitcher from "../chainSwicher/ChainSwitcher";
-import SidebarFooter from "./SidebarFooter";
 import Nav from "./nav/Nav";
+import SidebarFooter from "./SidebarFooter";
+import ChainSwitcher from "../chainSwicher/ChainSwitcher";
 
 const Sidebar = () => {
   return (
-    <aside className="basis-[267px] px-4 py-5 background flex flex-col justify-between">
+    <aside className="basis-[267px] px-4 py-5 bg-gradient-light-linear/85 flex flex-col justify-between rounded-e-xl border-r border-border-light">
       <div className="space-y-6">
         <Logo />
         <ChainSwitcher />

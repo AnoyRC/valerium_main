@@ -5,7 +5,12 @@ const AccountChange = () => {
   return (
     <section className="flex items-center bg-linear-blue px-2 py-3 rounded-lg text-white mt-10 back">
       <div className="mr-2">
-        <Image src={"/tokens/base-token.png"} width={36} height={36} />
+        <Image
+          src={"/tokens/base-token.png"}
+          width={36}
+          height={36}
+          alt="Base Logo"
+        />
       </div>
       <div>
         <p className="flex text-xs items-center">
