@@ -10,7 +10,11 @@ const LoginLayout = ({ children }) => {
   return (
     <main className="h-screen w-screen flex bg-white font-noto">
       <DesignSection />
-      <MainSection>{children}</MainSection>
+      <MainSection>
+        <div className="flex h-full w-full items-center justify-center">
+          <div className="w-[70%] flex gap-20">{children}</div>
+        </div>
+      </MainSection>
     </main>
   );
 };

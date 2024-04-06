@@ -1,8 +1,9 @@
 "use client";
 
+import { ethers } from "ethers";
+
 import baseChain from "@/lib/baseChain";
 import ValeriumProxyFactoryABI from "@/lib/abi/ValeriumProxyFactory.json";
-import { ethers } from "ethers";
 
 export default function useLogin() {
   const getValerium = async (domain) => {

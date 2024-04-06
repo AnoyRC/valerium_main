@@ -1,13 +1,10 @@
 const OnBoardSection = ({ heading, paragaph, children, footer }) => {
-  // Right side section component
   return (
-    <div>
-      <div>
-        <h1>{heading}</h1>
-        <p>{paragaph}</p>
-        {children}
-      </div>
-      <div>{footer}</div>
+    <div className="flex flex-col">
+      <h1 className="font-gloock text-4xl">{heading}</h1>
+      <p className="font-noto text-text-gray text-sm mt-2">{paragaph}</p>
+
+      {children}
     </div>
   );
 };

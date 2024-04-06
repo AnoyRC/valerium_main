@@ -1,24 +1,32 @@
 "use client";
 
-import SignupFooter from "@/components/ui/footer/SignupFooter";
-import { setDomain, setStep } from "@/redux/slice/SignupSlice";
-import { Input, Button } from "@material-tailwind/react";
-import { useDispatch, useSelector } from "react-redux";
-import { useRef, useState, useEffect } from "react";
-import useLogin from "@/hooks/useLogin";
 import { Info, Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Input, Button } from "@material-tailwind/react";
+
+import Link from "next/link";
 import { ethers } from "ethers";
-import { setUser } from "@/redux/slice/hello";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import { useRef, useState, useEffect } from "react";
+
+import useLogin from "@/hooks/useLogin";
+
+import { setUser } from "@/redux/slice/UserSlice";
+
+import OnBoardSection from "../OnBoardSection";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const [domain, setDomain] = useState("");
+
   const inputRef = useRef();
-  const [isLoading, setIsLoading] = useState(false);
-  const [isTyping, setIsTyping] = useState(false);
-  const [isUsed, setIsUsed] = useState(false);
+
+  const [domain, setDomain] = useState("");
   const [address, setAddress] = useState("");
+
+  const [isUsed, setIsUsed] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   var timeout = null;
   const router = useRouter();
   const { getValerium } = useLogin();
@@ -70,33 +78,33 @@ const Login = () => {
   }, [isTyping, domain]);
 
   return (
-    <div className="flex flex-col">
-      <h1 className="font-gloock text-4xl">Access your Account</h1>
-      <p className="font-noto text-gray-600 text-sm mt-2">
-        Fill your Valerium Domain name to Login.
-      </p>
-
-      <p className="font-noto text-sm text-gray-600 mt-8">
+    <OnBoardSection
+      heading="Access your Account"
+      paragaph="Fill your Valerium Domain name to Login."
+    >
+      <p className="font-noto text-sm text-text-gray mt-8">
         Your Valerium Domain
       </p>
+
       <div className="flex w-full mt-2">
         <Input
           label="Domain"
           size="lg"
           className={"rounded-r-none font-noto"}
           labelProps={{
-            className: "after:rounded-tr-none font-noto ",
+            className: "after:rounded-tr-none font-noto",
           }}
           ref={inputRef}
           value={domain}
           onChange={(e) => handleName(e)}
         />
+
         <Button
           ripple={false}
           variant="text"
           color="blue-gray"
           className={
-            "flex font-noto font-normal items-center rounded-l-none border border-l-0 border-blue-gray-200 bg-blue-gray-500/10 normal-case px-3 text-sm py-0 "
+            "flex font-noto font-normal items-center rounded-l-none border border-l-0 border-blue-gray-200 bg-gray-100/60 normal-case px-3 text-sm py-0"
           }
         >
           @valerium
@@ -104,7 +112,7 @@ const Login = () => {
       </div>
 
       {isLoading && domain.length > 3 && (
-        <p className="mt-2 text-sm flex text-gray-500">
+        <p className="mt-2 text-sm flex text-text-gray">
           <Loader2 size={20} className="inline mr-1 animate-spin " />
           Checking availability...
         </p>
@@ -118,10 +126,10 @@ const Login = () => {
       )}
 
       <Button
-        className="mt-8 font-noto font-normal normal-case w-fit bg-gradient-primary-light"
+        className="mt-8 font-noto font-normal normal-case w-fit bg-gradient-primary-light disabled:cursor-not-allowed"
         onClick={() => {
           dispatch(setUser({ domain: domain + "@valerium", address }));
-          router.push("/dashboard");
+          router.push("/home");
         }}
         disabled={
           domain.length <= 3 ||
@@ -133,16 +141,17 @@ const Login = () => {
       >
         Access Account
       </Button>
-      <p className="font-noto text-xs text-gray-600 mt-3">
-        Don't have an account{" "}
-        <span
-          className="text-highlight-pink hover:cursor-pointer"
-          onClick={() => router.push("/signUp")}
+
+      <p className="text-xs text-black mt-3">
+        Don't have an account?{" "}
+        <Link
+          className="gradient-text bg-gradient-primary-light hover:cursor-pointer font-semibold"
+          href="/signUp"
         >
           Sign Up
-        </span>
+        </Link>
       </p>
-    </div>
+    </OnBoardSection>
   );
 };
 

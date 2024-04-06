@@ -67,7 +67,7 @@ export default function Step4() {
           className="mt-8 w-48 h-10 font-noto font-normal normal-case bg-gradient-primary-light flex items-center justify-center"
           onClick={() => {
             dispatch(ClearAll());
-            router.push("/dashboard");
+            router.push("/home");
           }}
         >
           Go to Dashboard

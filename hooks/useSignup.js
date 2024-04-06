@@ -17,7 +17,7 @@ import useCircuit from "./useCircuit";
 import ValeriumABI from "@/lib/abi/Valerium.json";
 import FactoryForwarderABI from "@/lib/abi/FactoryForwarder.json";
 import axios from "axios";
-import { setUser } from "@/redux/slice/hello";
+import { setUser } from "@/redux/slice/UserSlice";
 import { toast } from "sonner";
 
 export default function useSignup() {

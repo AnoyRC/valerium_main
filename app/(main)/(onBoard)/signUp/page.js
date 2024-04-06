@@ -9,15 +9,13 @@ import { useSelector } from "react-redux";
 const SignUpPage = () => {
   const step = useSelector((state) => state.signup.step);
   return (
-    <div className="flex h-full w-full items-center justify-center">
-      <div className="w-[70%] flex gap-20">
-        <Steps />
-        {step === 0 && <Step1 />}
-        {step === 1 && <Step2 />}
-        {step === 2 && <Step3 />}
-        {step === 3 && <Step4 />}
-      </div>
-    </div>
+    <>
+      <Steps />
+      {step === 0 && <Step1 />}
+      {step === 1 && <Step2 />}
+      {step === 2 && <Step3 />}
+      {step === 3 && <Step4 />}
+    </>
   );
 };
 
