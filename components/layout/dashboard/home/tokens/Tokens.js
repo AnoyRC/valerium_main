@@ -1,4 +1,6 @@
-import TokenInfo from "./TokenInfo";
+import TokenHeader from "./TokenHeader";
+import TokenItem from "./TokenItem";
+import TokenList from "./TokenList";
 
 const Tokens = () => {
   return (
@@ -7,18 +9,8 @@ const Tokens = () => {
         Tokens
       </h3>
 
-      <div className="flex justify-between mt-4 px-4">
-        <p>Token</p>
-        <p>Price</p>
-        <p>Quantity</p>
-        <p>Value</p>
-        <p>Actions</p>
-      </div>
-
-      <div className="mt-6">
-        <TokenInfo />
-        <TokenInfo />
-      </div>
+      <TokenHeader />
+      <TokenList />
     </section>
   );
 };
