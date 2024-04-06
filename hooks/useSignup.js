@@ -17,7 +17,6 @@ import useCircuit from "./useCircuit";
 import ValeriumABI from "@/lib/abi/Valerium.json";
 import FactoryForwarderABI from "@/lib/abi/FactoryForwarder.json";
 import axios from "axios";
-import { setUser } from "@/redux/slice/UserSlice";
 import { toast } from "sonner";
 
 export default function useSignup() {
@@ -248,8 +247,6 @@ export default function useSignup() {
         if (proxy === ethers.constants.AddressZero) {
           throw new Error("Failed to deploy wallet");
         }
-
-        dispatch(setUser({ domain: domain + "@valerium", address: proxy }));
 
         setSuccess(true);
       } else {

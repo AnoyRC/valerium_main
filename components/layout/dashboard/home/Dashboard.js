@@ -5,7 +5,7 @@ import Tokens from "./tokens/Tokens";
 const Dashboard = () => {
   return (
     <article className="flex-1 space-y-5">
-      <TotalBalance totalBalance={34.567189} />
+      <TotalBalance />
       <AccountBalance />
       <Tokens />
     </article>

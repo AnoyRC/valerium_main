@@ -4,18 +4,25 @@ const userSlice = createSlice({
   name: "user",
 
   initialState: {
-    domain: "",
-    address: "",
+    walletAddresses: null,
+    balanceData: null,
+    conversionData: null,
   },
 
   reducers: {
-    setUser: (state, action) => {
-      state.domain = action.payload.domain;
-      state.address = action.payload.address;
+    setWalletAddresses: (state, action) => {
+      state.walletAddresses = action.payload;
+    },
+    setBalanceData: (state, action) => {
+      state.balanceData = action.payload;
+    },
+    setConversionData: (state, action) => {
+      state.conversionData = action.payload;
     },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setBalanceData, setConversionData, setWalletAddresses } =
+  userSlice.actions;
 
 export default userSlice.reducer;

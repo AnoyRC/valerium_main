@@ -1,27 +1,19 @@
 "use client";
 
-import { Info, Loader2 } from "lucide-react";
 import { Input, Button } from "@material-tailwind/react";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useRef, useState, useEffect } from "react";
+import useLogin from "@/hooks/useLogin";
+import { Info, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ethers } from "ethers";
-import { useDispatch } from "react-redux";
-import { useRouter } from "next/navigation";
-import { useRef, useState, useEffect } from "react";
-
-import useLogin from "@/hooks/useLogin";
-
-import { setUser } from "@/redux/slice/UserSlice";
-
 import OnBoardSection from "../OnBoardSection";
 
 const Login = () => {
-  const dispatch = useDispatch();
-
   const inputRef = useRef();
 
   const [domain, setDomain] = useState("");
-  const [address, setAddress] = useState("");
 
   const [isUsed, setIsUsed] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
@@ -53,7 +45,6 @@ const Login = () => {
 
     setIsUsed(true);
     setIsLoading(false);
-    setAddress(address);
   };
 
   useEffect(() => {
@@ -128,8 +119,7 @@ const Login = () => {
       <Button
         className="mt-8 font-noto font-normal normal-case w-fit bg-gradient-primary-light disabled:cursor-not-allowed"
         onClick={() => {
-          dispatch(setUser({ domain: domain + "@valerium", address }));
-          router.push("/home");
+          router.push(`/home?domain=${domain}`);
         }}
         disabled={
           domain.length <= 3 ||

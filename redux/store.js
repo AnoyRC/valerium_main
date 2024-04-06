@@ -2,15 +2,15 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 
-import UserSlice from "./slice/UserSlice.js";
 import SignupSlice from "./slice/SignupSlice.js";
 import chainSlice from "./slice/chainSlice.js";
+import userSlice from "./slice/UserSlice.js";
 
 export const store = configureStore({
   reducer: {
-    user: UserSlice,
     chain: chainSlice,
     signup: SignupSlice,
+    user: userSlice,
   },
 
   middleware: (getDefaultMiddleware) =>

@@ -6,8 +6,45 @@ import { Button } from "@material-tailwind/react";
 import Link from "next/link";
 
 import FormatNumber from "@/components/ui/FormatNumber";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const AccountBalance = () => {
+  const searchParams = useSearchParams();
+  const currentChain = useSelector((state) => state.chain.currentChain);
+  const balanceData = useSelector((state) => state.user.balanceData);
+  const conversionData = useSelector((state) => state.user.conversionData);
+  const [balance, setBalance] = useState(0);
+  const [usdBalance, setUsdBalance] = useState(0);
+
+  useEffect(() => {
+    if (balanceData && balanceData.length > 0) {
+      let totalEth = 0;
+      const selectedBalanceData = balanceData.find((data) => {
+        return data.chainId === currentChain.chainId;
+      });
+      const selectedConversionData = conversionData.find((data) => {
+        return data.chainId === currentChain.chainId;
+      });
+
+      totalEth += selectedBalanceData.balance / 10 ** 18;
+
+      for (let i = 0; i < selectedBalanceData.erc20Balances.length; i++) {
+        const erc20Balance =
+          selectedBalanceData.erc20Balances[i].balance /
+          10 ** selectedBalanceData.erc20Balances[i].decimals;
+        const conversionRate = selectedConversionData.tokens[i].value;
+
+        totalEth += Number(erc20Balance) / Number(conversionRate);
+      }
+
+      setBalance(totalEth);
+      setUsdBalance(Number(totalEth) * Number(selectedConversionData.value));
+    }
+  }, [balanceData, currentChain, conversionData]);
+
   return (
     <div className="rounded-xl border border-border-light bg-gradient-light-linear/85 overflow-hidden">
       <section
@@ -19,7 +56,7 @@ const AccountBalance = () => {
       >
         <div className="space-y-2">
           <h2 className="font-medium">
-            nooberBoy
+            {searchParams.get("domain")}
             <span className=" bg-gradient-primary-light bg-clip-text text-transparent">
               @valerium
             </span>
@@ -27,15 +64,18 @@ const AccountBalance = () => {
 
           <div className="space-y-0.5">
             <FormatNumber
-              number={0.4947}
+              number={usdBalance}
               size="text-4xl"
               integerSize="text-6xl"
               decimalSize="text-5xl"
             />
 
             <p className="text-text-gray font-medium">
-              ~ 0.4947
-              <span className={`font-bold text-[#0052FF]`}> ETH</span>
+              {balance.toFixed(4)}{" "}
+              <span className={`font-bold text-[#0052FF]`}>
+                {" "}
+                {currentChain.symbol}
+              </span>
             </p>
           </div>
         </div>

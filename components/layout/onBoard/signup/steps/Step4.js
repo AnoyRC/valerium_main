@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 export default function Step4() {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ export default function Step4() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [message, setMessage] = useState("");
+  const domain = useSelector((state) => state.signup.domain);
   const router = useRouter();
   return (
     <div className="flex flex-col">
@@ -66,8 +68,8 @@ export default function Step4() {
         <Button
           className="mt-8 w-48 h-10 font-noto font-normal normal-case bg-gradient-primary-light flex items-center justify-center"
           onClick={() => {
+            router.push(`/home?domain=${domain}`);
             dispatch(ClearAll());
-            router.push("/home");
           }}
         >
           Go to Dashboard
