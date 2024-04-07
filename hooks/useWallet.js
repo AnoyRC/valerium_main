@@ -3,16 +3,21 @@
 import { ethers } from "ethers";
 import ValeriumProxyFactoryABI from "@/lib/abi/ValeriumProxyFactory.json";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setBalanceData,
   setConversionData,
+  setCurrentBalanceData,
+  setCurrentConversionData,
+  setTokenBalanceData,
+  setTokenConversionData,
   setWalletAddresses,
 } from "@/redux/slice/UserSlice";
 import config from "@/lib/config.json";
 
 export default function useWallet() {
   const dispatch = useDispatch();
+  const currentChain = useSelector((state) => state.chain.currentChain);
 
   const getBalance = async (currentChain, address) => {
     try {
@@ -159,6 +164,59 @@ export default function useWallet() {
     dispatch(setBalanceData(AllBalanceData));
   };
 
+  const loadCurrentChainData = async (domain) => {
+    const address = await getValeriumAddress(currentChain, domain);
+
+    if (address === ethers.constants.AddressZero) {
+      dispatch(setCurrentBalanceData(null));
+      dispatch(setCurrentConversionData(null));
+      return;
+    }
+
+    const mainConversion = await convertBalance(
+      currentChain.convert_id,
+      currentChain.id
+    );
+    const balance = Number(await getBalance(currentChain, address));
+
+    dispatch(setCurrentBalanceData(balance));
+    dispatch(setCurrentConversionData(mainConversion));
+  };
+
+  const loadTokenData = async (domain) => {
+    const address = await getValeriumAddress(currentChain, domain);
+
+    if (address === ethers.constants.AddressZero) {
+      return;
+    }
+
+    const tokenBalanceData = await Promise.all(
+      currentChain.tokens.map(async (token) => {
+        return {
+          name: token.name,
+          balance: Number(
+            await erc20Balance(currentChain, token.address, address)
+          ),
+          address: token.address,
+          decimals: token.decimals,
+        };
+      })
+    );
+
+    const tokenConversionData = await Promise.all(
+      currentChain.tokens.map(async (token) => {
+        const rate = await convertBalance(token.convert_id, token.usd_id);
+        return {
+          usdValue: rate,
+          address: token.address,
+        };
+      })
+    );
+
+    dispatch(setTokenBalanceData(tokenBalanceData));
+    dispatch(setTokenConversionData(tokenConversionData));
+  };
+
   return {
     getBalance,
     getValeriumAddress,
@@ -167,5 +225,7 @@ export default function useWallet() {
     loadConversionData,
     loadBalanceData,
     loadAllData,
+    loadCurrentChainData,
+    loadTokenData,
   };
 }

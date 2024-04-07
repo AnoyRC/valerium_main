@@ -14,36 +14,23 @@ import { useSelector } from "react-redux";
 const AccountBalance = () => {
   const searchParams = useSearchParams();
   const currentChain = useSelector((state) => state.chain.currentChain);
-  const balanceData = useSelector((state) => state.user.balanceData);
-  const conversionData = useSelector((state) => state.user.conversionData);
+  const currentBalanceData = useSelector(
+    (state) => state.user.currentBalanceData
+  );
+  const currentConversionData = useSelector(
+    (state) => state.user.currentConversionData
+  );
   const [balance, setBalance] = useState(0);
   const [usdBalance, setUsdBalance] = useState(0);
 
   useEffect(() => {
-    if (balanceData && balanceData.length > 0) {
-      let totalEth = 0;
-      const selectedBalanceData = balanceData.find((data) => {
-        return data.chainId === currentChain.chainId;
-      });
-      const selectedConversionData = conversionData.find((data) => {
-        return data.chainId === currentChain.chainId;
-      });
-
-      totalEth += selectedBalanceData.balance / 10 ** 18;
-
-      for (let i = 0; i < selectedBalanceData.erc20Balances.length; i++) {
-        const erc20Balance =
-          selectedBalanceData.erc20Balances[i].balance /
-          10 ** selectedBalanceData.erc20Balances[i].decimals;
-        const conversionRate = selectedConversionData.tokens[i].value;
-
-        totalEth += Number(erc20Balance) / Number(conversionRate);
-      }
-
-      setBalance(totalEth);
-      setUsdBalance(Number(totalEth) * Number(selectedConversionData.value));
+    if (currentBalanceData && currentConversionData) {
+      setBalance(Number(currentBalanceData) / 10 ** 18);
+      setUsdBalance(
+        (Number(currentBalanceData) / 10 ** 18) * Number(currentConversionData)
+      );
     }
-  }, [balanceData, currentChain, conversionData]);
+  }, [currentBalanceData, currentConversionData, currentChain]);
 
   return (
     <div className="rounded-xl border border-border-light bg-gradient-light-linear/85 overflow-hidden">

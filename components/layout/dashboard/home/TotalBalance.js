@@ -12,9 +12,9 @@ const TotalBalance = () => {
 
   useEffect(() => {
     if (balanceData && balanceData.length > 0) {
-      let totalEth = 0;
       let totalUsd = 0;
       for (let i = 0; i < balanceData.length; i++) {
+        let totalEth = 0;
         totalEth += balanceData[i].balance / 10 ** 18;
         for (let j = 0; j < balanceData[i].erc20Balances.length; j++) {
           const erc20Balance =
@@ -24,8 +24,9 @@ const TotalBalance = () => {
 
           totalEth += Number(erc20Balance) / Number(conversionRate);
         }
+        totalUsd += Number(totalEth) * Number(conversionData[i].value);
       }
-      totalUsd += Number(totalEth) * Number(conversionData[0].value);
+
       setUsdBalance(totalUsd);
     }
   }, [balanceData, conversionData]);
