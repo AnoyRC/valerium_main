@@ -4,24 +4,25 @@ import { Send } from "lucide-react";
 import { Button } from "@material-tailwind/react";
 
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 import FormatNumber from "@/components/ui/FormatNumber";
-import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useSelector } from "react-redux";
 
 const AccountBalance = () => {
   const searchParams = useSearchParams();
-  const currentChain = useSelector((state) => state.chain.currentChain);
+
+  const [balance, setBalance] = useState(0);
+  const [usdBalance, setUsdBalance] = useState(0);
+
   const currentBalanceData = useSelector(
     (state) => state.user.currentBalanceData
   );
   const currentConversionData = useSelector(
     (state) => state.user.currentConversionData
   );
-  const [balance, setBalance] = useState(0);
-  const [usdBalance, setUsdBalance] = useState(0);
+  const currentChain = useSelector((state) => state.chain.currentChain);
 
   useEffect(() => {
     if (currentBalanceData && currentConversionData) {
@@ -33,7 +34,7 @@ const AccountBalance = () => {
   }, [currentBalanceData, currentConversionData, currentChain]);
 
   return (
-    <div className="rounded-xl border border-border-light bg-gradient-light-linear/85 overflow-hidden">
+    <div className="rounded-xl border border-border-light bg-gradient-light-linear/85 overflow-hidden shadow">
       <section
         className="px-5 py-6 flex justify-between "
         style={{
