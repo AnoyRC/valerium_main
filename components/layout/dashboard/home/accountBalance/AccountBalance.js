@@ -1,14 +1,15 @@
 "use client";
 
-import { Send } from "lucide-react";
-import { Button } from "@material-tailwind/react";
-
-import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
+import ContainerButton from "./ContainerButton";
+import TokenBalance from "./AccountTokenBalance";
+
 import FormatNumber from "@/components/ui/FormatNumber";
+import ChainName from "@/components/ui/chains/ChainName";
+import ChainGradientContainer from "@/components/ui/chains/ChainGradientContainer";
 
 const AccountBalance = () => {
   const searchParams = useSearchParams();
@@ -35,17 +36,11 @@ const AccountBalance = () => {
 
   return (
     <div className="rounded-xl border border-border-light bg-gradient-light-linear/85 overflow-hidden shadow">
-      <section
-        className="px-5 py-6 flex justify-between "
-        style={{
-          background:
-            "linear-gradient(40deg, rgba(255, 255, 255, 0.00) 60%, rgba(85, 140, 255, 0.00) 60%, rgba(0, 82, 255, 0.9) 100%)",
-        }}
-      >
+      <ChainGradientContainer>
         <div className="space-y-2">
           <h2 className="font-medium">
             {searchParams.get("domain")}
-            <span className=" bg-gradient-primary-light bg-clip-text text-transparent">
+            <span className=" bg-gradient-primary-light gradient-text">
               @valerium
             </span>
           </h2>
@@ -58,37 +53,16 @@ const AccountBalance = () => {
               decimalSize="text-5xl"
             />
 
-            <p className="text-text-gray font-medium">
-              {balance.toFixed(4)}{" "}
-              <span className={`font-bold text-[#0052FF]`}>
-                {" "}
-                {currentChain.symbol}
-              </span>
-            </p>
+            <TokenBalance balance={balance} />
           </div>
         </div>
 
         <div className="text-right flex flex-col justify-between">
-          <p className="text-white text-xl font-semibold">Base</p>
+          <ChainName />
 
-          <div className="space-x-5">
-            <Button className="bg-gradient-primary-light text-white border-2 border-black p-3 rounded-full">
-              <Link href="/transfer">
-                <Send size={24} className="-translate-x-0.5 translate-y-0.5" />
-              </Link>
-            </Button>
-
-            <Button className="bg-gradient-primary-light text-white border-2 border-black p-3 rounded-full">
-              <Link href="/deposit">
-                <Send
-                  size={24}
-                  className="rotate-180 translate-x-0.5 -translate-y-0.5"
-                />
-              </Link>
-            </Button>
-          </div>
+          <ContainerButton />
         </div>
-      </section>
+      </ChainGradientContainer>
     </div>
   );
 };

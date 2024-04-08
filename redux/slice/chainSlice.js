@@ -23,17 +23,17 @@ const chainSlice = createSlice({
       },
       style: {
         baseTextColor: "#FFFFFF",
-        colorDark: "#0052FF",
-        colorLight: "#0052FF",
+        colorDark: "#FF0420",
+        colorLight: "#FF0420",
         gradientColorDark:
-          "linear-gradient(93deg, rgba(0, 82, 255, 0.40) 0%, rgba(0, 49, 153, 0.40) 100%)",
+          "linear-gradient(93deg, rgba(255, 4, 32, 0.40) 0%, rgba(153, 2, 19, 0.40) 100%)",
         gradientColorLight:
-          "linear-gradient(93deg, rgba(0, 82, 255, 0.80) 0%, rgba(0, 49, 153, 0.80) 100%)",
-        backgroundColorDark: "rgba(0, 82, 255, 0.40)",
-        backgroundColorLight: "rgba(0, 82, 255, 0.20)",
+          "linear-gradient(93deg, rgba(255, 4, 32, 0.80) 0%, rgba(153, 2, 19, 0.80) 100%)",
+        backgroundColorDark: "rgba(255, 4, 32, 0.40)",
+        backgroundColorLight: "rgba(255, 4, 32, 0.20)",
         backgroundShadowEffect:
-          "rgba(255, 255, 255, 0.00) -117.12%, rgba(85, 140, 255, 0.00) 65.14%, rgba(0, 82, 255, 0.60) 100%)",
-        logo: "/tokens/base-logo.svg",
+          "linear-gradient(40deg, rgba(255, 255, 255, 0.00) 60%, rgba(255, 74, 94, 0.00) 60%, rgba(255, 4, 32, 0.80) 100%)",
+        logo: "/optimism-logo.svg",
       },
       tokens: [
         {

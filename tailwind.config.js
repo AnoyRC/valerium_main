@@ -64,9 +64,6 @@ module.exports = withMT({
           "linear-gradient(180deg, rgba(30, 30, 30, 0.85) 0%, rgba(20, 20, 20, 0.85) 100.4%)",
         "gradient-light-linear/85":
           "linear-gradient(180deg, rgba(233, 233, 233, 0.85) 0%, rgba(216, 216, 216, 0.85) 100.4%)",
-
-        "linear-blue":
-          "linear-gradient(93deg, rgba(0, 82, 255, 0.80) 0%, rgba(0, 49, 153, 0.80) 100%)",
       },
     },
   },
