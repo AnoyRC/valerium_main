@@ -1,5 +1,13 @@
+import TransferAction from "./TransferAction";
+import TransferSummary from "./TransferSummary";
+
 const Transfer = () => {
-  return <div>Transfer</div>;
+  return (
+    <>
+      <TransferAction />
+      <TransferSummary />
+    </>
+  );
 };
 
 export default Transfer;

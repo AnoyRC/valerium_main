@@ -19,6 +19,7 @@ module.exports = withMT({
 
       fontSize: {
         "2xs": "0.625rem",
+        "2.5xl": "1.75rem",
       },
 
       colors: {
@@ -57,7 +58,7 @@ module.exports = withMT({
 
         "gradient-dark-linear":
           "linear-gradient(180deg, #1E1E1E 0%, #141414 100.4%)",
-        "gradient-light-radial":
+        "gradient-light-linear":
           "linear-gradient(180deg, #E9E9E9 0%, #D8D8D8 100.4%)",
 
         "gradient-dark-linear/85":

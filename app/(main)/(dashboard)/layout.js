@@ -13,7 +13,7 @@ const LoginLayout = ({ children }) => {
       <div className="flex bg-white font-noto light-dashboard-background relative">
         <Sidebar />
 
-        <main className="flex-1 space-y-4 m-5 ml-10">
+        <main className="flex-1 space-y-4 mx-5 ml-10 flex flex-col">
           <Header />
 
           {children}
