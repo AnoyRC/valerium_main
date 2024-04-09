@@ -30,10 +30,10 @@ const TransferAction = ({
   };
 
   return (
-    <section className="flex flex-1 flex-col justify-between p-6">
+    <section className="flex flex-1 flex-col gap-8 p-6">
       <ActionHeading
         style={style}
-        icon={<MousePointer2 size="24" />}
+        icon={<MousePointer2 size="24" className="rotate-90" />}
         heading="Send"
         paragraph="Transfer tokens to any address on selected chain."
       />

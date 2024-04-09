@@ -28,7 +28,7 @@ const TokenItem = ({ token }) => {
       <td className="rounded-l-xl py-3 pl-4 font-medium">
         <div className="flex items-center gap-3">
           <Image
-            src="/tokens/base-logo.svg"
+            src={`/tokens/${token.logo}`}
             alt={token.name + " logo"}
             width={24}
             height={24}

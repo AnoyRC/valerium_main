@@ -199,6 +199,7 @@ export default function useWallet() {
           ),
           address: token.address,
           decimals: token.decimals,
+          logo: token.logo,
         };
       }),
     );

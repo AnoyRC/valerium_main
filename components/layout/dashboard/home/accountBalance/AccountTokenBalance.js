@@ -1,5 +1,6 @@
 "use client";
 
+import { formatAmount } from "@/utils/formatAmount";
 import { useSelector } from "react-redux";
 
 const TokenBalance = ({ balance }) => {
@@ -7,7 +8,7 @@ const TokenBalance = ({ balance }) => {
 
   return (
     <p className="font-medium text-text-gray">
-      {balance.toFixed(4)}{" "}
+      {formatAmount(balance)}{" "}
       <span
         className="font-bold"
         style={{

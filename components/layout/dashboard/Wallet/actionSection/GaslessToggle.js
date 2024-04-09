@@ -19,7 +19,10 @@ const GaslessToggle = ({ style, activeTab, setActiveTab }) => {
       <TabsHeader
         className="rounded-full bg-text-light-gray bg-opacity-100 p-0 text-white"
         indicatorProps={{
-          className: `rounded-full bg-[${style.gradientColorLight}]`,
+          style: {
+            background: style?.gradientColorLight,
+          },
+          className: "rounded-full",
         }}
       >
         {data.map(({ label, value }) => (
@@ -27,9 +30,12 @@ const GaslessToggle = ({ style, activeTab, setActiveTab }) => {
             key={value}
             value={value}
             onClick={() => setActiveTab(value)}
-            className={`py-2 font-medium transition-colors duration-300 ${
+            className={`py-2 font-medium transition-colors font-noto duration-300 ${
               activeTab === value ? "" : ""
             }`}
+            style={{
+              color: style?.baseTextColor ,
+            }}
           >
             {label}
           </Tab>
