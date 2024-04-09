@@ -18,10 +18,10 @@ const AccountBalance = () => {
   const [usdBalance, setUsdBalance] = useState(0);
 
   const currentBalanceData = useSelector(
-    (state) => state.user.currentBalanceData
+    (state) => state.user.currentBalanceData,
   );
   const currentConversionData = useSelector(
-    (state) => state.user.currentConversionData
+    (state) => state.user.currentConversionData,
   );
   const currentChain = useSelector((state) => state.chain.currentChain);
 
@@ -29,13 +29,13 @@ const AccountBalance = () => {
     if (currentBalanceData && currentConversionData) {
       setBalance(Number(currentBalanceData) / 10 ** 18);
       setUsdBalance(
-        (Number(currentBalanceData) / 10 ** 18) * Number(currentConversionData)
+        (Number(currentBalanceData) / 10 ** 18) * Number(currentConversionData),
       );
     }
   }, [currentBalanceData, currentConversionData, currentChain]);
 
   return (
-    <div className="rounded-xl border border-border-light bg-gradient-light-linear/85 overflow-hidden shadow">
+    <div className="overflow-hidden rounded-xl border border-border-light bg-gradient-light-linear/85 shadow">
       <ChainGradientContainer>
         <div className="space-y-2">
           <h2 className="font-medium">
@@ -57,7 +57,7 @@ const AccountBalance = () => {
           </div>
         </div>
 
-        <div className="text-right flex flex-col justify-between">
+        <div className="flex flex-col justify-between text-right">
           <ChainName />
 
           <ContainerButton />

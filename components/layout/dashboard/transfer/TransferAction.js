@@ -2,7 +2,6 @@
 
 import { MoveUpRight, MousePointer2 } from "lucide-react";
 
-import { useState } from "react";
 import { useSelector } from "react-redux";
 
 import ActionHeading from "../Wallet/actionSection/ActionHeading";
@@ -14,13 +13,16 @@ import TransferInput from "./TransferInput";
 
 import ActionButton from "@/components/ui/buttons/ActionButton";
 
-const TransferAction = () => {
-  const [token, setToken] = useState("");
-  const [amount, setAmount] = useState("");
-  const [recipient, setRecipient] = useState("");
-
-  const [activeTab, setActiveTab] = useState(false);
-
+const TransferAction = ({
+  token,
+  setToken,
+  amount,
+  setAmount,
+  recipient,
+  setRecipient,
+  activeTab,
+  setActiveTab,
+}) => {
   const { chainName, style } = useSelector((state) => state.chain.currentChain);
 
   const handleClick = () => {
@@ -28,7 +30,7 @@ const TransferAction = () => {
   };
 
   return (
-    <section className="p-6 flex flex-col justify-between flex-1">
+    <section className="flex flex-1 flex-col justify-between p-6">
       <ActionHeading
         style={style}
         icon={<MousePointer2 size="24" />}

@@ -16,12 +16,12 @@ const Step3 = () => {
   return (
     <div className="flex flex-col">
       <h1 className="font-gloock text-4xl">Setup your new Wallet</h1>
-      <p className="font-noto text-gray-600 text-sm mt-2">
+      <p className="mt-2 font-noto text-sm text-gray-600">
         Verify your Email to Deploy your wallet.
       </p>
 
-      <p className="font-noto text-sm text-gray-600 mt-8">Your Email Address</p>
-      <div className="flex w-full mt-2">
+      <p className="mt-8 font-noto text-sm text-gray-600">Your Email Address</p>
+      <div className="mt-2 flex w-full">
         <Input
           label="abc@gmail.com"
           size="lg"
@@ -35,7 +35,7 @@ const Step3 = () => {
       </div>
 
       <Button
-        className="mt-8 w-32 h-10 font-noto font-normal normal-case bg-gradient-primary-light flex items-center justify-center"
+        className="mt-8 flex h-10 w-32 items-center justify-center bg-gradient-primary-light font-noto font-normal normal-case"
         onClick={() => handleEmail(setIsLoading)}
         disabled={isLoading || !email}
       >

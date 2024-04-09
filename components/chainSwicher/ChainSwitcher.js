@@ -11,7 +11,7 @@ import { compressEthAddress } from "@/utils/pubKey";
 
 const ChainSwitcher = () => {
   const [address, setAddress] = useState(
-    "0x0000000000000000000000000000000000000000"
+    "0x0000000000000000000000000000000000000000",
   );
   const currentChain = useSelector((state) => state.chain.currentChain);
   const walletAddresses = useSelector((state) => state.user.walletAddresses);
@@ -19,7 +19,7 @@ const ChainSwitcher = () => {
   useEffect(() => {
     if (currentChain && walletAddresses) {
       const walletAddress = walletAddresses.find(
-        (address) => address.chainId === currentChain.chainId
+        (address) => address.chainId === currentChain.chainId,
       );
 
       if (walletAddress) {
@@ -30,7 +30,7 @@ const ChainSwitcher = () => {
 
   return (
     <section
-      className="flex items-center px-2 py-2.5 rounded-lg cursor-pointer gap-8 border border-border-light shadow-sm"
+      className="flex cursor-pointer items-center gap-8 rounded-lg border border-border-light px-2 py-2.5 shadow-sm"
       style={{
         color: currentChain.style.baseTextColor,
         background: currentChain.style.gradientColorLight,
@@ -51,7 +51,7 @@ const ChainSwitcher = () => {
         </div>
 
         <div>
-          <div className="flex text-xs items-center gap-1">
+          <div className="flex items-center gap-1 text-xs">
             <p>{compressEthAddress(address, 8, 4)}</p>
 
             <CopyButton text={address} />

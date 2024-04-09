@@ -15,7 +15,7 @@ const ValeriumInput = ({
 }) => {
   return (
     <div
-      className="3xl:space-y-2 space-y-1.5 h-fit"
+      className="3xl:space-y-2 h-fit space-y-1.5"
       style={width && { flex: width }}
     >
       <label
@@ -37,7 +37,7 @@ const ValeriumInput = ({
           readOnly={readOnly}
           onChange={(e) => setInput(e.target.value)}
           placeholder={placeholder}
-          className={`w-full text-ellipsis border bg-white border-border-light px-4 py-3.5 text-base text-black outline-none placeholder:text-text-light-gray focus:border-gray-300 rounded-full ${
+          className={`w-full text-ellipsis rounded-full border border-border-light bg-white px-4 py-3.5 text-base text-black outline-none placeholder:text-text-light-gray focus:border-gray-300 ${
             readOnly && "cursor-not-allowed"
           }`}
         />

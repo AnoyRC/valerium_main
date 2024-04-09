@@ -5,9 +5,13 @@ import SummaryTotal from "../Wallet/summarySection/SummaryTotal";
 
 const TransferSummary = () => {
   return (
-    <section className="p-6 flex-1">
+    <section className="flex-1 space-y-5 p-6">
       <SummaryHeading />
+      <hr className="border-border-light" />
+
       <SummaryMain />
+      <hr className="border-border-light" />
+
       <SummaryFooter />
       <SummaryTotal />
     </section>

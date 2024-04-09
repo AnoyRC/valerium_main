@@ -3,9 +3,9 @@ import { MousePointer2 } from "lucide-react";
 const ActionHeading = ({ style, icon, heading, paragraph }) => {
   console.log(style);
   return (
-    <div className="flex gap-3 items-start">
+    <div className="flex items-start gap-3">
       <div
-        className="w-fit p-3 border-2 border-black rounded-full flex items-center justify-center"
+        className="flex w-fit items-center justify-center rounded-full border-2 border-black p-3"
         style={{
           background: style?.gradientColorLight,
           color: style?.baseTextColor,

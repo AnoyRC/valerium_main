@@ -4,7 +4,7 @@ const NavItem = ({ children, label, href, size }) => {
   return (
     <li>
       <Link
-        className="flex items-center cursor-pointer"
+        className="flex cursor-pointer items-center"
         href={href}
         style={{ fontSize: size === "sm" ? "14px" : "16px" }}
       >

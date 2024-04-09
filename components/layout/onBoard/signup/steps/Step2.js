@@ -22,11 +22,11 @@ const Step2 = () => {
   return (
     <div className="flex flex-col">
       <h1 className="font-gloock text-4xl">Setup your new Wallet</h1>
-      <p className="font-noto text-gray-600 text-sm mt-2">
+      <p className="mt-2 font-noto text-sm text-gray-600">
         Give your Password or Passkey to add Authentication to your wallet.
       </p>
 
-      <p className="font-noto text-sm text-gray-600 mt-8">Your Password</p>
+      <p className="mt-8 font-noto text-sm text-gray-600">Your Password</p>
       <div className="mt-2">
         <Input
           label="*******"
@@ -37,54 +37,54 @@ const Step2 = () => {
           disabled={passkey ? true : false}
           onChange={(e) => handlePassword(e)}
         />
-        <p className="mt-2 text-sm flex text-gray-500">
-          <Info size={20} className="inline mr-1" />
+        <p className="mt-2 flex text-sm text-gray-500">
+          <Info size={20} className="mr-1 inline" />
           Use at least 8 characters, one uppercase, one lowercase and one
           number.
         </p>
       </div>
 
-      <div className="flex items-center justify-center gap-4 mt-2">
-        <div className="w-[45%] h-0.5 mt-2 bg-gray-400"></div>
-        <p className="text-sm text-gray-600 mt-2">or</p>
-        <div className="w-[45%] h-0.5 mt-2 bg-gray-400"></div>
+      <div className="mt-2 flex items-center justify-center gap-4">
+        <div className="mt-2 h-0.5 w-[45%] bg-gray-400"></div>
+        <p className="mt-2 text-sm text-gray-600">or</p>
+        <div className="mt-2 h-0.5 w-[45%] bg-gray-400"></div>
       </div>
 
       <Button
         color="white"
-        className="w-full flex mt-4 h-[5.7rem] px-3 border-[1px] bg-bg-off-white border-black rounded-xl"
+        className="mt-4 flex h-[5.7rem] w-full rounded-xl border-[1px] border-black bg-bg-off-white px-3"
         onClick={() => handlePasskey(setIsLoading)}
       >
-        <div className="flex items-center h-full bg-black/90 rounded-lg w-16 justify-center">
+        <div className="flex h-full w-16 items-center justify-center rounded-lg bg-black/90">
           {passkey ? (
-            <Check className="text-white h-5 w-5" />
+            <Check className="h-5 w-5 text-white" />
           ) : isLoading ? (
-            <Loader2Icon className="text-white h-5 w-5 animate-spin" />
+            <Loader2Icon className="h-5 w-5 animate-spin text-white" />
           ) : (
-            <Fingerprint className="text-white h-5 w-5" />
+            <Fingerprint className="h-5 w-5 text-white" />
           )}
         </div>
 
         <div
           className={
-            "flex flex-col ml-3 text-start h-full justify-center normal-case w-56 font-noto "
+            "ml-3 flex h-full w-56 flex-col justify-center text-start font-noto normal-case "
           }
         >
           <h1 className="text-xl">
             {passkey
               ? "Passkey Added"
               : isLoading
-              ? "Adding Passkey"
-              : "Add Passkey"}
+                ? "Adding Passkey"
+                : "Add Passkey"}
           </h1>
-          <p className="text-xs font-normal text-gray-500 w-72 mt-1">
+          <p className="mt-1 w-72 text-xs font-normal text-gray-500">
             This will be used to execute transactions
           </p>
         </div>
       </Button>
       {passkey && (
         <p
-          className="text-xs mt-2 text-gray-500 hover:cursor-pointer hover:underline"
+          className="mt-2 text-xs text-gray-500 hover:cursor-pointer hover:underline"
           onClick={() => {
             dispatch(setPasskey(""));
           }}
@@ -94,7 +94,7 @@ const Step2 = () => {
       )}
 
       <Button
-        className="mt-8 font-noto font-normal normal-case w-fit bg-gradient-primary-light"
+        className="mt-8 w-fit bg-gradient-primary-light font-noto font-normal normal-case"
         onClick={() => {
           dispatch(setStep(2));
         }}

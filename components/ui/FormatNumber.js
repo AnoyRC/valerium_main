@@ -8,7 +8,7 @@ const FormatNumber = ({ number, size, integerSize, decimalSize }) => {
   }
 
   return (
-    <div className="font-bold text-black flex items-center">
+    <div className="flex items-center font-bold text-black">
       {isLongDecimal && <span className={size}>{"<"}</span>}
 
       <p>

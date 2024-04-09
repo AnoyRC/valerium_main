@@ -34,7 +34,7 @@ export default function useSignup() {
     const factory = new ethers.Contract(
       baseChain.addresses.ValeriumProxyFactory,
       ValeriumProxyFactoryABI,
-      provider
+      provider,
     );
 
     const isValid = await factory.domainExists(domain + "@valerium");
@@ -68,9 +68,9 @@ export default function useSignup() {
 
       const pubKey_uncompressed = ethers.utils.recoverPublicKey(
         ethers.utils.hashMessage(
-          ethers.utils.toUtf8Bytes("Valerium_New_User_Sign_Up")
+          ethers.utils.toUtf8Bytes("Valerium_New_User_Sign_Up"),
         ),
-        signature
+        signature,
       );
 
       let pubKey = pubKey_uncompressed.slice(4);
@@ -102,9 +102,9 @@ export default function useSignup() {
 
       const pubKey_uncompressed = ethers.utils.recoverPublicKey(
         ethers.utils.hashMessage(
-          ethers.utils.toUtf8Bytes("Valerium_New_User_Sign_Up")
+          ethers.utils.toUtf8Bytes("Valerium_New_User_Sign_Up"),
         ),
-        signature
+        signature,
       );
 
       let pubKey = pubKey_uncompressed.slice(4);
@@ -142,21 +142,21 @@ export default function useSignup() {
       const masterCopy = new ethers.Contract(
         baseChain.addresses.Valerium,
         ValeriumABI,
-        provider
+        provider,
       );
 
       const abiCoder = new ethers.utils.AbiCoder();
 
       const publicInputs = abiCoder.encode(
         ["string", "string"],
-        [passkey ? "Passkey" : "Password", email.toString()]
+        [passkey ? "Passkey" : "Password", email.toString()],
       );
 
       const initializer = masterCopy.interface.encodeFunctionData(
         "setupValerium",
         [
           ethers.utils.keccak256(
-            ethers.utils.toUtf8Bytes(domain + "@valerium")
+            ethers.utils.toUtf8Bytes(domain + "@valerium"),
           ),
           passkey
             ? baseChain.addresses.SignatureVerifier
@@ -167,7 +167,7 @@ export default function useSignup() {
           TxHash,
           recoveryHash,
           publicInputs,
-        ]
+        ],
       );
 
       const keypair = ethers.Wallet.createRandom();
@@ -175,7 +175,7 @@ export default function useSignup() {
       const forwarder = new ethers.Contract(
         baseChain.addresses.FactoryForwarder,
         FactoryForwarderABI,
-        provider
+        provider,
       );
 
       const message = {
@@ -214,7 +214,7 @@ export default function useSignup() {
       const signature = await keypair._signTypedData(
         data712.domain,
         data712.types,
-        data712.message
+        data712.message,
       );
 
       const forwardRequest = {
@@ -232,14 +232,14 @@ export default function useSignup() {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/deploy/${baseChain.chainId}`,
         {
           forwardRequest,
-        }
+        },
       );
 
       if (response.data.success === true) {
         const factory = new ethers.Contract(
           baseChain.addresses.ValeriumProxyFactory,
           ValeriumProxyFactoryABI,
-          provider
+          provider,
         );
 
         const proxy = await factory.getValeriumProxy(domain + "@valerium");

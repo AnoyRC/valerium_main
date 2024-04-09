@@ -6,18 +6,18 @@ const GaslessToggle = ({ style, activeTab, setActiveTab }) => {
   const data = [
     {
       label: "Gasless",
-      value: true,
+      value: "gasless",
     },
     {
       label: "With Gas",
-      value: false,
+      value: "gas",
     },
   ];
 
   return (
     <Tabs id="custom-animation" value={activeTab}>
       <TabsHeader
-        className="rounded-full bg-text-light-gray text-white bg-opacity-100 p-0"
+        className="rounded-full bg-text-light-gray bg-opacity-100 p-0 text-white"
         indicatorProps={{
           className: `rounded-full bg-[${style.gradientColorLight}]`,
         }}
@@ -27,7 +27,7 @@ const GaslessToggle = ({ style, activeTab, setActiveTab }) => {
             key={value}
             value={value}
             onClick={() => setActiveTab(value)}
-            className={`py-2 transition-colors duration-300 font-medium ${
+            className={`py-2 font-medium transition-colors duration-300 ${
               activeTab === value ? "" : ""
             }`}
           >

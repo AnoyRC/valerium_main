@@ -14,21 +14,21 @@ export default function Steps() {
           className="rotate-90"
           lineClassName="bg-gray-400"
         >
-          <Step className="h-8 w-8 relative bg-gray-400">
+          <Step className="relative h-8 w-8 bg-gray-400">
             <UserRound className="h-4 w-4 -rotate-90" />
-            <div className="absolute text-sm -rotate-90 text-right w-40 mt-52 font-noto font-light text-black">
+            <div className="absolute mt-52 w-40 -rotate-90 text-right font-noto text-sm font-light text-black">
               Add Domain
             </div>
           </Step>
-          <Step className="h-8 w-8 relative bg-gray-400">
+          <Step className="relative h-8 w-8 bg-gray-400">
             <Lock className="h-4 w-4 -rotate-90" />
-            <div className="absolute text-sm -rotate-90 text-right w-40 mt-52 font-noto font-light text-black">
+            <div className="absolute mt-52 w-40 -rotate-90 text-right font-noto text-sm font-light text-black">
               Add Auth
             </div>
           </Step>
-          <Step className="h-8 w-8 relative bg-gray-400">
+          <Step className="relative h-8 w-8 bg-gray-400">
             <Mail className="h-4 w-4 -rotate-90" />
-            <div className="absolute text-sm -rotate-90 text-right w-40 mt-52 font-noto font-light text-black">
+            <div className="absolute mt-52 w-40 -rotate-90 text-right font-noto text-sm font-light text-black">
               Add Email
             </div>
           </Step>

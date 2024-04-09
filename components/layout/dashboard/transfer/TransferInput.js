@@ -28,11 +28,11 @@ const TransferInput = ({
         />
 
         <div className="relative flex-[2]">
-          <div className="flex absolute top-0 right-0 gap-3">
+          <div className="absolute right-0 top-0 flex gap-3">
             <p>Token</p>
 
             <button
-              className="px-2 text-xs py-1 rounded capitalize font-bold"
+              className="rounded px-2 py-1 text-xs font-bold capitalize"
               style={{
                 background: style.gradientColorLight,
                 color: style.baseTextColor,
@@ -51,7 +51,7 @@ const TransferInput = ({
             input={amount}
             setInput={setAmount}
             icon={
-              <span className="absolute text-base text-text-gray font-semibold top-1/2 right-4 -translate-y-1/2">
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-base font-semibold text-text-gray">
                 <span className="">$</span>
                 0.00
               </span>
@@ -71,7 +71,7 @@ const TransferInput = ({
         icon={
           <ContactRound
             size={24}
-            className="absolute text-base text-text-gray font-semibold top-1/2 right-4 -translate-y-1/2"
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-base font-semibold text-text-gray"
           />
         }
       />

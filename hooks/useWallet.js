@@ -22,7 +22,7 @@ export default function useWallet() {
   const getBalance = async (currentChain, address) => {
     try {
       const provider = new ethers.providers.JsonRpcProvider(
-        currentChain.rpcUrl
+        currentChain.rpcUrl,
       );
 
       const balance = await provider.getBalance(address);
@@ -36,13 +36,13 @@ export default function useWallet() {
   const getValeriumAddress = async (currentChain, domain) => {
     try {
       const provider = new ethers.providers.JsonRpcProvider(
-        currentChain.rpcUrl
+        currentChain.rpcUrl,
       );
 
       const factory = new ethers.Contract(
         currentChain.addresses.ValeriumProxyFactory,
         ValeriumProxyFactoryABI,
-        provider
+        provider,
       );
 
       const address = await factory.getValeriumProxy(domain);
@@ -56,13 +56,13 @@ export default function useWallet() {
   const erc20Balance = async (currentChain, tokenAddress, address) => {
     try {
       const provider = new ethers.providers.JsonRpcProvider(
-        currentChain.rpcUrl
+        currentChain.rpcUrl,
       );
 
       const erc20Contract = new ethers.Contract(
         tokenAddress,
         ["function balanceOf(address) view returns (uint256)"],
-        provider
+        provider,
       );
 
       const balance = await erc20Contract.balanceOf(address);
@@ -76,7 +76,7 @@ export default function useWallet() {
   const convertBalance = async (convert_id, id) => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/public-conversion?convert_id=${convert_id}&id=${id}`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/public-conversion?convert_id=${convert_id}&id=${id}`,
       );
 
       if (response.data.status.error_code !== "0") {
@@ -92,7 +92,7 @@ export default function useWallet() {
   const loadConversionData = async (currentChain) => {
     const mainConversion = await convertBalance(
       currentChain.convert_id,
-      currentChain.id
+      currentChain.id,
     );
 
     const tokensConversion = await Promise.all(
@@ -102,7 +102,7 @@ export default function useWallet() {
           value: rate,
           address: token.address,
         };
-      })
+      }),
     );
 
     return {
@@ -118,12 +118,12 @@ export default function useWallet() {
       currentChain.tokens.map(async (token) => {
         return {
           balance: Number(
-            await erc20Balance(currentChain, token.address, address)
+            await erc20Balance(currentChain, token.address, address),
           ),
           decimals: token.decimals,
           address: token.address,
         };
-      })
+      }),
     );
 
     return {
@@ -175,7 +175,7 @@ export default function useWallet() {
 
     const mainConversion = await convertBalance(
       currentChain.convert_id,
-      currentChain.id
+      currentChain.id,
     );
     const balance = Number(await getBalance(currentChain, address));
 
@@ -195,12 +195,12 @@ export default function useWallet() {
         return {
           name: token.name,
           balance: Number(
-            await erc20Balance(currentChain, token.address, address)
+            await erc20Balance(currentChain, token.address, address),
           ),
           address: token.address,
           decimals: token.decimals,
         };
-      })
+      }),
     );
 
     const tokenConversionData = await Promise.all(
@@ -210,7 +210,7 @@ export default function useWallet() {
           usdValue: rate,
           address: token.address,
         };
-      })
+      }),
     );
 
     dispatch(setTokenBalanceData(tokenBalanceData));

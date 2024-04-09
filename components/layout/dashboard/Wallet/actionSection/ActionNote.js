@@ -2,14 +2,14 @@ import Image from "next/image";
 
 const ActionNote = ({ chainName, style }) => {
   return (
-    <div className="text-sm flex items-center">
-      <span className="text-black font-bold mr-1.5">Note:</span>
+    <div className="flex items-center text-sm">
+      <span className="mr-1.5 font-bold text-black">Note:</span>
 
       <p>
         Sending <span className="font-bold">{chainName}</span> on
       </p>
 
-      <p className="flex items-center ml-1 gap-0.5">
+      <p className="ml-1 flex items-center gap-0.5">
         <Image
           src={`/tokens/${style.logo}`}
           width={24}

@@ -10,8 +10,8 @@ const ActionSwitch = ({ id, label, style }) => {
   };
 
   return (
-    <label htmlFor={id} className="flex items-center cursor-pointer">
-      <span className="mr-3 text-text-gray font-semibold">{label}</span>
+    <label htmlFor={id} className="flex cursor-pointer items-center">
+      <span className="mr-3 font-semibold text-text-gray">{label}</span>
 
       <input
         type="checkbox"
@@ -23,7 +23,7 @@ const ActionSwitch = ({ id, label, style }) => {
       />
 
       <div
-        className={`relative w-14 h-fit align-middle select-none transition duration-300 ease-in rounded-full flex items-center p-0.5 cursor-pointer bg-white`}
+        className={`relative flex h-fit w-14 cursor-pointer select-none items-center rounded-full bg-white p-0.5 align-middle transition duration-300 ease-in`}
         style={{
           background: isChecked ? style.gradientColorLight : "#4D4A4F",
         }}
@@ -31,7 +31,7 @@ const ActionSwitch = ({ id, label, style }) => {
         aria-checked={isChecked}
       >
         <div
-          className={`transform inline-block w-5 h-5 rounded-full transition-transform  duration-300 ease-in bg-white`}
+          className={`inline-block h-5 w-5 transform rounded-full bg-white  transition-transform duration-300 ease-in`}
           style={{
             transform: isChecked ? "translateX(32px)" : "translateX(0%)",
           }}

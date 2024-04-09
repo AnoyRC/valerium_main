@@ -3,7 +3,7 @@ import SwitchNightMode from "../ui/SwitchNightMode";
 
 const SidebarFooter = () => {
   return (
-    <div className="flex border-t border-text-gray pt-2 justify-between items-center">
+    <div className="flex items-center justify-between border-t border-text-gray pt-2">
       <Alpha size="text-2xs" />
       <SwitchNightMode />
     </div>

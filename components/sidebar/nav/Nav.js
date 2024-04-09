@@ -7,8 +7,8 @@ const Nav = () => {
   const smallItems = navItems.filter((item) => item.size === "sm");
 
   return (
-    <div className="flex flex-grow flex-col justify-between my-5">
-      <ul className="space-y-1.5 px-3 mt-1">
+    <div className="my-5 flex flex-grow flex-col justify-between">
+      <ul className="mt-1 space-y-1.5 px-3">
         {largeItems.map((item, index) => (
           <NavItem key={index} label={item.label} href={item.href}>
             {item.rotate ? (

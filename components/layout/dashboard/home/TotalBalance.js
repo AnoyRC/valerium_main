@@ -38,7 +38,7 @@ const TotalBalance = () => {
 
   return (
     <section className="space-y-1.5">
-      <h2 className="text-text-gray text-base">Total Balance</h2>
+      <h2 className="text-base text-text-gray">Total Balance</h2>
 
       <FormatNumber
         number={usdBalance}

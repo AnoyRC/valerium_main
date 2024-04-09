@@ -6,7 +6,7 @@ const TokenBalance = ({ balance }) => {
   const { symbol, style } = useSelector((state) => state.chain.currentChain);
 
   return (
-    <p className="text-text-gray font-medium">
+    <p className="font-medium text-text-gray">
       {balance.toFixed(4)}{" "}
       <span
         className="font-bold"
