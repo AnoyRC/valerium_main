@@ -12,6 +12,7 @@ const ValeriumInput = ({
   placeholder,
   required = false,
   width,
+  isValid = true,
 }) => {
   return (
     <div
@@ -39,6 +40,9 @@ const ValeriumInput = ({
           placeholder={placeholder}
           className={`w-full text-ellipsis rounded-full border border-border-light bg-white px-4 py-3.5 text-base text-black outline-none placeholder:text-text-light-gray focus:border-gray-300 ${readOnly && "cursor-not-allowed"
             }`}
+          style={{
+            color: isValid ? "black" : "red",
+          }}
         />
 
         {icon}
