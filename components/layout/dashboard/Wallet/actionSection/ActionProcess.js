@@ -1,7 +1,7 @@
 import Image from "next/image";
 import ActionSwitch from "./ActionSwitch";
 
-const ActionProcess = ({ style, chainName }) => {
+const ActionProcess = ({ style, chainName, usdToggle, setUsdToggle }) => {
   return (
     <div className="flex justify-between">
       <div className="flex w-fit items-center gap-1 rounded-full border border-border-light bg-gradient-light-linear px-4 py-2 font-semibold">
@@ -26,7 +26,8 @@ const ActionProcess = ({ style, chainName }) => {
         </div>
       </div>
 
-      <ActionSwitch id="transfer-switch" label="Input USD" style={style} />
+      <ActionSwitch id="transfer-switch" label="Input USD" style={style}
+        toggle={usdToggle} setToggle={setUsdToggle} />
     </div>
   );
 };

@@ -9,7 +9,7 @@ const Transfer = () => {
   const [token, setToken] = useState("");
   const [amount, setAmount] = useState("");
   const [recipient, setRecipient] = useState("");
-
+  const [usdToggle, setUsdToggle] = useState(false);
   const [activeTab, setActiveTab] = useState("gas");
 
   return (
@@ -23,6 +23,8 @@ const Transfer = () => {
         setRecipient={setRecipient}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        usdToggle={usdToggle}
+        setUsdToggle={setUsdToggle}
       />
 
       <TransferSummary

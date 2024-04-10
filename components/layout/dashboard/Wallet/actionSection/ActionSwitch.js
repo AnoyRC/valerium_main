@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 
-const ActionSwitch = ({ id, label, style }) => {
-  const [isChecked, setIsChecked] = useState(true);
+const ActionSwitch = ({ id, label, style, toggle, setToggle }) => {
 
   const handleSwitchChange = () => {
-    setIsChecked(!isChecked);
+    setToggle(!toggle);
   };
 
   return (
@@ -17,7 +16,7 @@ const ActionSwitch = ({ id, label, style }) => {
         type="checkbox"
         id={id}
         className="sr-only"
-        checked={isChecked}
+        checked={toggle}
         onChange={handleSwitchChange}
         aria-label={label}
       />
@@ -25,15 +24,15 @@ const ActionSwitch = ({ id, label, style }) => {
       <div
         className={`relative flex h-fit w-14 cursor-pointer select-none items-center rounded-full bg-white p-0.5 align-middle transition duration-300 ease-in`}
         style={{
-          background: isChecked ? style.gradientColorLight : "#4D4A4F",
+          background: toggle ? style.gradientColorLight : "#4D4A4F",
         }}
         role="switch"
-        aria-checked={isChecked}
+        aria-checked={toggle}
       >
         <div
           className={`inline-block h-5 w-5 transform rounded-full bg-white  transition-transform duration-300 ease-in`}
           style={{
-            transform: isChecked ? "translateX(32px)" : "translateX(0%)",
+            transform: toggle ? "translateX(32px)" : "translateX(0%)",
           }}
         ></div>
       </div>

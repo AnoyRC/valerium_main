@@ -22,6 +22,8 @@ const TransferAction = ({
   setRecipient,
   activeTab,
   setActiveTab,
+  usdToggle,
+  setUsdToggle,
 }) => {
   const { chainName, style } = useSelector((state) => state.chain.currentChain);
 
@@ -38,7 +40,7 @@ const TransferAction = ({
         paragraph="Transfer tokens to any address on selected chain."
       />
 
-      <ActionProcess chainName={chainName} style={style} />
+      <ActionProcess chainName={chainName} style={style} usdToggle={usdToggle} setUsdToggle={setUsdToggle} />
       <TransferInput
         style={style}
         token={token}
@@ -47,6 +49,7 @@ const TransferAction = ({
         setAmount={setAmount}
         recipient={recipient}
         setRecipient={setRecipient}
+        usdToggle={usdToggle}
       />
 
       <ActionNote chainName={chainName} style={style} />
