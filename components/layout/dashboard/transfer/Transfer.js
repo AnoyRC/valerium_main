@@ -1,17 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import TransferAction from "./TransferAction";
 import TransferSummary from "./TransferSummary";
 
 const Transfer = () => {
-  const [token, setToken] = useState();
   const [amount, setAmount] = useState("");
   const [recipient, setRecipient] = useState("");
   const [usdToggle, setUsdToggle] = useState(false);
   const [activeTab, setActiveTab] = useState("gas");
   const [payWith, setPayWith] = useState("ETH");
+
+  const selectedToken = useSelector((state) => state.selector.token);
 
   const handleAmount = (e) => {
     const decimalRegex = /^[0-9]*\.?[0-9]*$/;
@@ -23,8 +25,6 @@ const Transfer = () => {
   return (
     <>
       <TransferAction
-        token={token}
-        setToken={setToken}
         amount={amount}
         setAmount={handleAmount}
         recipient={recipient}
@@ -33,14 +33,12 @@ const Transfer = () => {
         setActiveTab={setActiveTab}
         usdToggle={usdToggle}
         setUsdToggle={setUsdToggle}
+        payWith={payWith}
+        setPayWith={setPayWith}
       />
 
       <TransferSummary
-        token={{
-          tokenName: "Ether",
-          tokenShort: "ETH",
-          tokenQty: 2
-        }}
+        selectedToken={selectedToken}
         amount={amount}
         recipient={recipient}
         activeTab={activeTab}

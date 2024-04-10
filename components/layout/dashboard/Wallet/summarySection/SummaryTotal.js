@@ -5,7 +5,7 @@ const SummaryTotal = ({ token }) => {
 
       <p className="text-2.5xl font-bold text-black">
         0.0001
-        <span> {token.tokenShort}</span>
+        <span> {token?.symbol}</span>
       </p>
     </div>
   );

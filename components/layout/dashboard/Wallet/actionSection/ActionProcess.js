@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import ActionSwitch from "./ActionSwitch";
 
 const ActionProcess = ({ style, chainName, usdToggle, setUsdToggle }) => {
@@ -26,8 +27,13 @@ const ActionProcess = ({ style, chainName, usdToggle, setUsdToggle }) => {
         </div>
       </div>
 
-      <ActionSwitch id="transfer-switch" label="Input USD" style={style}
-        toggle={usdToggle} setToggle={setUsdToggle} />
+      <ActionSwitch
+        id="transfer-switch"
+        label="Input USD"
+        style={style}
+        toggle={usdToggle}
+        setToggle={setUsdToggle}
+      />
     </div>
   );
 };

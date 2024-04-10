@@ -1,9 +1,6 @@
 "use client";
 
-import { useState } from "react";
-
 const ActionSwitch = ({ id, label, style, toggle, setToggle }) => {
-
   const handleSwitchChange = () => {
     setToggle(!toggle);
   };

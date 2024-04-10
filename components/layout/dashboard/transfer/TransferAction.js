@@ -14,8 +14,6 @@ import TransferInput from "./TransferInput";
 import ActionButton from "@/components/ui/buttons/ActionButton";
 
 const TransferAction = ({
-  token,
-  setToken,
   amount,
   setAmount,
   recipient,
@@ -50,8 +48,6 @@ const TransferAction = ({
       />
       <TransferInput
         style={style}
-        token={token}
-        setToken={setToken}
         amount={amount}
         setAmount={setAmount}
         recipient={recipient}

@@ -4,7 +4,7 @@ const selectorSlice = createSlice({
   name: "selector",
 
   initialState: {
-    token: [null,null,null],
+    token: [null, null, null],
     drawerChain: 1891,
     tokenDrawer: false,
     tokenIndex: 0,
@@ -15,23 +15,22 @@ const selectorSlice = createSlice({
       const { token, index } = action.payload;
       state.token[index] = token;
     },
+
     setDrawerChain: (state, action) => {
       state.drawerChain = action.payload;
     },
+
     toggleTokenDrawer: (state) => {
       state.tokenDrawer = !state.tokenDrawer;
     },
+
     setTokenIndex: (state, action) => {
       state.tokenIndex = action.payload;
-    }
+    },
   },
 });
 
-export const {
-  setToken,
-  setDrawerChain,
-  toggleTokenDrawer,
-  setTokenIndex,
-} = selectorSlice.actions;
+export const { setToken, setDrawerChain, toggleTokenDrawer, setTokenIndex } =
+  selectorSlice.actions;
 
 export default selectorSlice.reducer;

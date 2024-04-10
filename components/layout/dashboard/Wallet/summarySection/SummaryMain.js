@@ -6,8 +6,8 @@ const SummaryMain = ({ token }) => {
     <div className="flex items-center gap-2.5">
       <ChainBackground height={100} width={100}>
         <TokenWithChainImage
-          tokenName={token.tokenName}
-          tokenSrc={token.tokenName.toLowerCase() + ".png"}
+          tokenName={token?.name || null}
+          tokenSrc={token?.logo || null}
         />
       </ChainBackground>
 
@@ -15,18 +15,18 @@ const SummaryMain = ({ token }) => {
         <div className="space-y-2">
           <h3 className="text-base font-bold text-black">
             <span className="font-normal text-text-gray">Token:</span>{" "}
-            {token.tokenName}
+            {token?.name || ""}
           </h3>
 
           <p className="text-base font-bold text-black">
             <span className="font-normal text-text-gray">Qty:</span>{" "}
-            {token.tokenQty}
+            {token?.tokenQty || "0.00"}
           </p>
         </div>
 
         <p className="text-black">
           0.0001{""}
-          <span>{token.tokenShort}</span>
+          <span>{token?.symbol || ""}</span>
         </p>
       </div>
     </div>

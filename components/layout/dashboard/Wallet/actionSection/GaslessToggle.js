@@ -1,7 +1,10 @@
 "use client";
 
-import ValeriumInput from "@/components/ui/input/ValeriumInput";
 import { Tabs, TabsHeader, Tab, TabsBody } from "@material-tailwind/react";
+
+import { useSelector } from "react-redux";
+
+import TokenButton from "@/components/ui/buttons/TokenButton";
 
 const GaslessToggle = ({
   style,
@@ -10,6 +13,8 @@ const GaslessToggle = ({
   payWith,
   setPayWith,
 }) => {
+  const currentChain = useSelector((state) => state.chain.currentChain);
+
   const data = [
     {
       label: "Gasless",
@@ -25,7 +30,10 @@ const GaslessToggle = ({
     <Tabs
       id="custom-animation"
       value={activeTab}
-      className="flex items-start justify-between"
+      className="flex items-start justify-between gap-4"
+      style={{
+        overflow: "visible",
+      }}
     >
       <TabsHeader
         className="w-full rounded-full bg-text-light-gray bg-opacity-100 p-0 text-white"
@@ -53,16 +61,23 @@ const GaslessToggle = ({
         ))}
       </TabsHeader>
 
-      <TabsBody className="w-fit">
+      <TabsBody
+        className="w-full"
+        style={{
+          overflow: "visible",
+        }}
+      >
         {activeTab !== "gasless" && (
-          <ValeriumInput
+          <TokenButton
+            index={1}
+            width="1"
+            id="gas-token-transfer"
             label="Token"
-            id="token-transfer"
-            type="text"
-            placeholder="Token"
             required={true}
-            input={payWith}
-            setInput={setPayWith}
+            span=""
+            value="Select Token"
+            disabled={false}
+            chainId={currentChain.chainId}
           />
         )}
       </TabsBody>
