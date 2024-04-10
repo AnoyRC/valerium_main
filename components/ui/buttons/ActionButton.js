@@ -4,7 +4,7 @@ const ActionButton = ({ style, label, icon, handleClick }) => {
   return (
     <Button
       fullWidth
-      className="flex items-center font-noto justify-center gap-2 rounded-full py-3.5 text-base font-semibold capitalize"
+      className="flex items-center justify-center gap-2 rounded-full py-3.5 font-noto text-base font-semibold capitalize"
       icon={icon}
       onClick={handleClick}
       style={{

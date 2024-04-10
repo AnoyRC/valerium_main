@@ -13,7 +13,7 @@ const ActionHeading = ({ style, icon, heading, paragraph }) => {
         {icon && icon}
       </div>
 
-      <div className="flex flex-col -mt-1">
+      <div className="-mt-1 flex flex-col">
         <h2 className="text-2.5xl font-semibold">{heading}</h2>
 
         <p className="text-sm">{paragraph}</p>

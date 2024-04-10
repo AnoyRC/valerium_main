@@ -11,7 +11,6 @@ const Transfer = () => {
   const [recipient, setRecipient] = useState("");
   const [usdToggle, setUsdToggle] = useState(false);
   const [activeTab, setActiveTab] = useState("gas");
-  const [payWith, setPayWith] = useState("ETH");
 
   const selectedToken = useSelector((state) => state.selector.token);
 
@@ -33,8 +32,6 @@ const Transfer = () => {
         setActiveTab={setActiveTab}
         usdToggle={usdToggle}
         setUsdToggle={setUsdToggle}
-        payWith={payWith}
-        setPayWith={setPayWith}
       />
 
       <TransferSummary
@@ -42,7 +39,7 @@ const Transfer = () => {
         amount={amount}
         recipient={recipient}
         activeTab={activeTab}
-        payWith={payWith}
+        usdToggle={usdToggle}
       />
     </>
   );

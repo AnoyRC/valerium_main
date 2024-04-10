@@ -6,7 +6,7 @@ const selectorSlice = createSlice({
   initialState: {
     token: [
       {
-        name: "Ethereum",
+        name: "ETH",
         logo: "/eth-logo.svg",
         address: null,
         symbol: "ETH",

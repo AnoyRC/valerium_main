@@ -6,7 +6,8 @@ const ActionNote = ({ chainName, style, token }) => {
       <span className="mr-1.5 font-bold text-black">Note:</span>
 
       <p>
-        Sending <span className="font-bold">{token ? token.name : "ETH"}</span> on
+        Sending <span className="font-bold">{token ? token.name : "ETH"}</span>{" "}
+        on
       </p>
 
       <p className="ml-1 flex items-center gap-0.5">

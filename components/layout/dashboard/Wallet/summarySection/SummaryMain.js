@@ -1,7 +1,24 @@
+"use client";
+
+import { useSelector } from "react-redux";
+
 import ChainBackground from "@/components/ui/chains/ChainBackground";
 import TokenWithChainImage from "@/components/ui/chains/TokenWithChainImage";
 
-const SummaryMain = ({ token }) => {
+import { formatAmount } from "@/utils/formatAmount";
+
+const SummaryMain = ({ token, usdToggle, amount }) => {
+  const [selectedToken, ,] = useSelector((state) => state.selector.token);
+  const currentBalanceData = useSelector(
+    (state) => state.user.currentBalanceData,
+  );
+
+  const tokenBalanceData = useSelector((state) => state.user.tokenBalanceData);
+
+  const currentToken =
+    tokenBalanceData &&
+    tokenBalanceData.find((token) => token.address === selectedToken.address);
+
   return (
     <div className="flex items-center gap-2.5">
       <ChainBackground height={100} width={100}>
@@ -20,13 +37,19 @@ const SummaryMain = ({ token }) => {
 
           <p className="text-base font-bold text-black">
             <span className="font-normal text-text-gray">Qty:</span>{" "}
-            {token?.tokenQty || "0.00"}
+            {selectedToken
+              ? selectedToken.address
+                ? formatAmount(
+                    currentToken.balance / 10 ** currentToken.decimals,
+                  )
+                : formatAmount(currentBalanceData / 10 ** 18)
+              : "0.00"}
           </p>
         </div>
 
         <p className="text-black">
-          0.0001{""}
-          <span>{token?.symbol || ""}</span>
+          {amount || "0.00"}{" "}
+          <span>{(usdToggle && "USDC") || token?.symbol || ""}</span>
         </p>
       </div>
     </div>

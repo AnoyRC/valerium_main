@@ -6,13 +6,7 @@ import { useSelector } from "react-redux";
 
 import TokenButton from "@/components/ui/buttons/TokenButton";
 
-const GaslessToggle = ({
-  style,
-  activeTab,
-  setActiveTab,
-  payWith,
-  setPayWith,
-}) => {
+const GaslessToggle = ({ style, activeTab, setActiveTab }) => {
   const currentChain = useSelector((state) => state.chain.currentChain);
 
   const data = [
@@ -72,12 +66,12 @@ const GaslessToggle = ({
             index={1}
             width="1"
             id="gas-token-transfer"
-            label="Token"
-            required={true}
+            label="Pay With"
             span=""
             value="Select Token"
             disabled={false}
             chainId={currentChain.chainId}
+            style="flex items-center !3xl:space-y-0 !space-y-0"
           />
         )}
       </TabsBody>

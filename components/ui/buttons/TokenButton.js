@@ -20,6 +20,7 @@ export default function TokenButton({
   value,
   index = 0,
   chainId,
+  style = "block",
 }) {
   const dispatch = useDispatch();
 
@@ -28,7 +29,7 @@ export default function TokenButton({
   return (
     <>
       <div
-        className="3xl:space-y-2 h-fit space-y-1.5"
+        className={"3xl:space-y-2 h-fit space-y-1.5 " + style}
         style={width && { flex: width }}
       >
         <label

@@ -22,11 +22,10 @@ const TransferAction = ({
   setActiveTab,
   usdToggle,
   setUsdToggle,
-  payWith,
-  setPayWith,
 }) => {
-  const { chainName, style } = useSelector((state) => state.chain.currentChain);
   const [selectedToken, ,] = useSelector((state) => state.selector.token);
+  const { chainName, style } = useSelector((state) => state.chain.currentChain);
+
   const handleClick = () => {
     console.log("Send button clicked");
   };
@@ -46,6 +45,7 @@ const TransferAction = ({
         usdToggle={usdToggle}
         setUsdToggle={setUsdToggle}
       />
+
       <TransferInput
         style={style}
         amount={amount}
@@ -56,12 +56,11 @@ const TransferAction = ({
       />
 
       <ActionNote chainName={chainName} style={style} token={selectedToken} />
+
       <GaslessToggle
         style={style}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        payWith={payWith}
-        setPayWith={setPayWith}
       />
 
       <ActionButton
