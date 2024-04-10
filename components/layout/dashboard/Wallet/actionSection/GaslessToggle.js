@@ -1,8 +1,15 @@
 "use client";
 
-import { Tabs, TabsHeader, Tab } from "@material-tailwind/react";
+import ValeriumInput from "@/components/ui/input/ValeriumInput";
+import { Tabs, TabsHeader, Tab, TabsBody } from "@material-tailwind/react";
 
-const GaslessToggle = ({ style, activeTab, setActiveTab }) => {
+const GaslessToggle = ({
+  style,
+  activeTab,
+  setActiveTab,
+  payWith,
+  setPayWith,
+}) => {
   const data = [
     {
       label: "Gasless",
@@ -15,9 +22,13 @@ const GaslessToggle = ({ style, activeTab, setActiveTab }) => {
   ];
 
   return (
-    <Tabs id="custom-animation" value={activeTab}>
+    <Tabs
+      id="custom-animation"
+      value={activeTab}
+      className="flex items-start justify-between"
+    >
       <TabsHeader
-        className="rounded-full bg-text-light-gray bg-opacity-100 p-0 text-white"
+        className="w-full rounded-full bg-text-light-gray bg-opacity-100 p-0 text-white"
         indicatorProps={{
           style: {
             background: style?.gradientColorLight,
@@ -30,17 +41,31 @@ const GaslessToggle = ({ style, activeTab, setActiveTab }) => {
             key={value}
             value={value}
             onClick={() => setActiveTab(value)}
-            className={`py-2 font-medium transition-colors font-noto duration-300 ${
+            className={`w-full text-nowrap px-8 py-2 font-noto font-medium transition-colors duration-300 ${
               activeTab === value ? "" : ""
             }`}
             style={{
-              color: style?.baseTextColor ,
+              color: style?.baseTextColor,
             }}
           >
             {label}
           </Tab>
         ))}
       </TabsHeader>
+
+      <TabsBody className="w-fit">
+        {activeTab !== "gasless" && (
+          <ValeriumInput
+            label="Token"
+            id="token-transfer"
+            type="text"
+            placeholder="Token"
+            required={true}
+            input={payWith}
+            setInput={setPayWith}
+          />
+        )}
+      </TabsBody>
     </Tabs>
   );
 };

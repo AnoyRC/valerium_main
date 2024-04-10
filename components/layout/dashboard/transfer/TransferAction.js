@@ -4,8 +4,8 @@ import { MoveUpRight, MousePointer2 } from "lucide-react";
 
 import { useSelector } from "react-redux";
 
-import ActionHeading from "../Wallet/actionSection/ActionHeading";
 import ActionNote from "../Wallet/actionSection/ActionNote";
+import ActionHeading from "../Wallet/actionSection/ActionHeading";
 import ActionProcess from "../Wallet/actionSection/ActionProcess";
 import GaslessToggle from "../Wallet/actionSection/GaslessToggle";
 
@@ -24,6 +24,8 @@ const TransferAction = ({
   setActiveTab,
   usdToggle,
   setUsdToggle,
+  payWith,
+  setPayWith,
 }) => {
   const { chainName, style } = useSelector((state) => state.chain.currentChain);
 
@@ -40,7 +42,12 @@ const TransferAction = ({
         paragraph="Transfer tokens to any address on selected chain."
       />
 
-      <ActionProcess chainName={chainName} style={style} usdToggle={usdToggle} setUsdToggle={setUsdToggle} />
+      <ActionProcess
+        chainName={chainName}
+        style={style}
+        usdToggle={usdToggle}
+        setUsdToggle={setUsdToggle}
+      />
       <TransferInput
         style={style}
         token={token}
@@ -57,6 +64,8 @@ const TransferAction = ({
         style={style}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        payWith={payWith}
+        setPayWith={setPayWith}
       />
 
       <ActionButton

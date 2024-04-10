@@ -3,17 +3,22 @@ import SummaryMain from "../Wallet/summarySection/SummaryMain";
 import SummaryFooter from "../Wallet/summarySection/SummaryFooter";
 import SummaryTotal from "../Wallet/summarySection/SummaryTotal";
 
-const TransferSummary = () => {
+const TransferSummary = ({ token, amount, activeTab, recipient, payWith }) => {
   return (
     <section className="flex-1 space-y-5 p-6">
       <SummaryHeading />
       <hr className="border-border-light" />
 
-      <SummaryMain />
+      <SummaryMain token={token} />
       <hr className="border-border-light" />
 
-      <SummaryFooter />
-      <SummaryTotal />
+      <SummaryFooter
+        token={token}
+        amount={amount}
+        activeTab={activeTab}
+        payWith={payWith}
+      />
+      <SummaryTotal token={token} />
     </section>
   );
 };

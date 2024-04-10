@@ -6,11 +6,12 @@ import TransferAction from "./TransferAction";
 import TransferSummary from "./TransferSummary";
 
 const Transfer = () => {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState();
   const [amount, setAmount] = useState("");
   const [recipient, setRecipient] = useState("");
   const [usdToggle, setUsdToggle] = useState(false);
   const [activeTab, setActiveTab] = useState("gas");
+  const [payWith, setPayWith] = useState("ETH");
 
   return (
     <>
@@ -32,6 +33,7 @@ const Transfer = () => {
         amount={amount}
         recipient={recipient}
         activeTab={activeTab}
+        payWith={payWith}
       />
     </>
   );
