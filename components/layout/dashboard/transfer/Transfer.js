@@ -13,13 +13,20 @@ const Transfer = () => {
   const [activeTab, setActiveTab] = useState("gas");
   const [payWith, setPayWith] = useState("ETH");
 
+  const handleAmount = (e) => {
+    const decimalRegex = /^[0-9]*\.?[0-9]*$/;
+    if (e.match(decimalRegex)) {
+      setAmount(e);
+    }
+  };
+
   return (
     <>
       <TransferAction
         token={token}
         setToken={setToken}
         amount={amount}
-        setAmount={setAmount}
+        setAmount={handleAmount}
         recipient={recipient}
         setRecipient={setRecipient}
         activeTab={activeTab}
@@ -29,7 +36,11 @@ const Transfer = () => {
       />
 
       <TransferSummary
-        token={token}
+        token={{
+          tokenName: "Ether",
+          tokenShort: "ETH",
+          tokenQty: 2
+        }}
         amount={amount}
         recipient={recipient}
         activeTab={activeTab}

@@ -1,8 +1,10 @@
-function formatAmount(amount) {
-  if (Number(amount) < 0.0001 && Number(amount) !== 0){
-    return "<0.0001";
+function formatAmount(amount, index = 4) {
+  if (Number(amount) <
+    1 / 10 ** index
+    && Number(amount) !== 0) {
+    return "<" + 1 / 10 ** index;
   } else {
-    return Number(amount).toFixed(4);
+    return Number(amount).toFixed(index);
   }
 }
 

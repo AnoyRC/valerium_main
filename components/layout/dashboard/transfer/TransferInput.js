@@ -21,7 +21,7 @@ const TransferInput = ({
   const tokenBalanceData = useSelector((state) => state.user.tokenBalanceData);
   const currentBalanceData = useSelector((state) => state.user.currentBalanceData);
 
-  const currentToken = tokenBalanceData.find((token) => token.address === selectedToken.address)
+  const currentToken = selectedToken && tokenBalanceData && tokenBalanceData.find((token) => token.address === selectedToken.address)
 
   const token = currentToken ?
     currentToken.balance / 10 ** currentToken.decimals : "0.00";
@@ -74,9 +74,11 @@ const TransferInput = ({
             setInput={setAmount}
             icon={
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-base font-semibold text-text-gray">
-                <span className="">{usdToggle ? "$" : ""}</span>
-                0.00
-                <span className="">{usdToggle ? "" : " " + selectedToken.name}</span>
+                <span className="">{usdToggle ? "" : "$"}</span>
+                {
+                  usdToggle ? formatAmount(amount) : formatAmount(amount)
+                }
+                <span className="">{usdToggle ? " " + selectedToken.name : ""} </span>
               </span>
             }
           />
