@@ -16,7 +16,7 @@ export default function useCircuit() {
 
     const input = {
       password: ethers.utils.hexlify(
-        ethers.utils.ripemd160(ethers.utils.toUtf8Bytes(password))
+        ethers.utils.ripemd160(ethers.utils.toUtf8Bytes(password)),
       ),
     };
 

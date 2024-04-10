@@ -1,18 +1,65 @@
-import { Send } from "lucide-react";
+"use client";
 
-const TokenItem = ({ tokenName, tokenPrice, tokenQty, tokenCap }) => {
+import Image from "next/image";
+import { Send } from "lucide-react";
+import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+
+import { formatAmount } from "@/utils/formatAmount";
+
+const TokenItem = ({ token }) => {
+  const [conversionData, setConversionData] = useState();
+
+  const tokenConversionData = useSelector(
+    (state) => state.user.tokenConversionData,
+  );
+
+  useEffect(() => {
+    if (tokenConversionData) {
+      const conversionRate = tokenConversionData.find(
+        (conversion) => conversion.address === token.address,
+      );
+      setConversionData(conversionRate.usdValue);
+    }
+  }, [tokenConversionData]);
+
   return (
-    <div className="flex justify-between items-center bg-bg-off-white p-4 rounded-lg even:bg-text-off-white mb-2 last-of-type:mb-0 [&>p]:flex-1 [&>p:last-child]:flex-none ">
-      <p>{tokenName}</p>
-      <p>${tokenPrice}</p>
-      <p>{tokenQty}</p>
-      <p>${tokenCap}</p>
-      <p className="w-[55.04px] flex justify-center">
-        <span className="w-8 h-8 bg-bg-off-black rounded-full flex justify-center items-center p-2 cursor-pointer">
+    <tr className="overflow-hidden rounded-xl bg-white shadow even:bg-text-off-white">
+      <td className="rounded-l-xl py-3 pl-4 font-medium">
+        <div className="flex items-center gap-3">
+          <Image
+            src={`/tokens/${token.logo}`}
+            alt={token.name + " logo"}
+            width={24}
+            height={24}
+            className="rounded-full"
+          />
+
+          <p>{token.name}</p>
+        </div>
+      </td>
+
+      <td className="py-3">
+        ${conversionData ? formatAmount(1 / conversionData) : "0"}
+      </td>
+
+      <td className="py-3">
+        {formatAmount(token.balance / 10 ** token.decimals)}
+      </td>
+
+      <td className="py-3">
+        $
+        {conversionData
+          ? formatAmount(token.balance / 10 ** token.decimals / conversionData)
+          : "0"}
+      </td>
+
+      <td className="rounded-r-xl py-3">
+        <div className="mx-auto flex h-8 w-8 -translate-x-1/2 cursor-pointer items-center justify-center rounded-full bg-text-gray p-2">
           <Send color="white" />
-        </span>
-      </p>
-    </div>
+        </div>
+      </td>
+    </tr>
   );
 };
 

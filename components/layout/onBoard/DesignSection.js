@@ -2,13 +2,13 @@ import Alpha from "@/components/ui/Alpha";
 
 const DesignSection = () => {
   return (
-    <section className="basis-[515px] light-onboard-background bg-cover p-12 flex flex-col justify-between">
+    <section className="light-onboard-background flex basis-[515px] flex-col justify-between bg-cover p-12">
       <div className="flex items-center">
-        <div className=" bg-black p-2 rounded-md mr-2.5">
+        <div className=" mr-2.5 rounded-md bg-black p-2">
           <img src="/valerium-logo.svg" alt="logo" />
         </div>
 
-        <span className="text-2xl font-gloock tracking-wider"> Valerium</span>
+        <span className="font-gloock text-2xl tracking-wider"> Valerium</span>
       </div>
 
       <div className="-translate-x-3 translate-y-5">

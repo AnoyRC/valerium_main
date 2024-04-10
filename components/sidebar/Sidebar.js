@@ -6,7 +6,7 @@ import ChainSwitcher from "../chainSwicher/ChainSwitcher";
 
 const Sidebar = () => {
   return (
-    <aside className="basis-[267px] px-4 py-5 bg-gradient-light-linear/85 flex flex-col justify-between rounded-e-xl border-r border-border-light">
+    <aside className="sticky top-0 flex h-screen basis-[267px] flex-col justify-between rounded-e-xl border-r border-border-light bg-gradient-light-linear/85 px-4 py-5 shadow">
       <div className="space-y-6">
         <Logo />
         <ChainSwitcher />

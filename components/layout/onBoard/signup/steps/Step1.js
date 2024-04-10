@@ -21,7 +21,7 @@ const Step1 = () => {
   const handleName = (e) => {
     if (e.target.value.length > 20) {
       dispatch(
-        setDomain(e.target.value.slice(0, 20).replace(/[^a-zA-Z0-9]/g, ""))
+        setDomain(e.target.value.slice(0, 20).replace(/[^a-zA-Z0-9]/g, "")),
       );
     } else {
       dispatch(setDomain(e.target.value.replace(/[^a-zA-Z0-9]/g, "")));
@@ -62,14 +62,14 @@ const Step1 = () => {
   return (
     <div className="flex flex-col">
       <h1 className="font-gloock text-4xl">Setup your new Wallet</h1>
-      <p className="font-noto text-gray-600 text-sm mt-2">
+      <p className="mt-2 font-noto text-sm text-gray-600">
         Find your Favorite Multi Chain Valerium Domain.
       </p>
 
-      <p className="font-noto text-sm text-gray-600 mt-8">
+      <p className="mt-8 font-noto text-sm text-gray-600">
         Your Valerium Domain
       </p>
-      <div className="flex w-full mt-2">
+      <div className="mt-2 flex w-full">
         <Input
           label="Choose your domain"
           size="lg"
@@ -86,7 +86,7 @@ const Step1 = () => {
           variant="text"
           color="blue-gray"
           className={
-            "flex font-noto font-normal items-center rounded-l-none border border-l-0 border-blue-gray-200 bg-blue-gray-500/10 normal-case px-3 text-sm py-0 "
+            "flex items-center rounded-l-none border border-l-0 border-blue-gray-200 bg-blue-gray-500/10 px-3 py-0 font-noto text-sm font-normal normal-case "
           }
         >
           @valerium
@@ -94,28 +94,28 @@ const Step1 = () => {
       </div>
 
       {isLoading && domain.length > 3 && (
-        <p className="mt-2 text-sm flex text-gray-500">
-          <Loader2 size={20} className="inline mr-1 animate-spin " />
+        <p className="mt-2 flex text-sm text-gray-500">
+          <Loader2 size={20} className="mr-1 inline animate-spin " />
           Checking availability...
         </p>
       )}
 
       {!isLoading && isUsed && (
-        <p className="mt-2 text-sm flex text-red-500">
-          <Info size={20} className="inline mr-1" />
+        <p className="mt-2 flex text-sm text-red-500">
+          <Info size={20} className="mr-1 inline" />
           This domain is already taken.
         </p>
       )}
 
       {!isLoading && !isUsed && domain.length > 3 && (
-        <p className="mt-2 text-sm flex text-green-500">
-          <Info size={20} className="inline mr-1" />
+        <p className="mt-2 flex text-sm text-green-500">
+          <Info size={20} className="mr-1 inline" />
           This domain is available.
         </p>
       )}
 
       <Button
-        className="mt-8 font-noto font-normal normal-case w-fit bg-gradient-primary-light"
+        className="mt-8 w-fit bg-gradient-primary-light font-noto font-normal normal-case"
         onClick={() => {
           dispatch(setStep(1));
         }}

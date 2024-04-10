@@ -1,5 +1,6 @@
 import Header from "@/components/header/Header";
 import Sidebar from "@/components/sidebar/Sidebar";
+import WalletProvider from "@/provider/WalletProvider";
 
 export const metadata = {
   title: "Valerium | Dashboard",
@@ -8,15 +9,17 @@ export const metadata = {
 
 const LoginLayout = ({ children }) => {
   return (
-    <div className="h-screen w-screen flex bg-white font-noto light-dashboard-background">
-      <Sidebar />
+    <WalletProvider>
+      <div className="flex bg-white font-noto light-dashboard-background relative">
+        <Sidebar />
 
-      <main className="flex-1 space-y-4 m-5 ml-10">
-        <Header />
+        <main className="flex-1 space-y-4 mx-5 ml-10 flex flex-col">
+          <Header />
 
-        {children}
-      </main>
-    </div>
+          {children}
+        </main>
+      </div>
+    </WalletProvider>
   );
 };
 

@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 export default function Step4() {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ export default function Step4() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [message, setMessage] = useState("");
+  const domain = useSelector((state) => state.signup.domain);
   const router = useRouter();
   return (
     <div className="flex flex-col">
@@ -21,27 +23,27 @@ export default function Step4() {
         {isSuccess
           ? "Wallet Deployed"
           : isLoading
-          ? "Deploying Wallet"
-          : "Ready to Deploy"}
+            ? "Deploying Wallet"
+            : "Ready to Deploy"}
       </h1>
-      <p className="font-noto text-gray-600 text-sm mt-2">
+      <p className="mt-2 font-noto text-sm text-gray-600">
         {isSuccess
           ? "Your wallet has been deployed successfully."
           : isLoading
-          ? "Hold tight, we are deploying your wallet."
-          : "Your Wallet is ready to deploy. Click the button below to deploy your wallet."}
+            ? "Hold tight, we are deploying your wallet."
+            : "Your Wallet is ready to deploy. Click the button below to deploy your wallet."}
       </p>
 
       {!isLoading && !isSuccess && (
         <>
           {" "}
           <Button
-            className="mt-8 w-32 h-10 font-noto font-normal normal-case bg-gradient-primary-light flex items-center justify-center"
+            className="mt-8 flex h-10 w-32 items-center justify-center bg-gradient-primary-light font-noto font-normal normal-case"
             onClick={() => deployWallet(setIsLoading, setIsSuccess, setMessage)}
           >
             Deploy Wallet
           </Button>
-          <p className="font-noto text-xs text-gray-600 mt-3">
+          <p className="mt-3 font-noto text-xs text-gray-600">
             Don't like your domain?{" "}
             <span
               className="text-highlight-pink hover:cursor-pointer"
@@ -55,8 +57,8 @@ export default function Step4() {
 
       {isLoading && (
         <>
-          <p className="mt-10 text-sm flex text-gray-500">
-            <Loader2 size={20} className="inline mr-1 animate-spin " />
+          <p className="mt-10 flex text-sm text-gray-500">
+            <Loader2 size={20} className="mr-1 inline animate-spin " />
             {message}
           </p>
         </>
@@ -64,10 +66,10 @@ export default function Step4() {
 
       {isSuccess && !isLoading && (
         <Button
-          className="mt-8 w-48 h-10 font-noto font-normal normal-case bg-gradient-primary-light flex items-center justify-center"
+          className="mt-8 flex h-10 w-48 items-center justify-center bg-gradient-primary-light font-noto font-normal normal-case"
           onClick={() => {
+            router.push(`/home?domain=${domain}`);
             dispatch(ClearAll());
-            router.push("/home");
           }}
         >
           Go to Dashboard

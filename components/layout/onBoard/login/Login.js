@@ -1,27 +1,19 @@
 "use client";
 
-import { Info, Loader2 } from "lucide-react";
 import { Input, Button } from "@material-tailwind/react";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useRef, useState, useEffect } from "react";
+import useLogin from "@/hooks/useLogin";
+import { Info, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ethers } from "ethers";
-import { useDispatch } from "react-redux";
-import { useRouter } from "next/navigation";
-import { useRef, useState, useEffect } from "react";
-
-import useLogin from "@/hooks/useLogin";
-
-import { setUser } from "@/redux/slice/UserSlice";
-
 import OnBoardSection from "../OnBoardSection";
 
 const Login = () => {
-  const dispatch = useDispatch();
-
   const inputRef = useRef();
 
   const [domain, setDomain] = useState("");
-  const [address, setAddress] = useState("");
 
   const [isUsed, setIsUsed] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
@@ -53,7 +45,6 @@ const Login = () => {
 
     setIsUsed(true);
     setIsLoading(false);
-    setAddress(address);
   };
 
   useEffect(() => {
@@ -82,11 +73,11 @@ const Login = () => {
       heading="Access your Account"
       paragaph="Fill your Valerium Domain name to Login."
     >
-      <p className="font-noto text-sm text-text-gray mt-8">
+      <p className="mt-8 font-noto text-sm text-text-gray">
         Your Valerium Domain
       </p>
 
-      <div className="flex w-full mt-2">
+      <div className="mt-2 flex w-full">
         <Input
           label="Domain"
           size="lg"
@@ -104,7 +95,7 @@ const Login = () => {
           variant="text"
           color="blue-gray"
           className={
-            "flex font-noto font-normal items-center rounded-l-none border border-l-0 border-blue-gray-200 bg-gray-100/60 normal-case px-3 text-sm py-0"
+            "flex items-center rounded-l-none border border-l-0 border-blue-gray-200 bg-gray-100/60 px-3 py-0 font-noto text-sm font-normal normal-case"
           }
         >
           @valerium
@@ -112,24 +103,23 @@ const Login = () => {
       </div>
 
       {isLoading && domain.length > 3 && (
-        <p className="mt-2 text-sm flex text-text-gray">
-          <Loader2 size={20} className="inline mr-1 animate-spin " />
+        <p className="mt-2 flex text-sm text-text-gray">
+          <Loader2 size={20} className="mr-1 inline animate-spin " />
           Checking availability...
         </p>
       )}
 
       {!isLoading && !isUsed && domain.length > 3 && (
-        <p className="mt-2 text-sm flex text-red-500">
-          <Info size={20} className="inline mr-1" />
+        <p className="mt-2 flex text-sm text-red-500">
+          <Info size={20} className="mr-1 inline" />
           This domain is not available.
         </p>
       )}
 
       <Button
-        className="mt-8 font-noto font-normal normal-case w-fit bg-gradient-primary-light disabled:cursor-not-allowed"
+        className="mt-8 w-fit bg-gradient-primary-light font-noto font-normal normal-case disabled:cursor-not-allowed"
         onClick={() => {
-          dispatch(setUser({ domain: domain + "@valerium", address }));
-          router.push("/home");
+          router.push(`/home?domain=${domain}`);
         }}
         disabled={
           domain.length <= 3 ||
@@ -142,10 +132,10 @@ const Login = () => {
         Access Account
       </Button>
 
-      <p className="text-xs text-black mt-3">
+      <p className="mt-3 text-xs text-black">
         Don't have an account?{" "}
         <Link
-          className="gradient-text bg-gradient-primary-light hover:cursor-pointer font-semibold"
+          className="bg-gradient-primary-light font-semibold gradient-text hover:cursor-pointer"
           href="/signUp"
         >
           Sign Up
