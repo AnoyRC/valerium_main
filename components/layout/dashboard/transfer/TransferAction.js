@@ -28,7 +28,7 @@ const TransferAction = ({
   setPayWith,
 }) => {
   const { chainName, style } = useSelector((state) => state.chain.currentChain);
-
+  const [selectedToken, ,] = useSelector((state) => state.selector.token);
   const handleClick = () => {
     console.log("Send button clicked");
   };
@@ -59,7 +59,7 @@ const TransferAction = ({
         usdToggle={usdToggle}
       />
 
-      <ActionNote chainName={chainName} style={style} />
+      <ActionNote chainName={chainName} style={style} token={selectedToken} />
       <GaslessToggle
         style={style}
         activeTab={activeTab}

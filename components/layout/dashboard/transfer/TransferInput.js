@@ -20,11 +20,18 @@ const TransferInput = ({
   const [selectedToken, ,] = useSelector((state) => state.selector.token);
   const tokenBalanceData = useSelector((state) => state.user.tokenBalanceData);
   const currentBalanceData = useSelector((state) => state.user.currentBalanceData);
+  const currentConversionData = useSelector((state) => state.user.currentConversionData);
+  const tokenConversionData = useSelector((state) => state.user.tokenConversionData);
 
-  const currentToken = selectedToken && tokenBalanceData && tokenBalanceData.find((token) => token.address === selectedToken.address)
-
+  const currentToken = selectedToken && tokenBalanceData && tokenBalanceData.find((token) => token.address === selectedToken.address);
   const token = currentToken ?
     currentToken.balance / 10 ** currentToken.decimals : "0.00";
+
+  const currentTokenConversion = selectedToken ? selectedToken.address ? tokenConversionData ? 1 /
+    tokenConversionData.find((token) => token.address === selectedToken.address).usdValue || 1
+    : 0 : currentConversionData : 0
+
+  console.log(token / Number(currentTokenConversion))
 
   return (
     <>
@@ -44,8 +51,8 @@ const TransferInput = ({
           <div className="absolute right-0 top-0 flex gap-2 mr-1">
             <p>{
               selectedToken ? selectedToken.address ?
-                formatAmount(token)
-                : formatAmount(currentBalanceData / 10 ** 18) : "Select Token"
+                formatAmount(token) + " " + selectedToken.name
+                : formatAmount(currentBalanceData / 10 ** 18) + " " + selectedToken.name : "Select Token"
             }</p>
 
             <Button
@@ -56,7 +63,9 @@ const TransferInput = ({
               }}
               onClick={() => {
                 if (selectedToken) {
-                  setAmount(selectedToken.address ? token : currentBalanceData / 10 ** 18)
+                  setAmount(usdToggle ?
+                    selectedToken.address ? (token * Number(currentTokenConversion)).toString() : (currentBalanceData / 10 ** 18 * Number(currentTokenConversion)).toString()
+                    : selectedToken.address ? token.toString() : (currentBalanceData / 10 ** 18).toString())
                 }
               }}
             >
@@ -76,10 +85,20 @@ const TransferInput = ({
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-base font-semibold text-text-gray">
                 <span className="">{usdToggle ? "" : "$"}</span>
                 {
-                  usdToggle ? formatAmount(amount) : formatAmount(amount)
+                  usdToggle ?
+                    formatAmount(amount / Number(currentTokenConversion)) : formatAmount(amount * Number(currentTokenConversion))
                 }
                 <span className="">{usdToggle ? " " + selectedToken.name : ""} </span>
               </span>
+            }
+            isValid={
+              !usdToggle ?
+                selectedToken ? selectedToken.address ?
+                  amount <= token : amount <= currentBalanceData / 10 ** 18 : "0.00"
+                :
+                selectedToken ? selectedToken.address ?
+                  amount <= token * Number(currentTokenConversion) : amount <= currentBalanceData / 10 ** 18 * Number(currentConversionData) : "0.00"
+
             }
           />
         </div>

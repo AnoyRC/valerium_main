@@ -4,7 +4,11 @@ const selectorSlice = createSlice({
   name: "selector",
 
   initialState: {
-    token: [null,null,null],
+    token: [{
+      name: "ETH",
+      logo: "/eth-logo.svg",
+      address: null
+    }, null, null],
     drawerChain: 1891,
     tokenDrawer: false,
     tokenIndex: 0,
