@@ -5,10 +5,6 @@ const userSlice = createSlice({
 
   initialState: {
     walletAddresses: null,
-    balanceData: null,
-    conversionData: null,
-    currentBalanceData: null,
-    currentConversionData: null,
     tokenBalanceData: null,
     tokenConversionData: null,
   },
@@ -16,18 +12,6 @@ const userSlice = createSlice({
   reducers: {
     setWalletAddresses: (state, action) => {
       state.walletAddresses = action.payload;
-    },
-    setBalanceData: (state, action) => {
-      state.balanceData = action.payload;
-    },
-    setConversionData: (state, action) => {
-      state.conversionData = action.payload;
-    },
-    setCurrentBalanceData: (state, action) => {
-      state.currentBalanceData = action.payload;
-    },
-    setCurrentConversionData: (state, action) => {
-      state.currentConversionData = action.payload;
     },
     setTokenBalanceData: (state, action) => {
       state.tokenBalanceData = action.payload;
@@ -39,11 +23,7 @@ const userSlice = createSlice({
 });
 
 export const {
-  setBalanceData,
-  setConversionData,
   setWalletAddresses,
-  setCurrentBalanceData,
-  setCurrentConversionData,
   setTokenBalanceData,
   setTokenConversionData,
 } = userSlice.actions;

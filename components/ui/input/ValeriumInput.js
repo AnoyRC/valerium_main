@@ -13,6 +13,7 @@ const ValeriumInput = ({
   required = false,
   width,
   isValid = true,
+  Ref = null,
 }) => {
   return (
     <div
@@ -38,12 +39,12 @@ const ValeriumInput = ({
           readOnly={readOnly}
           onChange={(e) => setInput(e.target.value)}
           placeholder={placeholder}
-          className={`w-full text-ellipsis rounded-full border border-border-light bg-white px-4 py-3.5 text-base text-black outline-none placeholder:text-text-light-gray focus:border-gray-300 ${
-            readOnly && "cursor-not-allowed"
-          }`}
+          className={`w-full text-ellipsis rounded-full border border-border-light bg-white px-4 py-3.5 text-base text-black outline-none placeholder:text-text-light-gray focus:border-gray-300 ${readOnly && "cursor-not-allowed"
+            }`}
           style={{
             color: isValid ? "black" : "red",
           }}
+          ref={Ref}
         />
 
         {icon}

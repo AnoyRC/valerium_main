@@ -9,32 +9,23 @@ import FormatNumber from "@/components/ui/FormatNumber";
 const TotalBalance = () => {
   const [usdBalance, setUsdBalance] = useState(0);
 
-  const balanceData = useSelector((state) => state.user.balanceData);
-  const conversionData = useSelector((state) => state.user.conversionData);
+  const tokenBalanceData = useSelector((state) => state.user.tokenBalanceData);
+  const tokenConversionData = useSelector(
+    (state) => state.user.tokenConversionData
+  );
 
   useEffect(() => {
-    if (balanceData && balanceData.length > 0) {
-      let totalUsd = 0;
-
-      for (let i = 0; i < balanceData.length; i++) {
-        let totalEth = 0;
-        totalEth += balanceData[i].balance / 10 ** 18;
-
-        for (let j = 0; j < balanceData[i].erc20Balances.length; j++) {
-          const erc20Balance =
-            balanceData[i].erc20Balances[j].balance /
-            10 ** balanceData[i].erc20Balances[j].decimals;
-          const conversionRate = conversionData[i].tokens[j].value;
-
-          totalEth += Number(erc20Balance) / Number(conversionRate);
-        }
-
-        totalUsd += Number(totalEth) * Number(conversionData[i].value);
+    if (tokenBalanceData && tokenConversionData) {
+      let totalUsdBalance = 0;
+      for (let i = 0; i < tokenBalanceData.length; i++) {
+        totalUsdBalance +=
+          tokenBalanceData[i].balance /
+          10 ** 18 /
+          tokenConversionData[i].usdValue;
       }
-
-      setUsdBalance(totalUsd);
+      setUsdBalance(totalUsdBalance);
     }
-  }, [balanceData, conversionData]);
+  }, [tokenBalanceData, tokenConversionData]);
 
   return (
     <section className="space-y-1.5">

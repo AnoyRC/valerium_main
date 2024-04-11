@@ -5,6 +5,8 @@ import { BarretenbergBackend } from "@noir-lang/backend_barretenberg";
 import { ethers } from "ethers";
 import poseidon_hash from "@/lib/circuits/poseidon_hash";
 import password_hash from "@/lib/circuits/password_hash";
+import signatureProve from "@/lib/circuits/signature_prove";
+import passwordProve from "@/lib/circuits/password_prove";
 
 export default function useCircuit() {
   const hashPassword = async (password) => {
@@ -16,7 +18,7 @@ export default function useCircuit() {
 
     const input = {
       password: ethers.utils.hexlify(
-        ethers.utils.ripemd160(ethers.utils.toUtf8Bytes(password)),
+        ethers.utils.ripemd160(ethers.utils.toUtf8Bytes(password))
       ),
     };
 
@@ -41,5 +43,59 @@ export default function useCircuit() {
     return output.returnValue;
   };
 
-  return { hashPassword, hashKey };
+  const signature_prove = async (pubkeyx, pubkeyy, signature, message) => {
+    try {
+      const backend = new BarretenbergBackend(signatureProve, {
+        threads: navigator.hardwareConcurrency,
+      });
+
+      const recoveryHash = await hashKey(pubkeyx);
+
+      signature.pop();
+
+      const inputs = {
+        pub_key_x: Array.from(ethers.utils.arrayify(pubkeyx)),
+        pub_key_y: Array.from(ethers.utils.arrayify(pubkeyy)),
+        signature: signature,
+        hashed_message: message,
+        pub_key_x_hash: recoveryHash,
+      };
+
+      const noir = new Noir(signatureProve, backend);
+
+      const output = await noir.generateFinalProof(inputs);
+
+      return ethers.utils.hexlify(output.proof);
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+  };
+
+  const password_prove = async (password, nonce) => {
+    const backend = new BarretenbergBackend(passwordProve, {
+      threads: navigator.hardwareConcurrency,
+    });
+
+    const noir = new Noir(passwordProve, backend);
+
+    const passwordHex = await hashPassword(password);
+
+    const message = ethers.utils.hashMessage(nonce.toString());
+
+    const inputs = {
+      password: ethers.utils.hexlify(
+        ethers.utils.ripemd160(ethers.utils.toUtf8Bytes(password))
+      ),
+      flagged_message: Array.from(ethers.utils.arrayify(message)),
+      hashed_message: Array.from(ethers.utils.arrayify(message)),
+      password_hash: passwordHex,
+    };
+
+    const output = await noir.generateFinalProof(inputs);
+
+    return ethers.utils.hexlify(output.proof);
+  };
+
+  return { hashPassword, hashKey, signature_prove, password_prove };
 }

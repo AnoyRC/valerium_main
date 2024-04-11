@@ -51,7 +51,7 @@ export default function TokenButton({
             dispatch(setTokenIndex(index));
           }}
           disabled={disabled}
-          className="w-full overflow-hidden rounded-full border border-border-light bg-white px-5 py-3.5 text-left font-noto text-base normal-case text-gray-600 shadow-none"
+          className="w-full overflow-hidden max-w-48 rounded-full border border-border-light bg-white px-5 py-3.5 text-left font-noto text-base normal-case text-gray-600 shadow-none"
         >
           {token[index] ? (
             <div>

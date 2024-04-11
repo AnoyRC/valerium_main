@@ -11,7 +11,6 @@ const Transfer = () => {
   const [recipient, setRecipient] = useState("");
   const [usdToggle, setUsdToggle] = useState(false);
   const [activeTab, setActiveTab] = useState("gas");
-
   const selectedToken = useSelector((state) => state.selector.token);
 
   const handleAmount = (e) => {

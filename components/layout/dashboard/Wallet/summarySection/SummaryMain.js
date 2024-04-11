@@ -9,9 +9,6 @@ import { formatAmount } from "@/utils/formatAmount";
 
 const SummaryMain = ({ token, usdToggle, amount }) => {
   const [selectedToken, ,] = useSelector((state) => state.selector.token);
-  const currentBalanceData = useSelector(
-    (state) => state.user.currentBalanceData,
-  );
 
   const tokenBalanceData = useSelector((state) => state.user.tokenBalanceData);
 
@@ -37,12 +34,8 @@ const SummaryMain = ({ token, usdToggle, amount }) => {
 
           <p className="text-base font-bold text-black">
             <span className="font-normal text-text-gray">Qty:</span>{" "}
-            {selectedToken
-              ? selectedToken.address
-                ? formatAmount(
-                    currentToken.balance / 10 ** currentToken.decimals,
-                  )
-                : formatAmount(currentBalanceData / 10 ** 18)
+            {selectedToken && currentToken
+              ? formatAmount(currentToken.balance / 10 ** currentToken.decimals)
               : "0.00"}
           </p>
         </div>

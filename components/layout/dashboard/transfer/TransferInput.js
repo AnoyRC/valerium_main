@@ -7,6 +7,7 @@ import TokenButton from "@/components/ui/buttons/TokenButton";
 import { useSelector } from "react-redux";
 import { formatAmount } from "@/utils/formatAmount";
 import { Button } from "@material-tailwind/react";
+import RecipientAddress from "./RecipientAddress";
 
 const TransferInput = ({
   style,
@@ -15,18 +16,14 @@ const TransferInput = ({
   recipient,
   setRecipient,
   usdToggle,
+  isValid,
+  setIsValid,
 }) => {
   const currentChain = useSelector((state) => state.chain.currentChain);
   const [selectedToken, ,] = useSelector((state) => state.selector.token);
   const tokenBalanceData = useSelector((state) => state.user.tokenBalanceData);
-  const currentBalanceData = useSelector(
-    (state) => state.user.currentBalanceData,
-  );
-  const currentConversionData = useSelector(
-    (state) => state.user.currentConversionData,
-  );
   const tokenConversionData = useSelector(
-    (state) => state.user.tokenConversionData,
+    (state) => state.user.tokenConversionData
   );
 
   const currentToken =
@@ -38,14 +35,12 @@ const TransferInput = ({
     : "0.00";
 
   const currentTokenConversion = selectedToken
-    ? selectedToken.address
-      ? tokenConversionData
-        ? 1 /
-            tokenConversionData.find(
-              (token) => token.address === selectedToken.address,
-            ).usdValue || 1
-        : 0
-      : currentConversionData
+    ? tokenConversionData
+      ? 1 /
+          tokenConversionData.find(
+            (token) => token.address === selectedToken.address
+          ).usdValue || 1
+      : 0
     : 0;
 
   return (
@@ -66,11 +61,7 @@ const TransferInput = ({
           <div className="absolute right-0 top-0 mr-1 flex gap-2">
             <p>
               {selectedToken
-                ? selectedToken.address
-                  ? formatAmount(token) + " " + selectedToken.name
-                  : formatAmount(currentBalanceData / 10 ** 18) +
-                    " " +
-                    selectedToken.name
+                ? formatAmount(token) + " " + selectedToken.name
                 : "Select Token"}
             </p>
 
@@ -84,15 +75,8 @@ const TransferInput = ({
                 if (selectedToken) {
                   setAmount(
                     usdToggle
-                      ? selectedToken.address
-                        ? (token * Number(currentTokenConversion)).toString()
-                        : (
-                            (currentBalanceData / 10 ** 18) *
-                            Number(currentTokenConversion)
-                          ).toString()
-                      : selectedToken.address
-                        ? token.toString()
-                        : (currentBalanceData / 10 ** 18).toString(),
+                      ? (token * Number(currentTokenConversion)).toString()
+                      : token.toString()
                   );
                 }
               }}
@@ -123,36 +107,21 @@ const TransferInput = ({
             isValid={
               !usdToggle
                 ? selectedToken
-                  ? selectedToken.address
-                    ? amount <= token
-                    : amount <= currentBalanceData / 10 ** 18
+                  ? amount <= token
                   : "0.00"
                 : selectedToken
-                  ? selectedToken.address
-                    ? amount <= token * Number(currentTokenConversion)
-                    : amount <=
-                      (currentBalanceData / 10 ** 18) *
-                        Number(currentConversionData)
-                  : "0.00"
+                ? amount <= token * Number(currentTokenConversion)
+                : "0.00"
             }
           />
         </div>
       </div>
 
-      <ValeriumInput
-        label="Recipient Address"
-        id="recipient-transfer"
-        type="text"
-        placeholder="Enter Address or Valerium Domain"
-        required={true}
+      <RecipientAddress
         input={recipient}
         setInput={setRecipient}
-        // icon={
-        //   <ContactRound
-        //     size={24}
-        //     className="absolute right-4 top-1/2 -translate-y-1/2 text-base font-semibold text-text-gray"
-        //   />
-        // }
+        isValid={isValid}
+        setIsValid={setIsValid}
       />
     </>
   );

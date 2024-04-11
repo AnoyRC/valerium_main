@@ -10,21 +10,19 @@ const SummaryFooter = ({ token, amount, usdToggle }) => {
 
   const [selectedToken, ,] = useSelector((state) => state.selector.token);
   const currentConversionData = useSelector(
-    (state) => state.user.currentConversionData,
+    (state) => state.user.currentConversionData
   );
   const tokenConversionData = useSelector(
-    (state) => state.user.tokenConversionData,
+    (state) => state.user.tokenConversionData
   );
 
   const currentTokenConversion = selectedToken
-    ? selectedToken.address
-      ? tokenConversionData
-        ? 1 /
-            tokenConversionData.find(
-              (token) => token.address === selectedToken.address,
-            ).usdValue || 1
-        : 0
-      : currentConversionData
+    ? tokenConversionData
+      ? 1 /
+          tokenConversionData.find(
+            (token) => token.address === selectedToken.address
+          ).usdValue || 1
+      : 0
     : 0;
 
   return (

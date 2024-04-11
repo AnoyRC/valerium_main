@@ -11,7 +11,12 @@ const selectorSlice = createSlice({
         address: null,
         symbol: "ETH",
       },
-      null,
+      {
+        name: "ETH",
+        logo: "/eth-logo.svg",
+        address: null,
+        symbol: "ETH",
+      },
       null,
     ],
     drawerChain: 1891,
@@ -39,7 +44,11 @@ const selectorSlice = createSlice({
   },
 });
 
-export const { setToken, setDrawerChain, toggleTokenDrawer, setTokenIndex } =
-  selectorSlice.actions;
+export const {
+  setToken,
+  setDrawerChain,
+  toggleTokenDrawer,
+  setTokenIndex,
+} = selectorSlice.actions;
 
 export default selectorSlice.reducer;

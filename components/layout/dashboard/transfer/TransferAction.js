@@ -3,7 +3,7 @@
 import { MoveUpRight, MousePointer2 } from "lucide-react";
 
 import { useSelector } from "react-redux";
-
+import { useState } from "react";
 import ActionNote from "../Wallet/actionSection/ActionNote";
 import ActionHeading from "../Wallet/actionSection/ActionHeading";
 import ActionProcess from "../Wallet/actionSection/ActionProcess";
@@ -12,6 +12,10 @@ import GaslessToggle from "../Wallet/actionSection/GaslessToggle";
 import TransferInput from "./TransferInput";
 
 import ActionButton from "@/components/ui/buttons/ActionButton";
+import { setType, toggleProofDrawer } from "@/redux/slice/proofSlice";
+import { useDispatch } from "react-redux";
+import useWallet from "@/hooks/useWallet";
+import ProofFooter from "@/components/ui/footer/ProofFooter";
 
 const TransferAction = ({
   amount,
@@ -25,9 +29,23 @@ const TransferAction = ({
 }) => {
   const [selectedToken, ,] = useSelector((state) => state.selector.token);
   const { chainName, style } = useSelector((state) => state.chain.currentChain);
+  const [isValid, setIsValid] = useState(false);
+  const dispatch = useDispatch();
+  const txProof = useSelector((state) => state.proof.txProof);
+  const [isLoading, setIsLoading] = useState(false);
+  const type = useSelector((state) => state.proof.type);
 
-  const handleClick = () => {
-    console.log("Send button clicked");
+  const handleClick = async () => {
+    try {
+      setIsLoading(true);
+      if (!txProof) {
+        dispatch(toggleProofDrawer());
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -53,6 +71,8 @@ const TransferAction = ({
         recipient={recipient}
         setRecipient={setRecipient}
         usdToggle={usdToggle}
+        isValid={isValid}
+        setIsValid={setIsValid}
       />
 
       <ActionNote chainName={chainName} style={style} token={selectedToken} />
@@ -62,13 +82,15 @@ const TransferAction = ({
         activeTab={activeTab}
         setActiveTab={setActiveTab}
       />
-
-      <ActionButton
-        style={style}
-        label="Send"
-        icon={<MoveUpRight size={16} />}
-        handleClick={handleClick}
-      />
+      <ProofFooter>
+        <ActionButton
+          style={style}
+          label={txProof ? "Send" : "Authorize"}
+          icon={<MoveUpRight size={16} />}
+          handleClick={handleClick}
+          disabled={isLoading || !type}
+        />
+      </ProofFooter>
     </section>
   );
 };

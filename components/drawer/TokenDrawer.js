@@ -1,6 +1,6 @@
 "use client";
 
-import config from "@/lib/config.json";
+import config from "@/lib/config";
 
 import {
   Dialog,
@@ -24,24 +24,6 @@ export function TokenDrawer() {
 
   const currentChain = config.find((chain) => chain.chainId === drawerChain);
 
-  let tokens = [
-    {
-      name: currentChain.symbol,
-      logo: currentChain.logo,
-      address: null,
-      symbol: currentChain.symbol,
-    },
-  ];
-
-  currentChain.tokens.map((token) => {
-    tokens.push({
-      name: token.name,
-      logo: token.logo,
-      address: token.address,
-      symbol: token.symbol,
-    });
-  });
-
   return (
     <>
       <Dialog
@@ -58,7 +40,7 @@ export function TokenDrawer() {
               Select a Token
             </Typography>
 
-            {tokens.map((token, index) => (
+            {currentChain.tokens.map((token, index) => (
               <Button
                 key={index}
                 className="w-full rounded-2xl border border-border-light bg-white px-4 py-3.5 text-left font-noto text-base normal-case text-gray-600 shadow-none outline-none"
@@ -68,7 +50,7 @@ export function TokenDrawer() {
                     setToken({
                       token: token,
                       index: tokenIndex,
-                    }),
+                    })
                   );
                 }}
               >

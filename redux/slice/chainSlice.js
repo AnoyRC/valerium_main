@@ -12,6 +12,7 @@ const chainSlice = createSlice({
       convert_id: "2781",
       id: "1027",
       symbol: "ETH",
+      logo: "/eth-logo.svg",
       addresses: {
         Valerium: "0x0560f6B73E570b4eCD2018E4AC450E773E60bED5",
         ValeriumForwarder: "0x16BB4A38944d00821bb15dBc2BACd8Ad0F57d8F0",
@@ -37,10 +38,19 @@ const chainSlice = createSlice({
       },
       tokens: [
         {
+          name: "ETH",
+          symbol: "ETH",
+          address: null,
+          convert_id: "1027",
+          usd_id: "2781",
+          decimals: 18,
+          logo: "/eth-logo.svg",
+        },
+        {
           name: "BNB",
+          symbol: "BNB",
           address: "0x60d7966bdf03f0Ec0Ac6de7269CE0E57aAd6e9c2",
           convert_id: "1839",
-          id: "1027",
           usd_id: "2781",
           decimals: 18,
           logo: "/bnb-logo.svg",

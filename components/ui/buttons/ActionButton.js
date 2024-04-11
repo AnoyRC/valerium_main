@@ -1,6 +1,12 @@
 import { Button } from "@material-tailwind/react";
 
-const ActionButton = ({ style, label, icon, handleClick }) => {
+const ActionButton = ({
+  style,
+  label,
+  icon,
+  handleClick,
+  disabled = false,
+}) => {
   return (
     <Button
       fullWidth
@@ -11,6 +17,7 @@ const ActionButton = ({ style, label, icon, handleClick }) => {
         background: style.gradientColorLight,
         color: style.baseTextColor,
       }}
+      disabled={disabled}
     >
       {label}
       {icon && icon}

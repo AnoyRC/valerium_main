@@ -24,7 +24,7 @@ const GaslessToggle = ({ style, activeTab, setActiveTab }) => {
     <Tabs
       id="custom-animation"
       value={activeTab}
-      className="flex items-start justify-between gap-4"
+      className="flex h-10 items-center justify-between gap-4"
       style={{
         overflow: "visible",
       }}
@@ -71,7 +71,7 @@ const GaslessToggle = ({ style, activeTab, setActiveTab }) => {
             value="Select Token"
             disabled={false}
             chainId={currentChain.chainId}
-            style="flex items-center !3xl:space-y-0 !space-y-0"
+            style="flex items-center w-full !3xl:space-y-0 !space-y-0"
           />
         )}
       </TabsBody>

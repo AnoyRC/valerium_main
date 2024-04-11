@@ -6,6 +6,7 @@ import SignupSlice from "./slice/SignupSlice.js";
 import chainSlice from "./slice/chainSlice.js";
 import userSlice from "./slice/UserSlice.js";
 import selectorSlice from "./slice/selectorSlice.js";
+import proofSlice from "./slice/proofSlice.js";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     signup: SignupSlice,
     user: userSlice,
     selector: selectorSlice,
+    proof: proofSlice,
   },
 
   middleware: (getDefaultMiddleware) =>

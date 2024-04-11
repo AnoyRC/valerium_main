@@ -17,22 +17,23 @@ const AccountBalance = () => {
   const [balance, setBalance] = useState(0);
   const [usdBalance, setUsdBalance] = useState(0);
 
-  const currentBalanceData = useSelector(
-    (state) => state.user.currentBalanceData,
-  );
-  const currentConversionData = useSelector(
-    (state) => state.user.currentConversionData,
+  const tokenBalanceData = useSelector((state) => state.user.tokenBalanceData);
+  const tokenConversionData = useSelector(
+    (state) => state.user.tokenConversionData
   );
   const currentChain = useSelector((state) => state.chain.currentChain);
 
   useEffect(() => {
-    if (currentBalanceData && currentConversionData) {
-      setBalance(Number(currentBalanceData) / 10 ** 18);
+    if (tokenBalanceData) {
+      setBalance(tokenBalanceData[0].balance / 10 ** 18);
+    }
+
+    if (tokenBalanceData && tokenConversionData) {
       setUsdBalance(
-        (Number(currentBalanceData) / 10 ** 18) * Number(currentConversionData),
+        tokenBalanceData[0].balance / 10 ** 18 / tokenConversionData[0].usdValue
       );
     }
-  }, [currentBalanceData, currentConversionData, currentChain]);
+  }, [tokenBalanceData, tokenConversionData, currentChain]);
 
   return (
     <div className="overflow-hidden rounded-xl border border-border-light bg-gradient-light-linear/85 shadow">

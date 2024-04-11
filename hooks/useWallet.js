@@ -5,15 +5,13 @@ import ValeriumProxyFactoryABI from "@/lib/abi/ValeriumProxyFactory.json";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setBalanceData,
-  setConversionData,
-  setCurrentBalanceData,
-  setCurrentConversionData,
   setTokenBalanceData,
   setTokenConversionData,
   setWalletAddresses,
 } from "@/redux/slice/UserSlice";
-import config from "@/lib/config.json";
+import config from "@/lib/config";
+import ValeriumABI from "@/lib/abi/Valerium.json";
+import { setEmail, setType } from "@/redux/slice/proofSlice";
 
 export default function useWallet() {
   const dispatch = useDispatch();
@@ -22,7 +20,7 @@ export default function useWallet() {
   const getBalance = async (currentChain, address) => {
     try {
       const provider = new ethers.providers.JsonRpcProvider(
-        currentChain.rpcUrl,
+        currentChain.rpcUrl
       );
 
       const balance = await provider.getBalance(address);
@@ -36,13 +34,13 @@ export default function useWallet() {
   const getValeriumAddress = async (currentChain, domain) => {
     try {
       const provider = new ethers.providers.JsonRpcProvider(
-        currentChain.rpcUrl,
+        currentChain.rpcUrl
       );
 
       const factory = new ethers.Contract(
         currentChain.addresses.ValeriumProxyFactory,
         ValeriumProxyFactoryABI,
-        provider,
+        provider
       );
 
       const address = await factory.getValeriumProxy(domain);
@@ -56,18 +54,23 @@ export default function useWallet() {
   const erc20Balance = async (currentChain, tokenAddress, address) => {
     try {
       const provider = new ethers.providers.JsonRpcProvider(
-        currentChain.rpcUrl,
+        currentChain.rpcUrl
       );
 
-      const erc20Contract = new ethers.Contract(
-        tokenAddress,
-        ["function balanceOf(address) view returns (uint256)"],
-        provider,
-      );
+      if (tokenAddress) {
+        const erc20Contract = new ethers.Contract(
+          tokenAddress,
+          ["function balanceOf(address) view returns (uint256)"],
+          provider
+        );
 
-      const balance = await erc20Contract.balanceOf(address);
+        const balance = await erc20Contract.balanceOf(address);
 
-      return balance;
+        return balance;
+      } else {
+        const balance = await provider.getBalance(address);
+        return balance;
+      }
     } catch (error) {
       return 0;
     }
@@ -76,7 +79,7 @@ export default function useWallet() {
   const convertBalance = async (convert_id, id) => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/public-conversion?convert_id=${convert_id}&id=${id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/public-conversion?convert_id=${convert_id}&id=${id}`
       );
 
       if (response.data.status.error_code !== "0") {
@@ -92,7 +95,7 @@ export default function useWallet() {
   const loadConversionData = async (currentChain) => {
     const mainConversion = await convertBalance(
       currentChain.convert_id,
-      currentChain.id,
+      currentChain.id
     );
 
     const tokensConversion = await Promise.all(
@@ -102,7 +105,7 @@ export default function useWallet() {
           value: rate,
           address: token.address,
         };
-      }),
+      })
     );
 
     return {
@@ -118,12 +121,12 @@ export default function useWallet() {
       currentChain.tokens.map(async (token) => {
         return {
           balance: Number(
-            await erc20Balance(currentChain, token.address, address),
+            await erc20Balance(currentChain, token.address, address)
           ),
           decimals: token.decimals,
           address: token.address,
         };
-      }),
+      })
     );
 
     return {
@@ -134,8 +137,6 @@ export default function useWallet() {
   };
 
   const loadAllData = async (domain) => {
-    let AllBalanceData = [];
-    let AllConversionData = [];
     let addresses = [];
 
     for (const chain in config) {
@@ -147,40 +148,9 @@ export default function useWallet() {
         chainId: currentChain.chainId,
         address,
       });
-
-      if (address === ethers.constants.AddressZero) {
-        continue;
-      }
-
-      const conversionData = await loadConversionData(currentChain);
-      const balanceData = await loadBalanceData(currentChain, address);
-
-      AllConversionData.push(conversionData);
-      AllBalanceData.push(balanceData);
     }
 
     dispatch(setWalletAddresses(addresses));
-    dispatch(setConversionData(AllConversionData));
-    dispatch(setBalanceData(AllBalanceData));
-  };
-
-  const loadCurrentChainData = async (domain) => {
-    const address = await getValeriumAddress(currentChain, domain);
-
-    if (address === ethers.constants.AddressZero) {
-      dispatch(setCurrentBalanceData(null));
-      dispatch(setCurrentConversionData(null));
-      return;
-    }
-
-    const mainConversion = await convertBalance(
-      currentChain.convert_id,
-      currentChain.id,
-    );
-    const balance = Number(await getBalance(currentChain, address));
-
-    dispatch(setCurrentBalanceData(balance));
-    dispatch(setCurrentConversionData(mainConversion));
   };
 
   const loadTokenData = async (domain) => {
@@ -195,13 +165,13 @@ export default function useWallet() {
         return {
           name: token.name,
           balance: Number(
-            await erc20Balance(currentChain, token.address, address),
+            await erc20Balance(currentChain, token.address, address)
           ),
           address: token.address,
           decimals: token.decimals,
           logo: token.logo,
         };
-      }),
+      })
     );
 
     const tokenConversionData = await Promise.all(
@@ -211,11 +181,69 @@ export default function useWallet() {
           usdValue: rate,
           address: token.address,
         };
-      }),
+      })
     );
 
     dispatch(setTokenBalanceData(tokenBalanceData));
     dispatch(setTokenConversionData(tokenConversionData));
+  };
+
+  const getPublicStorage = async (currentChain, walletAddresses) => {
+    const provider = new ethers.providers.JsonRpcProvider(currentChain.rpcUrl);
+
+    const walletAddress = walletAddresses.find(
+      (address) => address.chainId === currentChain.chainId
+    )?.address;
+
+    const valerium = new ethers.Contract(walletAddress, ValeriumABI, provider);
+
+    const publicStorage = await valerium.PublicStorage();
+
+    if (publicStorage === "0x") {
+      return null;
+    }
+
+    return publicStorage;
+  };
+
+  const getNonce = async (currentChain, walletAddresses) => {
+    try {
+      const provider = new ethers.providers.JsonRpcProvider(
+        currentChain.rpcUrl
+      );
+
+      const walletAddress = walletAddresses.find(
+        (address) => address.chainId === currentChain.chainId
+      )?.address;
+
+      const valerium = new ethers.Contract(
+        walletAddress,
+        ValeriumABI,
+        provider
+      );
+
+      const nonce = await valerium.getNonce();
+
+      return nonce;
+    } catch (error) {
+      console.log(error);
+      return 0;
+    }
+  };
+
+  const loadPublicStorage = async (currentChain, walletAddresses) => {
+    try {
+      const publicStorage = await getPublicStorage(
+        currentChain,
+        walletAddresses
+      );
+      const abiCoder = new ethers.utils.AbiCoder();
+      const decoded = abiCoder.decode(["string", "string"], publicStorage);
+      dispatch(setType(decoded[0]));
+      dispatch(setEmail(decoded[1]));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return {
@@ -226,7 +254,9 @@ export default function useWallet() {
     loadConversionData,
     loadBalanceData,
     loadAllData,
-    loadCurrentChainData,
     loadTokenData,
+    getPublicStorage,
+    getNonce,
+    loadPublicStorage,
   };
 }
