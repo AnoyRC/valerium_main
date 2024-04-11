@@ -21,7 +21,7 @@ const Nav = () => {
           </NavItem>
         ))}
       </ul>
-
+      
       <ul className="space-y-1">
         {smallItems.map((item, index) => (
           <NavItem key={index} label={item.label} href={item.href}>

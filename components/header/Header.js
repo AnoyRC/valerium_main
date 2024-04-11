@@ -4,7 +4,7 @@ import Heading from "./Heading";
 const Header = () => {
   return (
     // Header component
-    <div>
+    <div className="flex justify-between mb-4">
       <Heading />
 
       <HeaderList />
