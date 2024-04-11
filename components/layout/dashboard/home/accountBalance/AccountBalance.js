@@ -42,7 +42,7 @@ const AccountBalance = () => {
           <h2 className="font-medium">
             {searchParams.get("domain")}
             <span className=" bg-gradient-primary-light gradient-text">
-              @valerium
+              .valerium.id
             </span>
           </h2>
 

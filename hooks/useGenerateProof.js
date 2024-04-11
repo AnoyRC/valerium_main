@@ -39,7 +39,7 @@ export default function useGenerateProof() {
       });
 
       await magic.webauthn.login({
-        username: domain + "@valerium",
+        username: domain + ".valerium.id",
       });
 
       const provider = new ethers.providers.Web3Provider(magic.rpcProvider);

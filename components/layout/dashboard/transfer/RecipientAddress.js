@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import ValeriumInput from "@/components/ui/input/ValeriumInput";
 import { useRef, useState, useEffect } from "react";
@@ -8,123 +8,124 @@ import useWallet from "@/hooks/useWallet";
 import { ethers } from "ethers";
 import { useSelector } from "react-redux";
 
-export default function RecipientAddress({ input, setInput, isValid, setIsValid }) {
-    const [isLoading, setIsLoading] = useState(false);
-    var inputTimeout = null;
-    const [isTyping, setIsTyping] = useState(false);
-    const inputRef = useRef(null);
-    const searchParams = useSearchParams();
-    const { getValeriumAddress } = useWallet();
-    const currentChain = useSelector((state) => state.chain.currentChain);
-    const walletAddresses = useSelector((state) => state.user.walletAddresses);
+export default function RecipientAddress({
+  input,
+  setInput,
+  isValid,
+  setIsValid,
+}) {
+  const [isLoading, setIsLoading] = useState(false);
+  var inputTimeout = null;
+  const [isTyping, setIsTyping] = useState(false);
+  const inputRef = useRef(null);
+  const searchParams = useSearchParams();
+  const { getValeriumAddress } = useWallet();
+  const currentChain = useSelector((state) => state.chain.currentChain);
+  const walletAddresses = useSelector((state) => state.user.walletAddresses);
 
-    useEffect(() => {
-        if (!inputRef.current) return;
-        inputRef.current.addEventListener("keydown", function () {
-            clearTimeout(inputTimeout);
+  useEffect(() => {
+    if (!inputRef.current) return;
+    inputRef.current.addEventListener("keydown", function () {
+      clearTimeout(inputTimeout);
 
-            inputTimeout = setTimeout(function () {
-                setIsTyping(false);
-            }, 1000);
+      inputTimeout = setTimeout(function () {
+        setIsTyping(false);
+      }, 1000);
 
-            setIsTyping(true);
-        });
-    }, []);
+      setIsTyping(true);
+    });
+  }, []);
 
-    useEffect(() => {
-        if (isTyping) {
-            setIsLoading(true);
-        } else {
-            checkValerium();
-        }
-    }, [isTyping, input]);
+  useEffect(() => {
+    if (isTyping) {
+      setIsLoading(true);
+    } else {
+      checkValerium();
+    }
+  }, [isTyping, input]);
 
-    const checkValerium = async () => {
-        setIsLoading(true);
+  const checkValerium = async () => {
+    setIsLoading(true);
 
-        if (input.startsWith("0x") && input.length === 42) {
-            if (walletAddresses.find((address) => address.address === input)) {
-                setIsValid(false);
-                setIsLoading(false);
-                return;
-            }
-
-            setIsValid(true);
-            setIsLoading(false);
-            return;
-        }
-
-        if (!input.includes("@valerium") && input.length < 6) {
-            setIsValid(false);
-            setIsLoading(false);
-            return;
-        }
-
-        if (input.split("@valerium")[0] === searchParams.get("domain")) {
-            setIsValid(false);
-            setIsLoading(false);
-            return;
-        }
-
-        const address = await getValeriumAddress(currentChain, input);
-
-        if (address === ethers.constants.AddressZero) {
-            setIsValid(false);
-            setIsLoading(false);
-            return;
-        }
-
-        setInput(address);
-        setIsValid(true);
+    if (input.startsWith("0x") && input.length === 42) {
+      if (walletAddresses.find((address) => address.address === input)) {
+        setIsValid(false);
         setIsLoading(false);
-    };
+        return;
+      }
 
-    return (
-        <>
-            <div className="flex flex-col">
-                <ValeriumInput
-                    label="Recipient Address"
-                    id="recipient-transfer"
-                    type="text"
-                    placeholder="Enter Address or Valerium Domain"
-                    required={true}
-                    input={input}
-                    setInput={setInput}
-                    Ref={inputRef}
-                />
+      setIsValid(true);
+      setIsLoading(false);
+      return;
+    }
 
-                {!input && (
-                    <div
-                        className={"mt-2 text-sm flex text-gray-600 "}
-                    >
-                        <Info size={17} className="inline mt-0.5 mr-1" />
-                        Enter a valid Valerium domain or an arbitrary address.
-                    </div>
-                )}
+    if (!input.includes(".valerium.id") && input.length < 6) {
+      setIsValid(false);
+      setIsLoading(false);
+      return;
+    }
 
-                {isLoading && input && (
-                    <div className={"mt-2 flex items-center "}>
-                        <Loader2 className="animate-spin -mt-0.5 mr-2" size={15} />
-                        <span className="text-sm">Checking domain...</span>
-                    </div>
-                )}
+    if (input.split(".valerium.id")[0] === searchParams.get("domain")) {
+      setIsValid(false);
+      setIsLoading(false);
+      return;
+    }
 
-                {!isLoading && input && !isValid && (
-                    <div className={"mt-2 text-sm flex text-red-600 "}>
-                        <Info size={17} className="inline mt-0.5 mr-1" />
-                        Valerium domain or address is invalid.
-                    </div>
-                )}
+    const address = await getValeriumAddress(currentChain, input);
 
-                {!isLoading && input && isValid && (
-                    <div
-                        className={"mt-2 text-sm flex text-green-600 "}
-                    >
-                        <Info size={17} className="inline mt-0.5 mr-1" />
-                        Valerium domain or address is valid.
-                    </div>
-                )}
-            </div>
-        </>
-    )
+    if (address === ethers.constants.AddressZero) {
+      setIsValid(false);
+      setIsLoading(false);
+      return;
+    }
+
+    setInput(address);
+    setIsValid(true);
+    setIsLoading(false);
+  };
+
+  return (
+    <>
+      <div className="flex flex-col">
+        <ValeriumInput
+          label="Recipient Address"
+          id="recipient-transfer"
+          type="text"
+          placeholder="Enter Address or Valerium Domain"
+          required={true}
+          input={input}
+          setInput={setInput}
+          Ref={inputRef}
+        />
+
+        {!input && (
+          <div className={"mt-2 text-sm flex text-gray-600 "}>
+            <Info size={17} className="inline mt-0.5 mr-1" />
+            Enter a valid Valerium domain or an arbitrary address.
+          </div>
+        )}
+
+        {isLoading && input && (
+          <div className={"mt-2 flex items-center "}>
+            <Loader2 className="animate-spin -mt-0.5 mr-2" size={15} />
+            <span className="text-sm">Checking domain...</span>
+          </div>
+        )}
+
+        {!isLoading && input && !isValid && (
+          <div className={"mt-2 text-sm flex text-red-600 "}>
+            <Info size={17} className="inline mt-0.5 mr-1" />
+            Valerium domain or address is invalid.
+          </div>
+        )}
+
+        {!isLoading && input && isValid && (
+          <div className={"mt-2 text-sm flex text-green-600 "}>
+            <Info size={17} className="inline mt-0.5 mr-1" />
+            Valerium domain or address is valid.
+          </div>
+        )}
+      </div>
+    </>
+  );
 }

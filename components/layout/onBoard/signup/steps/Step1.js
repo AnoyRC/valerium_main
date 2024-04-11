@@ -21,7 +21,7 @@ const Step1 = () => {
   const handleName = (e) => {
     if (e.target.value.length > 20) {
       dispatch(
-        setDomain(e.target.value.slice(0, 20).replace(/[^a-zA-Z0-9]/g, "")),
+        setDomain(e.target.value.slice(0, 20).replace(/[^a-zA-Z0-9]/g, ""))
       );
     } else {
       dispatch(setDomain(e.target.value.replace(/[^a-zA-Z0-9]/g, "")));
@@ -89,7 +89,7 @@ const Step1 = () => {
             "flex items-center rounded-l-none border border-l-0 border-blue-gray-200 bg-blue-gray-500/10 px-3 py-0 font-noto text-sm font-normal normal-case "
           }
         >
-          @valerium
+          .valerium.id
         </Button>
       </div>
 

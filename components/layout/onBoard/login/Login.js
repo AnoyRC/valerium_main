@@ -98,7 +98,7 @@ const Login = () => {
             "flex items-center rounded-l-none border border-l-0 border-blue-gray-200 bg-gray-100/60 px-3 py-0 font-noto text-sm font-normal normal-case"
           }
         >
-          @valerium
+          .valerium.id
         </Button>
       </div>
 

@@ -13,11 +13,11 @@ export default function useLogin() {
       const factory = new ethers.Contract(
         baseChain.addresses.ValeriumProxyFactory,
         ValeriumProxyFactoryABI,
-        provider,
+        provider
       );
 
       const valeriumAddress = await factory.getValeriumProxy(
-        domain + "@valerium",
+        domain + ".valerium.id"
       );
 
       return valeriumAddress;
