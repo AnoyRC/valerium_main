@@ -2,7 +2,8 @@ import HeaderItems from "./HeaderItems";
 
 const HeaderList = () => {
   return (
-    <ul>
+    <ul className="flex ">
+      <HeaderItems />
       <HeaderItems />
     </ul>
   );
