@@ -18,6 +18,7 @@ const TransferInput = ({
   usdToggle,
   isValid,
   setIsValid,
+  isConfirm,
 }) => {
   const currentChain = useSelector((state) => state.chain.currentChain);
   const [selectedToken, ,] = useSelector((state) => state.selector.token);
@@ -53,7 +54,7 @@ const TransferInput = ({
           required={true}
           span=""
           value="Select Token"
-          disabled={false}
+          disabled={isConfirm}
           chainId={currentChain.chainId}
         />
 
@@ -71,6 +72,7 @@ const TransferInput = ({
                 background: style.gradientColorLight,
                 color: style.baseTextColor,
               }}
+              disabled={isConfirm}
               onClick={() => {
                 if (selectedToken) {
                   setAmount(
@@ -92,6 +94,7 @@ const TransferInput = ({
             placeholder="Enter Amount"
             required={true}
             input={amount}
+            disabled={isConfirm}
             setInput={setAmount}
             icon={
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-base font-semibold text-text-gray">
@@ -105,13 +108,14 @@ const TransferInput = ({
               </span>
             }
             isValid={
-              !usdToggle
+              Number(amount) !== 0 &&
+              (!usdToggle
                 ? selectedToken
                   ? amount <= token
                   : "0.00"
                 : selectedToken
                 ? amount <= token * Number(currentTokenConversion)
-                : "0.00"
+                : "0.00")
             }
           />
         </div>
@@ -122,6 +126,7 @@ const TransferInput = ({
         setInput={setRecipient}
         isValid={isValid}
         setIsValid={setIsValid}
+        disabled={isConfirm}
       />
     </>
   );

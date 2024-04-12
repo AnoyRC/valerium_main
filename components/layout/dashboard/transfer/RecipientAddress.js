@@ -13,6 +13,7 @@ export default function RecipientAddress({
   setInput,
   isValid,
   setIsValid,
+  disabled = false,
 }) {
   const [isLoading, setIsLoading] = useState(false);
   var inputTimeout = null;
@@ -96,6 +97,7 @@ export default function RecipientAddress({
           input={input}
           setInput={setInput}
           Ref={inputRef}
+          disabled={disabled}
         />
 
         {!input && (

@@ -3,7 +3,13 @@ import Image from "next/image";
 import ActionSwitch from "./ActionSwitch";
 import SummaryProcessing from "../summarySection/SummaryProcessing";
 
-const ActionProcess = ({ style, usdToggle, setUsdToggle }) => {
+const ActionProcess = ({
+  style,
+  chainName,
+  usdToggle,
+  setUsdToggle,
+  disabled = false,
+}) => {
   return (
     <div className="flex justify-between">
       <SummaryProcessing />
@@ -14,6 +20,7 @@ const ActionProcess = ({ style, usdToggle, setUsdToggle }) => {
         style={style}
         toggle={usdToggle}
         setToggle={setUsdToggle}
+        disabled={disabled}
       />
     </div>
   );

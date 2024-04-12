@@ -3,7 +3,7 @@
 import { setTxProof } from "@/redux/slice/proofSlice";
 import { useSelector, useDispatch } from "react-redux";
 
-export default function ProofFooter({ children }) {
+export default function ProofFooter({ children, disabled = false }) {
   const currentChain = useSelector((state) => state.chain.currentChain);
   const dispatch = useDispatch();
   const txProof = useSelector((state) => state.proof.txProof);
@@ -11,7 +11,7 @@ export default function ProofFooter({ children }) {
     <div className="flex flex-col gap-2">
       {children}
 
-      {txProof && (
+      {txProof && !disabled && (
         <p className="text-gray-600 text-sm">
           Approval has been granted.{" "}
           <span

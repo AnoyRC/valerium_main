@@ -1,6 +1,13 @@
 "use client";
 
-const ActionSwitch = ({ id, label, style, toggle, setToggle }) => {
+const ActionSwitch = ({
+  id,
+  label,
+  style,
+  toggle,
+  setToggle,
+  disabled = false,
+}) => {
   const handleSwitchChange = () => {
     setToggle(!toggle);
   };
@@ -16,6 +23,10 @@ const ActionSwitch = ({ id, label, style, toggle, setToggle }) => {
         checked={toggle}
         onChange={handleSwitchChange}
         aria-label={label}
+        disabled={disabled}
+        style={{
+          opacity: disabled ? 0.5 : 1,
+        }}
       />
 
       <div
