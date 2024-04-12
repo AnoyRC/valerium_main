@@ -50,7 +50,7 @@ module.exports = withMT({
       backgroundImage: {
         "gradient-primary": "linear-gradient(90deg, #EA13F2 0%, #E6213A 100%)",
         "gradient-primary-light":
-          "linear-gradient(90deg, #EA13F2 0%, #E6213A 100%)",
+          "linear-gradient(95deg, #C41CCB 0%, #C4182D 100%)",
         "gradient-primary-radial":
           "radial-gradient(1067.57% 100.06% at 0% 49.75%, #EA13F2 0%, #E6213A 60.4%, #EA13F2 100%)",
         "gradient-primary-light-radial":

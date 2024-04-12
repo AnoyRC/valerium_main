@@ -24,7 +24,7 @@ const TransferInput = ({
   const [selectedToken, ,] = useSelector((state) => state.selector.token);
   const tokenBalanceData = useSelector((state) => state.user.tokenBalanceData);
   const tokenConversionData = useSelector(
-    (state) => state.user.tokenConversionData
+    (state) => state.user.tokenConversionData,
   );
 
   const currentToken =
@@ -39,7 +39,7 @@ const TransferInput = ({
     ? tokenConversionData
       ? 1 /
           tokenConversionData.find(
-            (token) => token.address === selectedToken.address
+            (token) => token.address === selectedToken.address,
           ).usdValue || 1
       : 0
     : 0;
@@ -78,7 +78,7 @@ const TransferInput = ({
                   setAmount(
                     usdToggle
                       ? (token * Number(currentTokenConversion)).toString()
-                      : token.toString()
+                      : token.toString(),
                   );
                 }
               }}
@@ -114,8 +114,8 @@ const TransferInput = ({
                   ? amount <= token
                   : "0.00"
                 : selectedToken
-                ? amount <= token * Number(currentTokenConversion)
-                : "0.00")
+                  ? amount <= token * Number(currentTokenConversion)
+                  : "0.00")
             }
           />
         </div>

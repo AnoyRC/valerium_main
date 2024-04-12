@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import ActionSwitch from "./ActionSwitch";
 import SummaryProcessing from "../summarySection/SummaryProcessing";
 

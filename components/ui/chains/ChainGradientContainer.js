@@ -7,7 +7,7 @@ const ChainGradientContainer = ({ children }) => {
 
   return (
     <section
-      className="flex justify-between px-5 py-6 "
+      className="flex justify-between px-5 py-6"
       style={{
         background: style.backgroundShadowEffect,
       }}
