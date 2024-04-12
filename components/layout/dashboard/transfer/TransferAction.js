@@ -26,10 +26,11 @@ const TransferAction = ({
   setActiveTab,
   usdToggle,
   setUsdToggle,
+  isValid,
+  setIsValid,
 }) => {
   const [selectedToken, ,] = useSelector((state) => state.selector.token);
   const { chainName, style } = useSelector((state) => state.chain.currentChain);
-  const [isValid, setIsValid] = useState(false);
   const dispatch = useDispatch();
   const txProof = useSelector((state) => state.proof.txProof);
   const [isLoading, setIsLoading] = useState(false);

@@ -12,6 +12,7 @@ const Transfer = () => {
   const [usdToggle, setUsdToggle] = useState(false);
   const [activeTab, setActiveTab] = useState("gas");
   const selectedToken = useSelector((state) => state.selector.token);
+  const [isValid, setIsValid] = useState(false);
 
   const handleAmount = (e) => {
     const decimalRegex = /^[0-9]*\.?[0-9]*$/;
@@ -31,6 +32,8 @@ const Transfer = () => {
         setActiveTab={setActiveTab}
         usdToggle={usdToggle}
         setUsdToggle={setUsdToggle}
+        isValid={isValid}
+        setIsValid={setIsValid}
       />
 
       <TransferSummary
@@ -39,6 +42,7 @@ const Transfer = () => {
         recipient={recipient}
         activeTab={activeTab}
         usdToggle={usdToggle}
+        isValid={isValid}
       />
     </>
   );
