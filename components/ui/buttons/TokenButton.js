@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import Image from "next/image";
 
 export default function TokenButton({
-  width,
+  width = null,
   id,
   label,
   required,
@@ -34,7 +34,7 @@ export default function TokenButton({
       >
         <label
           htmlFor={id}
-          className="prevent-select flex items-center gap-2 text-base text-text-gray"
+          className="prevent-select flex items-center gap-2 text-nowrap text-base text-text-gray"
         >
           <span className="font-medium">
             {label} {required && <span className="text-red-500">*</span>}
@@ -51,7 +51,7 @@ export default function TokenButton({
             dispatch(setTokenIndex(index));
           }}
           disabled={disabled}
-          className="w-full overflow-hidden max-w-48 rounded-full border border-border-light bg-white px-5 py-3.5 text-left font-noto text-base normal-case text-gray-600 shadow-none"
+          className="w-full max-w-48 overflow-hidden rounded-full border border-border-light bg-white px-5 py-3.5 text-left font-noto text-base normal-case text-gray-600 shadow-none"
         >
           {token[index] ? (
             <div>

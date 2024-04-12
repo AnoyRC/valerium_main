@@ -13,9 +13,11 @@ const userSlice = createSlice({
     setWalletAddresses: (state, action) => {
       state.walletAddresses = action.payload;
     },
+
     setTokenBalanceData: (state, action) => {
       state.tokenBalanceData = action.payload;
     },
+
     setTokenConversionData: (state, action) => {
       state.tokenConversionData = action.payload;
     },

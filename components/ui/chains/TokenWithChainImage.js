@@ -9,13 +9,24 @@ const TokenWithChainImage = ({ tokenName, tokenSrc }) => {
   return (
     <div className="relative">
       {tokenName ? (
-        <Image
-          src={`/tokens/${tokenSrc}`}
-          alt={`${tokenName} Logo`}
-          width={48}
-          height={48}
-          className="rounded-full"
-        />
+        <>
+          <Image
+            src={`/tokens/${tokenSrc}`}
+            alt={`${tokenName} Logo`}
+            width={48}
+            height={48}
+            className="rounded-full"
+          />
+
+          <div className="absolute bottom-0 right-0">
+            <Image
+              src={`/tokens/${style.logo}`}
+              alt={`${chainName} Logo`}
+              width={16}
+              height={16}
+            />
+          </div>
+        </>
       ) : (
         <Image
           src={`/tokens/${style.logo}`}
@@ -25,15 +36,6 @@ const TokenWithChainImage = ({ tokenName, tokenSrc }) => {
           className="rounded-full"
         />
       )}
-
-      <div className="absolute bottom-0 right-0">
-        <Image
-          src={`/tokens/${style.logo}`}
-          alt={`${chainName} Logo`}
-          width={16}
-          height={16}
-        />
-      </div>
     </div>
   );
 };

@@ -32,18 +32,24 @@ const SummaryMain = ({ token, usdToggle, amount }) => {
             {token?.name || ""}
           </h3>
 
-          <p className="text-base font-bold text-black">
-            <span className="font-normal text-text-gray">Qty:</span>{" "}
-            {selectedToken && currentToken
-              ? formatAmount(currentToken.balance / 10 ** currentToken.decimals)
-              : "0.00"}
-          </p>
+          {amount >= 0 && (
+            <p className="text-base font-bold text-black">
+              <span className="font-normal text-text-gray">Qty:</span>{" "}
+              {selectedToken && currentToken
+                ? formatAmount(
+                    currentToken.balance / 10 ** currentToken.decimals,
+                  )
+                : "0.00"}
+            </p>
+          )}
         </div>
 
-        <p className="text-black">
-          {amount || "0.00"}{" "}
-          <span>{(usdToggle && "USDC") || token?.symbol || ""}</span>
-        </p>
+        {amount >= 0 && (
+          <p className="text-black">
+            {amount || "0.00"}{" "}
+            <span>{(usdToggle && "USDC") || token?.symbol || ""}</span>
+          </p>
+        )}
       </div>
     </div>
   );
