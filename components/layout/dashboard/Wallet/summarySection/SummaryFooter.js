@@ -9,14 +9,14 @@ import { Loader2 } from "lucide-react";
 const SummaryFooter = ({ token, amount, usdToggle, gas, isLoading }) => {
   const [selectedToken, ,] = useSelector((state) => state.selector.token);
   const tokenConversionData = useSelector(
-    (state) => state.user.tokenConversionData,
+    (state) => state.user.tokenConversionData
   );
 
   const currentTokenConversion = selectedToken
     ? tokenConversionData
       ? 1 /
           tokenConversionData.find(
-            (token) => token.address === selectedToken.address,
+            (token) => token.address === selectedToken.address
           ).usdValue || 1
       : 0
     : 0;
@@ -60,8 +60,8 @@ const SummaryFooter = ({ token, amount, usdToggle, gas, isLoading }) => {
                     parseInt(
                       (gas / 10 ** token[1].decimals)
                         .toExponential()
-                        .split("e")[1],
-                    ) * -1,
+                        .split("e")[1]
+                    ) * -1
                   )
                 : "-.--"}
               <span> {token[1]?.symbol || token[0]?.symbol}</span>

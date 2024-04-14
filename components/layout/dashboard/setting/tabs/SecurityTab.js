@@ -83,12 +83,12 @@ const SecurityTab = () => {
               />
 
               <hr className="border-border-light" />
-
+              {/* 
               <SummaryFooter
                 token={selectedToken}
                 amount={-1}
                 usdToggle={false}
-              />
+              /> */}
 
               <SummaryTotal token={selectedToken} usdToggle={false} />
             </section>

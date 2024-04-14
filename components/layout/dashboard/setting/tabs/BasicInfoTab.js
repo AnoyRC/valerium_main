@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { Info, SquareArrowOutUpRight } from "lucide-react";
 
@@ -5,11 +7,36 @@ import Alpha from "@/components/ui/Alpha";
 import DomainName from "@/components/ui/DomainName";
 import CopyButton from "@/components/ui/buttons/CopyButton";
 
+import { useEffect, useState } from "react";
+import useWallet from "@/hooks/useWallet";
+import { useSelector } from "react-redux";
+import { Loader2 } from "lucide-react";
+import ChainItem from "./ChainItem";
+
 // Complete Settings
 // Complete Dashboard header
 // Network switcher
 
 const BasicInfoTab = () => {
+  const [nonce, setNonce] = useState(0);
+  const { getNonce } = useWallet();
+  const currentChain = useSelector((state) => state.chain.currentChain);
+  const walletAddresses = useSelector((state) => state.user.walletAddresses);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchNonce = async () => {
+      setIsLoading(true);
+      const nonce = await getNonce(currentChain, walletAddresses);
+      setNonce(nonce);
+      setIsLoading(false);
+    };
+
+    if (walletAddresses && currentChain) {
+      fetchNonce();
+    }
+  }, [currentChain, walletAddresses]);
+
   return (
     <section className="mt-4 w-full space-y-8">
       <div className="mx-2 space-y-3">
@@ -30,9 +57,15 @@ const BasicInfoTab = () => {
           </span>
         </h3>
 
-        <p className="text-base font-normal text-text-gray">
+        <p className="text-base font-normal text-text-gray flex  items-center ">
           Current Nonce:
-          <span className="ml-1">0</span>
+          <span className="ml-1">
+            {isLoading ? (
+              <Loader2 className="animate-spin w-4 h-4" />
+            ) : (
+              Number(nonce)
+            )}
+          </span>
         </p>
       </div>
 
@@ -60,36 +93,9 @@ const BasicInfoTab = () => {
             </thead>
 
             <tbody>
-              <tr>
-                <td className="border-b border-black px-2 py-2.5 font-medium">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <Image
-                        src={`/tokens/base-logo.svg`}
-                        alt={" logo"}
-                        width={40}
-                        height={40}
-                        className="rounded-full"
-                      />
-
-                      <div className="space-y-1">
-                        <div className="flex gap-1 text-sm">
-                          <p className="font-medium text-black">
-                            0x14J3pIw6l4J3pIw6l4J3pIw6l4J3pIw6l
-                          </p>
-                          <CopyButton text="hi" />
-                        </div>
-
-                        <div className="text-sm font-normal text-text-gray">
-                          Ethereum
-                        </div>
-                      </div>
-                    </div>
-
-                    <SquareArrowOutUpRight size={16} color="black" />
-                  </div>
-                </td>
-              </tr>
+              {walletAddresses?.map((address, index) => (
+                <ChainItem key={index} walletAddress={address} />
+              ))}
             </tbody>
           </table>
         </div>
