@@ -2,10 +2,10 @@
 
 import { useSelector } from "react-redux";
 
-const ChainName = () => {
+const ChainName = ({ style }) => {
   const { chainName } = useSelector((state) => state.chain.currentChain);
 
-  return <p className="text-xl font-bold text-white">{chainName}</p>;
+  return <p className={style}>{chainName}</p>;
 };
 
 export default ChainName;

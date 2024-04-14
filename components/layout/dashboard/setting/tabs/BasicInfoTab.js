@@ -13,7 +13,7 @@ const BasicInfoTab = () => {
   return (
     <section className="mt-4 w-full space-y-8">
       <div className="mx-2 space-y-3">
-        <DomainName />
+        <DomainName usernameSize={"20px"} domainSize={"16px"} />
 
         <div className="flex gap-3 text-5xl font-bold text-black">
           <p>Valerium</p> <Alpha size="text-5xl" />

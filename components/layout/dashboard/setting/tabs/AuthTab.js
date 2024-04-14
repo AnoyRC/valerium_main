@@ -17,7 +17,7 @@ import SummaryFooter from "../../Wallet/summarySection/SummaryFooter";
 import SummaryHeading from "../../Wallet/summarySection/SummaryHeading";
 
 import TokenButton from "@/components/ui/buttons/TokenButton";
-import SummaryProcessing from "../../Wallet/summarySection/SummaryProcessing";
+import CurrentChainInfo from "@/components/ui/chains/CurrentChainInfo";
 
 const AuthTab = () => {
   const dispatch = useDispatch();
@@ -53,7 +53,7 @@ const AuthTab = () => {
             </h2>
 
             <div className="flex items-start gap-8">
-              <SummaryProcessing />
+              <CurrentChainInfo />
 
               <TokenButton
                 index={0}

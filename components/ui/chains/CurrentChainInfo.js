@@ -4,12 +4,12 @@ import Image from "next/image";
 
 import { useSelector } from "react-redux";
 
-const SummaryProcessing = () => {
+const CurrentChainInfo = ({ label = "Processing on the" }) => {
   const currentChain = useSelector((state) => state.chain.currentChain);
 
   return (
     <div className="flex w-fit items-center gap-1 rounded-full border border-border-light bg-gradient-light-linear px-4 py-2 font-semibold">
-      <p className="text-text-gray">Processing on the</p>
+      <p className="text-text-gray">{label}</p>
 
       <div className="flex items-center gap-1">
         <Image
@@ -32,4 +32,4 @@ const SummaryProcessing = () => {
   );
 };
 
-export default SummaryProcessing;
+export default CurrentChainInfo;

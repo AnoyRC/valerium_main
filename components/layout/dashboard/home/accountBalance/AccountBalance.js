@@ -39,7 +39,7 @@ const AccountBalance = () => {
     <div className="overflow-hidden rounded-xl border border-border-light bg-gradient-light-linear/85 shadow">
       <ChainGradientContainer>
         <div className="space-y-2">
-          <DomainName />
+          <DomainName usernameSize={"20px"} domainSize={"16px"} />
 
           <div className="space-y-0.5">
             <FormatNumber
@@ -54,7 +54,7 @@ const AccountBalance = () => {
         </div>
 
         <div className="flex flex-col justify-between text-right">
-          <ChainName />
+          <ChainName style={"text-xl font-bold text-white"} />
 
           <ContainerButton />
         </div>

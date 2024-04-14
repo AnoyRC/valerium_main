@@ -1,16 +1,16 @@
 import ActionSwitch from "./ActionSwitch";
-import SummaryProcessing from "../summarySection/SummaryProcessing";
+
+import CurrentChainInfo from "@/components/ui/chains/CurrentChainInfo";
 
 const ActionProcess = ({
   style,
-  chainName,
   usdToggle,
   setUsdToggle,
   disabled = false,
 }) => {
   return (
     <div className="flex justify-between">
-      <SummaryProcessing />
+      <CurrentChainInfo />
 
       <ActionSwitch
         id="transfer-switch"
