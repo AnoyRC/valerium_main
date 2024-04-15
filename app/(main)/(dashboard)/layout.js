@@ -10,10 +10,10 @@ export const metadata = {
 const LoginLayout = ({ children }) => {
   return (
     <WalletProvider>
-      <div className="flex bg-white font-noto light-dashboard-background relative">
+      <div className="light-dashboard-background relative flex bg-white font-noto">
         <Sidebar />
 
-        <main className="flex-1 space-y-4 mx-5 ml-10 flex flex-col">
+        <main className="relative mx-5 ml-10 flex flex-1 flex-col space-y-4">
           <Header />
 
           {children}
