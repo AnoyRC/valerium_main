@@ -11,6 +11,8 @@ const proofSlice = createSlice({
     type: null,
     isLoading: false,
     email: null,
+    password: null,
+    passkey: null,
   },
 
   reducers: {
@@ -41,6 +43,14 @@ const proofSlice = createSlice({
     setEmail: (state, action) => {
       state.email = action.payload;
     },
+
+    setPassword: (state, action) => {
+      state.password = action.payload;
+    },
+
+    setPasskey: (state, action) => {
+      state.passkey = action.payload;
+    },
   },
 });
 
@@ -52,6 +62,8 @@ export const {
   setType,
   setLoading,
   setEmail,
+  setPassword,
+  setPasskey,
 } = proofSlice.actions;
 
 export default proofSlice.reducer;
