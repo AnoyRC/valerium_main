@@ -1,43 +1,38 @@
-"use client";
+"use Client";
 
-import AuthInput from "./AuthInput";
-
-import SummaryProcessing from "../../../Wallet/summarySection/SummaryProcessing";
+import ValeriumInput from "@/components/ui/input/ValeriumInput";
 import GaslessToggle from "../../../Wallet/actionSection/GaslessToggle";
+import RecoveryFooter from "@/components/ui/footer/RecoveryFooter";
 import ActionButton from "@/components/ui/buttons/ActionButton";
 import { CircleHelp, MoveUpRight, CirclePlus } from "lucide-react";
-import RecoveryFooter from "@/components/ui/footer/RecoveryFooter";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   setRecoveryProof,
   toggleRecoveryDrawer,
 } from "@/redux/slice/proofSlice";
-import useRecovery from "@/hooks/useRecovery";
+import validEmail from "@/components/ui/ValidEmail";
 import { toast } from "sonner";
+import useChange from "@/hooks/useChange";
 
-export default function AuthAction({
-  currentChain,
+export default function SecurityAction({
+  input,
+  setInput,
   activeTab,
   setActiveTab,
-  style,
-  recoveryProof,
+  currentChain,
   isConfirm,
   setIsConfirm,
-  password,
-  handlePassword,
-  passkey,
-  setPasskey,
-  isLoading,
-  setIsLoading,
   selectedToken,
 }) {
+  const { style } = currentChain;
+  const recoveryProof = useSelector((state) => state.proof.recoveryProof);
   const dispatch = useDispatch();
-  const { executeRecovery } = useRecovery();
   const email = useSelector((state) => state.proof.email);
+  const { changeRecovery } = useChange();
 
   const handleClick = async () => {
     try {
-      setIsLoading(true);
       if (!recoveryProof) {
         dispatch(toggleRecoveryDrawer());
         return;
@@ -47,55 +42,49 @@ export default function AuthAction({
         return;
       }
 
-      toast.promise(() => executeRecovery(passkey, password, selectedToken), {
+      toast.promise(() => changeRecovery(input, selectedToken), {
         loading: "Processing Recovery...",
       });
 
       setIsConfirm(false);
-      setPasskey("");
-      handlePassword("");
+      setInput("");
       dispatch(setRecoveryProof(null));
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex-1 space-y-4 py-6">
-      <h2 className="text-nowrap text-2.5xl font-bold">
-        Authentication Update
-      </h2>
+    <div className="flex-1">
+      <section className="flex-1 space-y-6 py-6">
+        <p className="text-nowrap text-2.5xl font-bold">Account Recovery</p>
 
-      <div className="flex items-start gap-8">
-        <SummaryProcessing />
-      </div>
-
-      <div>
-        <AuthInput
-          password={password}
-          handlePassword={handlePassword}
-          passkey={passkey}
-          isLoading={isLoading}
-          setPasskey={setPasskey}
-          setIsLoading={setIsLoading}
-          isConfirm={isConfirm}
+        <ValeriumInput
+          label="Email Address"
+          id="recipient-transfer"
+          type="text"
+          placeholder="abc@xyz.com"
+          required={true}
+          input={input}
+          setInput={setInput}
         />
 
         <GaslessToggle
           style={currentChain.style}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
-          disabled={isConfirm}
         />
 
         <RecoveryFooter disabled={isConfirm}>
-          <div className="flex gap-4 mt-6">
+          <div className="flex gap-4 ">
             <ActionButton
               style={style}
               label={
-                recoveryProof ? (isConfirm ? "Confirm" : "Change") : "Authorize"
+                recoveryProof
+                  ? isConfirm
+                    ? "Confirm"
+                    : "Recover"
+                  : "Authorize"
               }
               icon={
                 isConfirm ? <CircleHelp size="24" /> : <MoveUpRight size="24" />
@@ -103,7 +92,11 @@ export default function AuthAction({
               handleClick={() => {
                 handleClick();
               }}
-              disabled={!email || recoveryProof ? !passkey && !password : false}
+              disabled={
+                !email || recoveryProof
+                  ? !validEmail(input) || input === email
+                  : false
+              }
             />
             {isConfirm && (
               <ActionButton
@@ -117,7 +110,7 @@ export default function AuthAction({
             )}
           </div>
         </RecoveryFooter>
-      </div>
+      </section>
     </div>
   );
 }

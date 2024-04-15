@@ -1,23 +1,25 @@
 "use client";
 
-import SummaryHeading from "../../../Wallet/summarySection/SummaryHeading";
+import useChange from "@/hooks/useChange";
 import SummaryGasFooter from "../../../Wallet/summarySection/SummaryGasFooter";
+import SummaryHeading from "../../../Wallet/summarySection/SummaryHeading";
 import SummaryMain from "../../../Wallet/summarySection/SummaryMain";
-import useRecovery from "@/hooks/useRecovery";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import validEmail from "@/components/ui/ValidEmail";
 
-export default function AuthSummary({ selectedToken, password, passkey }) {
-  const { estimateGas } = useRecovery();
+export default function SecuritySummary({ selectedToken, input }) {
+  const { estimateGas } = useChange();
   const [isLoading, setIsLoading] = useState(false);
-  var timeout = null;
   const [gas, setGas] = useState(0);
+  var timeout = null;
   const recoveryProof = useSelector((state) => state.proof.recoveryProof);
+  const email = useSelector((state) => state.proof.email);
 
   const handleEstimate = async () => {
     try {
       setIsLoading(true);
-      const gas = await estimateGas(passkey, password, selectedToken);
+      const gas = await estimateGas(input, selectedToken);
       setGas(gas);
       setIsLoading(false);
     } catch (error) {
@@ -31,7 +33,12 @@ export default function AuthSummary({ selectedToken, password, passkey }) {
 
   useEffect(() => {
     const controller = new AbortController();
-    if (selectedToken && (password || passkey) && recoveryProof) {
+    if (
+      selectedToken &&
+      validEmail(input) &&
+      input !== email &&
+      recoveryProof
+    ) {
       if (timeout) {
         clearTimeout(timeout);
         timeout = null;
@@ -49,7 +56,7 @@ export default function AuthSummary({ selectedToken, password, passkey }) {
         clearTimeout(timeout);
       }
     };
-  }, [password, passkey, selectedToken, recoveryProof]);
+  }, [input, selectedToken, recoveryProof]);
 
   return (
     <div className="flex-1">
@@ -62,9 +69,9 @@ export default function AuthSummary({ selectedToken, password, passkey }) {
         <hr className="border-border-light" />
 
         <SummaryGasFooter
-          gasToken={selectedToken}
           estimatedGas={gas}
           isLoading={isLoading}
+          gasToken={selectedToken}
         />
       </section>
     </div>
