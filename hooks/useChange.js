@@ -1,22 +1,23 @@
 "use client";
 
-import useCircuit from "./useCircuit";
 import { ethers } from "ethers";
 import ValeriumForwarderABI from "@/lib/abi/ValeriumForwarder.json";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "sonner";
-import { useSelector } from "react-redux";
+import { Magic } from "magic-sdk";
+import useCircuit from "./useCircuit";
 import useWallet from "./useWallet";
 
-export default function useRecovery() {
-  const { hashKey, hashPassword } = useCircuit();
-  const walletAddresses = useSelector((state) => state.user.walletAddresses);
-  const email = useSelector((state) => state.proof.email);
+export default function useChange() {
+  const type = useSelector((state) => state.proof.type);
+  const recoveryProof = useSelector((state) => state.proof.recoveryProof);
   const currentChain = useSelector((state) => state.chain.currentChain);
-  const proof = useSelector((state) => state.proof.recoveryProof);
+  const walletAddresses = useSelector((state) => state.user.walletAddresses);
+  const { hashKey } = useCircuit();
   const { loadPublicStorage } = useWallet();
 
-  const estimateGas = async (passkey, password, gasToken) => {
+  const estimateGas = async (email, gasToken) => {
     try {
       const provider = new ethers.providers.JsonRpcProvider(
         currentChain.rpcUrl
@@ -32,16 +33,8 @@ export default function useRecovery() {
 
       const publicInputs = abiCoder.encode(
         ["string", "string"],
-        [passkey ? "Passkey" : "Password", email.toString()]
+        [type, email.toString()]
       );
-
-      let TxHash;
-
-      if (passkey) {
-        TxHash = await hashKey("0x" + passkey);
-      } else {
-        TxHash = await hashPassword(password);
-      }
 
       const forwarder = new ethers.Contract(
         currentChain.addresses.ValeriumForwarder,
@@ -57,25 +50,24 @@ export default function useRecovery() {
         deadline: Number((Date.now() / 1000).toFixed(0)) + 2000,
         nonce: Number(await forwarder.nonces(keypair.address)),
         gas: 1000000,
-        proof: proof,
-        newTxHash: TxHash,
-        newTxVerifier: passkey
-          ? currentChain.addresses.SignatureVerifier
-          : currentChain.addresses.PasswordVerifier,
+        proof: recoveryProof,
+        newRecoveryHash:
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+        newRecoveryVerifier: currentChain.addresses.SignatureVerifier,
         publicStorage: publicInputs,
       };
 
       const data712 = {
         types: {
-          ForwardExecuteRecovery: [
+          ForwardChangeRecovery: [
             { name: "from", type: "address" },
             { name: "recipient", type: "address" },
             { name: "deadline", type: "uint256" },
             { name: "nonce", type: "uint256" },
             { name: "gas", type: "uint256" },
             { name: "proof", type: "bytes" },
-            { name: "newTxHash", type: "bytes32" },
-            { name: "newTxVerifier", type: "address" },
+            { name: "newRecoveryHash", type: "bytes32" },
+            { name: "newRecoveryVerifier", type: "address" },
             { name: "publicStorage", type: "bytes" },
           ],
         },
@@ -100,21 +92,18 @@ export default function useRecovery() {
         deadline: message.deadline,
         gas: message.gas,
         proof: message.proof,
-        newTxHash: message.newTxHash,
-        newTxVerifier: message.newTxVerifier,
+        newRecoveryHash: message.newRecoveryHash,
+        newRecoveryVerifier: message.newRecoveryVerifier,
         publicStorage: message.publicStorage,
         signature: signature,
       };
 
       if (gasToken.address == null) {
         const estimate = await axios.get(
-          `${
-            process.env.NEXT_PUBLIC_BACKEND_URL
-          }/api/recovery/estimate/native/${
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/change/estimate/native/${
             currentChain.chainId
           }?forwardRequest=${JSON.stringify(forwardRequest)}`
         );
-
         if (estimate.data.success) {
           return estimate.data.estimates.estimateFees;
         } else {
@@ -123,7 +112,7 @@ export default function useRecovery() {
       }
 
       const estimate = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/recovery/estimate/erc20/${
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/change/estimate/erc20/${
           currentChain.chainId
         }?forwardRequest=${JSON.stringify(forwardRequest)}&address=${
           gasToken.address
@@ -140,8 +129,37 @@ export default function useRecovery() {
     }
   };
 
-  const executeRecovery = async (passkey, password, gasToken) => {
+  const changeRecovery = async (email, gasToken) => {
     try {
+      const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_API_KEY);
+      const isLoggedIn = await magic.user.isLoggedIn();
+      if (isLoggedIn) {
+        await magic.user.logout();
+      }
+      await magic.auth.loginWithEmailOTP({ email });
+      const userMetadata = await magic.user.isLoggedIn();
+      if (!userMetadata) {
+        toast.error("Email verification failed");
+        return;
+      }
+
+      const mprovider = new ethers.providers.Web3Provider(magic.rpcProvider);
+      const signer = mprovider.getSigner();
+
+      const msignature = await signer.signMessage("Valerium_Recovery_Change");
+
+      const pubKey_uncompressed = ethers.utils.recoverPublicKey(
+        ethers.utils.hashMessage(
+          ethers.utils.toUtf8Bytes("Valerium_Recovery_Change")
+        ),
+        msignature
+      );
+
+      let pubKey = pubKey_uncompressed.slice(4);
+      let pub_key_x = pubKey.substring(0, 64);
+
+      const newRecoveryHash = await hashKey("0x" + pub_key_x);
+
       const provider = new ethers.providers.JsonRpcProvider(
         currentChain.rpcUrl
       );
@@ -156,16 +174,8 @@ export default function useRecovery() {
 
       const publicInputs = abiCoder.encode(
         ["string", "string"],
-        [passkey ? "Passkey" : "Password", email.toString()]
+        [type, email.toString()]
       );
-
-      let TxHash;
-
-      if (passkey) {
-        TxHash = await hashKey("0x" + passkey);
-      } else {
-        TxHash = await hashPassword(password);
-      }
 
       const forwarder = new ethers.Contract(
         currentChain.addresses.ValeriumForwarder,
@@ -181,25 +191,23 @@ export default function useRecovery() {
         deadline: Number((Date.now() / 1000).toFixed(0)) + 2000,
         nonce: Number(await forwarder.nonces(keypair.address)),
         gas: 1000000,
-        proof: proof,
-        newTxHash: TxHash,
-        newTxVerifier: passkey
-          ? currentChain.addresses.SignatureVerifier
-          : currentChain.addresses.PasswordVerifier,
+        proof: recoveryProof,
+        newRecoveryHash: newRecoveryHash,
+        newRecoveryVerifier: currentChain.addresses.SignatureVerifier,
         publicStorage: publicInputs,
       };
 
       const data712 = {
         types: {
-          ForwardExecuteRecovery: [
+          ForwardChangeRecovery: [
             { name: "from", type: "address" },
             { name: "recipient", type: "address" },
             { name: "deadline", type: "uint256" },
             { name: "nonce", type: "uint256" },
             { name: "gas", type: "uint256" },
             { name: "proof", type: "bytes" },
-            { name: "newTxHash", type: "bytes32" },
-            { name: "newTxVerifier", type: "address" },
+            { name: "newRecoveryHash", type: "bytes32" },
+            { name: "newRecoveryVerifier", type: "address" },
             { name: "publicStorage", type: "bytes" },
           ],
         },
@@ -224,15 +232,15 @@ export default function useRecovery() {
         deadline: message.deadline,
         gas: message.gas,
         proof: message.proof,
-        newTxHash: message.newTxHash,
-        newTxVerifier: message.newTxVerifier,
+        newRecoveryHash: message.newRecoveryHash,
+        newRecoveryVerifier: message.newRecoveryVerifier,
         publicStorage: message.publicStorage,
         signature: signature,
       };
 
       if (gasToken.address == null) {
         const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/recovery/native/${currentChain.chainId}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/change/native/${currentChain.chainId}`,
           {
             forwardRequest,
             mode: "signature",
@@ -250,7 +258,7 @@ export default function useRecovery() {
       }
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/recovery/erc20/${currentChain.chainId}?address=${gasToken.address}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/change/erc20/${currentChain.chainId}?address=${gasToken.address}`,
         {
           forwardRequest,
           mode: "signature",
@@ -265,13 +273,11 @@ export default function useRecovery() {
         return false;
       }
     } catch (error) {
+      console.log(error);
       toast.error("Failed to execute recovery");
       return 0;
     }
   };
 
-  return {
-    estimateGas,
-    executeRecovery,
-  };
+  return { estimateGas, changeRecovery };
 }

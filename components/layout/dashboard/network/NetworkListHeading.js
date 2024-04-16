@@ -1,6 +1,7 @@
 import ChainName from "@/components/ui/chains/ChainName";
 import ChainAddress from "@/components/ui/chains/ChainAddress";
 import CurrentChainImage from "@/components/ui/chains/CurrentChainImage";
+import ChainApproveButton from "@/components/ui/buttons/ChainApproveButton";
 
 const NetworkListHeading = () => {
   return (
@@ -8,11 +9,13 @@ const NetworkListHeading = () => {
       <div className="flex space-x-3">
         <CurrentChainImage size={48} />
 
-        <div className="space-y-2">
+        <div className="space-y-1">
           <ChainName style={"text-2xl font-bold text-black"} />
           <ChainAddress style={"text-sm"} />
         </div>
       </div>
+
+      <ChainApproveButton />
     </div>
   );
 };
