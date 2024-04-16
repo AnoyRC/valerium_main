@@ -5,6 +5,7 @@ import ValeriumProxyFactoryABI from "@/lib/abi/ValeriumProxyFactory.json";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setGasCredit,
   setTokenBalanceData,
   setTokenConversionData,
   setWalletAddresses,
@@ -155,7 +156,7 @@ export default function useWallet() {
     dispatch(setWalletAddresses(addresses));
   };
 
-  const loadTokenData = async (domain) => {
+  const loadTokenData = async (currentChain, domain) => {
     const address = await getValeriumAddress(currentChain, domain);
 
     if (address === ethers.constants.AddressZero) {
@@ -259,6 +260,22 @@ export default function useWallet() {
     dispatch(setCurrentChain(chain));
   };
 
+  const loadGasCredit = async (domain) => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/gasCredit/balance/${domain}`
+      );
+
+      if (response.data.success) {
+        dispatch(setGasCredit(response.data.senderBalance.balance));
+      } else {
+        dispatch(setGasCredit(0));
+      }
+    } catch (error) {
+      return 0;
+    }
+  };
+
   return {
     getBalance,
     getValeriumAddress,
@@ -272,5 +289,6 @@ export default function useWallet() {
     getNonce,
     loadPublicStorage,
     switchChain,
+    loadGasCredit,
   };
 }

@@ -2,10 +2,13 @@
 
 import { Power } from "lucide-react";
 import { Button } from "@material-tailwind/react";
+import { useRouter } from "next/navigation";
 
 const Logout = () => {
+  const router = useRouter();
+
   const handleLogoutClick = () => {
-    console.log("Logout");
+    router.push("/login");
   };
 
   return (
@@ -15,9 +18,9 @@ const Logout = () => {
         onClick={handleLogoutClick}
         color="white"
       >
-        <div className="text-base font-semibold capitalize">Logout</div>
+        {/* <div className="text-base font-semibold capitalize">Logout</div> */}
 
-        <Power size={24} />
+        <Power size={24} className="text-red-500" />
       </Button>
     </li>
   );

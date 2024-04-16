@@ -7,6 +7,7 @@ const userSlice = createSlice({
     walletAddresses: null,
     tokenBalanceData: null,
     tokenConversionData: null,
+    gasCredit: null,
   },
 
   reducers: {
@@ -21,6 +22,10 @@ const userSlice = createSlice({
     setTokenConversionData: (state, action) => {
       state.tokenConversionData = action.payload;
     },
+
+    setGasCredit: (state, action) => {
+      state.gasCredit = action.payload;
+    },
   },
 });
 
@@ -28,6 +33,7 @@ export const {
   setWalletAddresses,
   setTokenBalanceData,
   setTokenConversionData,
+  setGasCredit,
 } = userSlice.actions;
 
 export default userSlice.reducer;
