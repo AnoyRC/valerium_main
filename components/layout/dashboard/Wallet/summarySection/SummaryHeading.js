@@ -1,11 +1,9 @@
-const SummaryHeading = () => {
+const SummaryHeading = ({ paragraph }) => {
   return (
     <div>
-      <h2 className="text-2.5xl font-bold">Summary</h2>
+      <h2 className="text-2.5xl font-bold text-black">Summary</h2>
 
-      <p className="text-sm">
-        Review your transaction details before proceeding with the transfer.
-      </p>
+      <p className="text-sm font-normal text-text-gray">{paragraph}</p>
     </div>
   );
 };

@@ -20,7 +20,7 @@ const TransferSummary = ({
   const [isLoading, setIsLoading] = useState(false);
   const [gas, setGas] = useState(0);
   const tokenConversionData = useSelector(
-    (state) => state.user.tokenConversionData
+    (state) => state.user.tokenConversionData,
   );
   var GasTimeout = null;
   const currentChain = useSelector((state) => state.chain.currentChain);
@@ -29,7 +29,7 @@ const TransferSummary = ({
     ? tokenConversionData
       ? 1 /
           tokenConversionData.find(
-            (token) => token.address === selectedToken[0].address
+            (token) => token.address === selectedToken[0].address,
           ).usdValue || 1
       : 0
     : 0;
@@ -46,7 +46,7 @@ const TransferSummary = ({
             txProof,
             recipient,
             Number(amount * 10 ** selectedToken[0].decimals).toFixed(0),
-            "0x"
+            "0x",
           );
         } else {
           gas = await estimateGas(
@@ -56,19 +56,19 @@ const TransferSummary = ({
             recipient,
             Number(
               (amount / currentTokenConversion) *
-                10 ** selectedToken[0].decimals
+                10 ** selectedToken[0].decimals,
             ).toFixed(0),
-            "0x"
+            "0x",
           );
         }
       } else {
         const provider = new ethers.providers.JsonRpcProvider(
-          currentChain.rpcUrl
+          currentChain.rpcUrl,
         );
         const erc20Token = new ethers.Contract(
           selectedToken[0].address,
           ["function transfer(address to, uint256 value) returns (bool)"],
-          provider
+          provider,
         );
         let data;
         if (!usdToggle) {
@@ -81,9 +81,9 @@ const TransferSummary = ({
             recipient,
             ethers.utils.parseUnits(
               (amount / currentTokenConversion).toFixed(
-                selectedToken[0].decimals
+                selectedToken[0].decimals,
               ),
-              selectedToken[0].decimals
+              selectedToken[0].decimals,
             ),
           ]);
         }
@@ -93,7 +93,7 @@ const TransferSummary = ({
           txProof,
           selectedToken[0].address,
           0,
-          data
+          data,
         );
       }
       setGas(gas);
@@ -136,7 +136,7 @@ const TransferSummary = ({
 
   return (
     <section className="flex-1 space-y-5 p-6">
-      <SummaryHeading />
+      <SummaryHeading paragraph="Review your transaction details before proceeding with the transfer." />
       <hr className="border-border-light" />
 
       <SummaryMain

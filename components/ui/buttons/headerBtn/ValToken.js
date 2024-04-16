@@ -4,13 +4,14 @@ import { Plus } from "lucide-react";
 import { Button } from "@material-tailwind/react";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const ValToken = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleTokenClick = () => {
-    router.push("/shop");
+    router.push(`/store?domain=${searchParams.get("domain")}`);
   };
 
   return (

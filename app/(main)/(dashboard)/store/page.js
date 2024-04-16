@@ -1,5 +1,7 @@
+import Store from "@/components/layout/dashboard/store/Store";
+
 const StorePage = () => {
-  return <div>StorePage</div>;
+  return <Store />;
 };
 
 export default StorePage;

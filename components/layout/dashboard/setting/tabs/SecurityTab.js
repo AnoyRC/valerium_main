@@ -73,7 +73,7 @@ const SecurityTab = () => {
 
           <div className="flex-1">
             <section className="flex-1 space-y-5 p-6">
-              <SummaryHeading />
+              <SummaryHeading paragraph="Review your Recovery details before proceeding with the transaction." />
               <hr className="border-border-light" />
 
               <SummaryMain

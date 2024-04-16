@@ -51,7 +51,7 @@ export default function AuthSummary({ selectedToken, password, passkey }) {
   return (
     <div className="flex-1">
       <section className="flex-1 space-y-5 p-6">
-        <SummaryHeading />
+        <SummaryHeading paragraph="Review your Authentication details before proceeding with the transaction." />
         <hr className="border-border-light" />
 
         <SummaryMain amount={-1} token={selectedToken} usdToggle={false} />
