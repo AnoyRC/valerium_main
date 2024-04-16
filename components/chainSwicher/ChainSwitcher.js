@@ -8,18 +8,22 @@ import { useEffect, useState } from "react";
 import CopyButton from "../ui/buttons/CopyButton";
 
 import { compressEthAddress } from "@/utils/pubKey";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const ChainSwitcher = () => {
   const [address, setAddress] = useState(
-    "0x0000000000000000000000000000000000000000",
+    "0x0000000000000000000000000000000000000000"
   );
   const currentChain = useSelector((state) => state.chain.currentChain);
   const walletAddresses = useSelector((state) => state.user.walletAddresses);
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   useEffect(() => {
     if (currentChain && walletAddresses) {
       const walletAddress = walletAddresses.find(
-        (address) => address.chainId === currentChain.chainId,
+        (address) => address.chainId === currentChain.chainId
       );
 
       if (walletAddress) {
@@ -34,6 +38,9 @@ const ChainSwitcher = () => {
       style={{
         color: currentChain.style.baseTextColor,
         background: currentChain.style.gradientColorLight,
+      }}
+      onClick={() => {
+        router.push(`/network?domain=${searchParams.get("domain")}`);
       }}
     >
       <div className="flex">

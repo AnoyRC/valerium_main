@@ -11,6 +11,7 @@ export default function WalletProvider({ children }) {
   const searchParams = useSearchParams();
   const currentChain = useSelector((state) => state.chain.currentChain);
   const walletAddresses = useSelector((state) => state.user.walletAddresses);
+  const isDeploying = useSelector((state) => state.proof.isDeploying);
 
   useEffect(() => {
     const domain = searchParams.get("domain");
@@ -18,13 +19,13 @@ export default function WalletProvider({ children }) {
       loadAllData(domain + ".valerium.id");
       loadTokenData(domain + ".valerium.id");
     }
-  }, [currentChain]);
+  }, [currentChain, isDeploying]);
 
   useEffect(() => {
     if (currentChain && walletAddresses) {
       loadPublicStorage(currentChain, walletAddresses);
     }
-  }, [currentChain, walletAddresses]);
+  }, [currentChain, walletAddresses, isDeploying]);
 
   useEffect(() => {
     currentTimeout = setInterval(() => {

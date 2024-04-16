@@ -12,6 +12,8 @@ import {
 import config from "@/lib/config";
 import ValeriumABI from "@/lib/abi/Valerium.json";
 import { setEmail, setType } from "@/redux/slice/proofSlice";
+import { toast } from "sonner";
+import { setCurrentChain } from "@/redux/slice/chainSlice";
 
 export default function useWallet() {
   const dispatch = useDispatch();
@@ -246,6 +248,17 @@ export default function useWallet() {
     }
   };
 
+  const switchChain = (chainId) => {
+    const chain = config.find((chain) => chain.chainId === chainId);
+
+    if (!chain) {
+      toast.error("Chain not found");
+      return;
+    }
+
+    dispatch(setCurrentChain(chain));
+  };
+
   return {
     getBalance,
     getValeriumAddress,
@@ -258,5 +271,6 @@ export default function useWallet() {
     getPublicStorage,
     getNonce,
     loadPublicStorage,
+    switchChain,
   };
 }

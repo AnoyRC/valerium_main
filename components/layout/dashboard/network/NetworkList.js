@@ -9,7 +9,7 @@ const NetworkList = () => {
       <NetworkListHeading />
 
       <div className="relative flex w-full flex-grow overflow-hidden">
-        <ul className="absolute h-full w-full flex-grow overflow-y-scroll rounded-xl border border-border-light bg-white">
+        <ul className="absolute h-full w-full flex-grow overflow-y-auto rounded-xl border border-border-light bg-white">
           {config.map((chain) => (
             <NetworkItem key={chain.chainId} chain={chain} />
           ))}
