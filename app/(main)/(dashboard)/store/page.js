@@ -1,7 +1,13 @@
+import { TokenDrawer } from "@/components/drawer/TokenDrawer";
 import Store from "@/components/layout/dashboard/store/Store";
 
 const StorePage = () => {
-  return <Store />;
+  return (
+    <>
+      <TokenDrawer />
+      <Store />
+    </>
+  );
 };
 
 export default StorePage;
