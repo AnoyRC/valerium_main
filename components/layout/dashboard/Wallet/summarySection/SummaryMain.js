@@ -7,7 +7,7 @@ import TokenWithChainImage from "@/components/ui/chains/TokenWithChainImage";
 
 import { formatAmount } from "@/utils/formatAmount";
 
-const SummaryMain = ({ token, usdToggle, amount }) => {
+const SummaryMain = ({ token, usdToggle, amount, isVault = false }) => {
   const [selectedToken, ,] = useSelector((state) => state.selector.token);
 
   const tokenBalanceData = useSelector((state) => state.user.tokenBalanceData);
@@ -27,17 +27,25 @@ const SummaryMain = ({ token, usdToggle, amount }) => {
 
       <div className="flex flex-1 items-start justify-between">
         <div className="space-y-2">
-          <h3 className="text-base font-bold text-black">
-            <span className="font-normal text-text-gray">Token:</span>{" "}
-            {token?.name || ""}
-          </h3>
+          <div className="flex flex-col">
+            <h3 className="text-base font-bold text-black">
+              <span className="font-normal text-text-gray">Token:</span>{" "}
+              {token?.name || ""}
+            </h3>
+            {isVault && (
+              <h3 className="text-base font-bold text-black">
+                <span className="font-normal text-text-gray">To:</span>{" "}
+                {"Valerium Vault"}
+              </h3>
+            )}
+          </div>
 
           {amount >= 0 && (
             <p className="text-base font-bold text-black">
               <span className="font-normal text-text-gray">Qty:</span>{" "}
               {selectedToken && currentToken
                 ? formatAmount(
-                    currentToken.balance / 10 ** currentToken.decimals,
+                    currentToken.balance / 10 ** currentToken.decimals
                   )
                 : "0.00"}
             </p>

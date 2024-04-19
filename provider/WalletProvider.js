@@ -17,6 +17,7 @@ export default function WalletProvider({ children }) {
     loadTokenData,
     loadPublicStorage,
     loadGasCredit,
+    getGasUpdates,
   } = useWallet();
   const searchParams = useSearchParams();
   const currentChain = useSelector((state) => state.chain.currentChain);
@@ -36,6 +37,7 @@ export default function WalletProvider({ children }) {
   useEffect(() => {
     if (currentChain && walletAddresses) {
       loadPublicStorage(currentChain, walletAddresses);
+      getGasUpdates();
     }
   }, [currentChain, walletAddresses, isDeploying]);
 

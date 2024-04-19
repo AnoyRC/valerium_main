@@ -1,19 +1,24 @@
 "use client";
 
-import { Button } from "@material-tailwind/react";
+import { toggleVerifyCreditDrawer } from "@/redux/slice/gasTokenSlice";
+import { useDispatch } from "react-redux";
 
-const VerifyGasToken = ({ color }) => {
+const VerifyGasToken = ({ currentChain }) => {
+  const dispatch = useDispatch();
   return (
-    <div className="flex space-x-2 text-sm">
+    <div className="flex space-x-2 text-gray-600 text-sm">
       <p>Didn’t receive your token?</p>
-      <Button
-        className="bg-transparent p-0 underline underline-offset-4 shadow-none hover:shadow-none"
+      <span
+        className="hover:cursor-pointer hover:underline"
         style={{
-          color: color,
+          color: currentChain.style.colorLight,
+        }}
+        onClick={() => {
+          dispatch(toggleVerifyCreditDrawer());
         }}
       >
-        Verify transaction
-      </Button>
+        Verify Transaction
+      </span>
     </div>
   );
 };

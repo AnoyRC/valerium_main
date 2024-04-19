@@ -4,16 +4,28 @@ const gasTokenSlice = createSlice({
   name: "gasToken",
 
   initialState: {
-    price: 0,
+    quantity: 0,
+    updates: null,
+    verifyCreditDrawer: false,
   },
 
   reducers: {
-    setGasToken: (state, action) => {
-      state.price = action.payload;
+    setQuantity: (state, action) => {
+      state.quantity = action.payload;
+    },
+    setUpdates: (state, action) => {
+      state.updates = action.payload;
+    },
+    toggleVerifyCreditDrawer: (state) => {
+      state.verifyCreditDrawer = !state.verifyCreditDrawer;
     },
   },
 });
 
-export const { setGasToken } = gasTokenSlice.actions;
+export const {
+  setQuantity,
+  setUpdates,
+  toggleVerifyCreditDrawer,
+} = gasTokenSlice.actions;
 
 export default gasTokenSlice.reducer;

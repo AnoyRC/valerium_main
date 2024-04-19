@@ -7,34 +7,54 @@ import { useDispatch, useSelector } from "react-redux";
 
 import TokenImage from "./GasTokenImage";
 
-import { setGasToken } from "@/redux/slice/gasTokenSlice";
+import { setQuantity } from "@/redux/slice/gasTokenSlice";
 
-const GasTokenItem = ({ price }) => {
+const GasTokenItem = ({ quantity }) => {
   const dispatch = useDispatch();
 
-  const gasTokenPrice = useSelector((state) => state.gasToken.price);
+  const selectedQuantity = useSelector((state) => state.gasToken.quantity);
+  const [selectedToken, ,] = useSelector((state) => state.selector.token);
+  const updates = useSelector((state) => state.gasToken.updates);
+  const currentChain = useSelector((state) => state.chain.currentChain);
+
+  const selectedUpdates =
+    currentChain &&
+    updates &&
+    updates.find((update) => update.chainId === currentChain.chainId);
+
+  const selectedPrice =
+    selectedUpdates &&
+    selectedUpdates.tokens.find(
+      (token) => token.address === selectedToken.address
+    );
 
   const handleGasTokenClick = () => {
-    dispatch(setGasToken(price));
+    dispatch(setQuantity(quantity));
   };
 
   return (
     <Button
-      className={`flex w-fit flex-col items-center space-y-2 p-4 shadow-none hover:bg-black/10 hover:shadow-none ${gasTokenPrice === price ? "bg-black/20" : "bg-transparent"}`}
+      className={`flex w-fit flex-col items-center space-y-2 p-4 pb-3 rounded-2xl shadow-none hover:bg-black/10 hover:shadow-none ${
+        quantity === selectedQuantity ? "bg-black/20" : "bg-transparent"
+      }`}
       onClick={handleGasTokenClick}
     >
-      <TokenImage price={price} />
+      <TokenImage price={quantity} />
 
-      <h4 className="flex items-center gap-1.5 text-xl font-semibold text-black">
-        {price}
-        <div className="= flex gap-0.5">
+      <h4 className="flex items-center gap-1.5 text-lg font-bold text-black">
+        <p className="mt-1">
+          {selectedPrice &&
+            (selectedPrice.creditCost / 10 ** selectedToken.decimals) *
+              quantity}{" "}
+        </p>
+        <div className="flex items-center justify-center gap-1">
           <Image
-            src="/valerium-gas-token.png"
+            src={`/tokens/${selectedToken.logo}`}
             alt="Valerium Gas Token Logo"
-            width={24}
-            height={24}
+            width={20}
+            height={20}
           />
-          <p>USDC</p>
+          <p className="mt-1 text-lg">{selectedToken.name}</p>
         </div>
       </h4>
     </Button>

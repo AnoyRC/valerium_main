@@ -5,27 +5,60 @@ import { useSelector } from "react-redux";
 
 import SummaryMain from "../Wallet/summarySection/SummaryMain";
 import SummaryHeading from "../Wallet/summarySection/SummaryHeading";
-import SummaryGasFooter from "../Wallet/summarySection/SummaryGasFooter";
+import SummaryFooter from "../Wallet/summarySection/SummaryFooter";
+import SummaryTotal from "../Wallet/summarySection/SummaryTotal";
+import useBuy from "@/hooks/useBuy";
+import { useEffect } from "react";
 
 const GasTokenSummary = () => {
-  const [selectedToken, ,] = useSelector((state) => state.selector.token);
+  const [selectedToken, gasToken] = useSelector(
+    (state) => state.selector.token
+  );
+  const tokens = useSelector((state) => state.selector.token);
   const [gas, setGas] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const quantity = useSelector((state) => state.gasToken.quantity);
+  const updates = useSelector((state) => state.gasToken.updates);
+  const currentChain = useSelector((state) => state.chain.currentChain);
+  const txProof = useSelector((state) => state.proof.txProof);
+  var Timeout = null;
+  const { estimateGas } = useBuy();
 
-  // const handleEstimate = async () => {
-  //   try {
-  //     setIsLoading(true);
-  //     const gas = await estimateGas(passkey, password, selectedToken);
-  //     setGas(gas);
-  //     setIsLoading(false);
-  //   } catch (error) {
-  //     if (error.name === "AbortError") {
-  //       return;
-  //     }
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
+  const selectedUpdates =
+    currentChain &&
+    updates &&
+    updates.find((update) => update.chainId === currentChain.chainId);
+
+  const selectedPrice =
+    selectedUpdates &&
+    selectedUpdates.tokens.find(
+      (token) => token.address === selectedToken.address
+    );
+
+  const handleEstimateGas = async () => {
+    try {
+      const gas = await estimateGas();
+      setGas(gas);
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    if (quantity && selectedToken && txProof && gasToken) {
+      clearTimeout(Timeout);
+      setIsLoading(true);
+      Timeout = setTimeout(() => {
+        handleEstimateGas(abortController.signal);
+      }, 1000);
+    }
+    return () => {
+      abortController.abort();
+      clearTimeout(Timeout);
+    };
+  }, [quantity, selectedToken, gasToken, txProof, currentChain]);
 
   return (
     <section className="flex-1 space-y-5">
@@ -35,18 +68,33 @@ const GasTokenSummary = () => {
       <SummaryMain
         amount={-1}
         token={{
-          name: "Gas Token",
+          name: selectedToken.name,
           logo: selectedToken?.logo || "/valerium-gas-token.png",
         }}
         usdToggle={false}
+        isVault={true}
       />
 
       <hr className="border-border-light" />
 
-      <SummaryGasFooter
-        gasToken={selectedToken}
-        estimatedGas={gas}
+      <SummaryFooter
+        token={tokens}
+        amount={
+          (quantity * selectedPrice?.creditCost) / 10 ** selectedToken.decimals
+        }
+        usdToggle={false}
+        gas={gas}
         isLoading={isLoading}
+      />
+
+      <SummaryTotal
+        token={tokens}
+        usdToggle={false}
+        gas={gas}
+        isLoading={isLoading}
+        amount={
+          (quantity * selectedPrice?.creditCost) / 10 ** selectedToken.decimals
+        }
       />
     </section>
   );

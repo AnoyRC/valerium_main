@@ -15,10 +15,12 @@ import ValeriumABI from "@/lib/abi/Valerium.json";
 import { setEmail, setType } from "@/redux/slice/proofSlice";
 import { toast } from "sonner";
 import { setCurrentChain } from "@/redux/slice/chainSlice";
+import { setUpdates } from "@/redux/slice/gasTokenSlice";
 
 export default function useWallet() {
   const dispatch = useDispatch();
   const currentChain = useSelector((state) => state.chain.currentChain);
+  const walletAddresses = useSelector((state) => state.user.walletAddresses);
 
   const getBalance = async (currentChain, address) => {
     try {
@@ -252,6 +254,18 @@ export default function useWallet() {
   const switchChain = (chainId) => {
     const chain = config.find((chain) => chain.chainId === chainId);
 
+    const walletAddress =
+      walletAddresses &&
+      walletAddresses.find((address) => address.chainId === chainId);
+
+    if (
+      !walletAddress ||
+      walletAddress.address === ethers.constants.AddressZero
+    ) {
+      toast.error("Wallet not deployed on this chain");
+      return;
+    }
+
     if (!chain) {
       toast.error("Chain not found");
       return;
@@ -276,6 +290,20 @@ export default function useWallet() {
     }
   };
 
+  const getGasUpdates = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/gasCredit/getPrice`
+      );
+
+      if (response.data.success) {
+        dispatch(setUpdates(response.data.updates));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     getBalance,
     getValeriumAddress,
@@ -290,5 +318,6 @@ export default function useWallet() {
     loadPublicStorage,
     switchChain,
     loadGasCredit,
+    getGasUpdates,
   };
 }

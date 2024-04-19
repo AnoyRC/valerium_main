@@ -58,8 +58,8 @@ export function TokenDrawer() {
                   <Image
                     src={`/tokens/${token.logo}`}
                     alt={token.name + " logo"}
-                    width={14}
-                    height={14}
+                    width={20}
+                    height={20}
                     className="rounded-full"
                   />
                   {token.name}

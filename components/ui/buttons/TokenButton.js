@@ -59,8 +59,8 @@ export default function TokenButton({
                 <Image
                   src={`/tokens/${token[index].logo}`}
                   alt={token[index].name + " logo"}
-                  width={14}
-                  height={14}
+                  width={20}
+                  height={20}
                   className="rounded-full"
                 />
                 <p>{token[index].name}</p>

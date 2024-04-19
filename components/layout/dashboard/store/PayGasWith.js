@@ -4,15 +4,14 @@ import { useSelector } from "react-redux";
 
 import TokenButton from "@/components/ui/buttons/TokenButton";
 
-const PayWithGas = () => {
+const PayGasWith = () => {
   const currentChain = useSelector((state) => state.chain.currentChain);
 
   return (
     <TokenButton
-      index={0}
-      width="1"
+      index={1}
       id="gas-token-transfer"
-      label="Pay Gas With"
+      label="Pay Gas with"
       span=""
       value="Select Token"
       chainId={currentChain.chainId}
@@ -21,4 +20,4 @@ const PayWithGas = () => {
   );
 };
 
-export default PayWithGas;
+export default PayGasWith;

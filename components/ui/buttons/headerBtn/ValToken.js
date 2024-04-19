@@ -25,7 +25,7 @@ const ValToken = () => {
       >
         <div className="w-8 px-0.5">
           <Image
-            src="/valerium-gas-token.png"
+            src="/val-gas-front.png"
             alt="Valerium Gas Token"
             width={28}
             height={28}
