@@ -33,7 +33,11 @@ const SecurityTab = () => {
             setIsConfirm={setIsConfirm}
             selectedToken={selectedToken}
           />
-          <SecuritySummary selectedToken={selectedToken} input={input} />
+          <SecuritySummary
+            selectedToken={selectedToken}
+            input={input}
+            activeTab={activeTab}
+          />
         </div>
       </div>
     </Suspense>

@@ -51,7 +51,8 @@ const TransferAction = ({
   );
   const [isConfirm, setIsConfirm] = useState(false);
   const walletAddresses = useSelector((state) => state.user.walletAddresses);
-  const { execute } = useExecute();
+  const { execute, executeGasless } = useExecute();
+  const gasCredit = useSelector((state) => state.user.gasCredit);
 
   const currentToken =
     selectedToken &&
@@ -74,39 +75,75 @@ const TransferAction = ({
   const handleExecute = async () => {
     if (selectedToken.address === null) {
       if (!usdToggle) {
-        toast.promise(
-          () =>
-            execute(
-              walletAddresses,
-              gasToken,
-              txProof,
-              recipient,
-              Number(amount * 10 ** selectedToken.decimals).toFixed(0),
-              "0x",
-              type
-            ),
-          {
-            loading: "Sending...",
-          }
-        );
+        if (activeTab === "gasless")
+          toast.promise(
+            () =>
+              executeGasless(
+                walletAddresses,
+                txProof,
+                recipient,
+                Number(amount * 10 ** selectedToken.decimals).toFixed(0),
+                "0x",
+                type
+              ),
+            {
+              loading: "Sending...",
+            }
+          );
+        else
+          toast.promise(
+            () =>
+              execute(
+                walletAddresses,
+                gasToken,
+                txProof,
+                recipient,
+                Number(amount * 10 ** selectedToken.decimals).toFixed(0),
+                "0x",
+                type
+              ),
+            {
+              loading: "Sending...",
+            }
+          );
       } else {
-        toast.promise(
-          () =>
-            execute(
-              walletAddresses,
-              gasToken,
-              txProof,
-              recipient,
-              Number(
-                (amount / currentTokenConversion) * 10 ** selectedToken.decimals
-              ).toFixed(0),
-              "0x",
-              type
-            ),
-          {
-            loading: "Sending...",
-          }
-        );
+        if (activeTab === "gasless")
+          toast.promise(
+            () =>
+              executeGasless(
+                walletAddresses,
+                txProof,
+                recipient,
+                Number(
+                  (amount / currentTokenConversion) *
+                    10 ** selectedToken.decimals
+                ).toFixed(0),
+                "0x",
+                type
+              ),
+            {
+              loading: "Sending...",
+            }
+          );
+        else
+          toast.promise(
+            () =>
+              execute(
+                walletAddresses,
+                gasToken,
+                txProof,
+                recipient,
+                Number(
+                  (amount / currentTokenConversion) *
+                    10 ** selectedToken.decimals
+                ).toFixed(0),
+                "0x",
+                type
+              ),
+            {
+              loading: "Sending...",
+            }
+          );
       }
     } else {
       const provider = new ethers.providers.JsonRpcProvider(
@@ -132,21 +169,38 @@ const TransferAction = ({
           ),
         ]);
       }
-      toast.promise(
-        () =>
-          execute(
-            walletAddresses,
-            gasToken,
-            txProof,
-            selectedToken.address,
-            0,
-            data,
-            type
-          ),
-        {
-          loading: "Sending...",
-        }
-      );
+      if (activeTab === "gasless") {
+        toast.promise(
+          () =>
+            executeGasless(
+              walletAddresses,
+              txProof,
+              selectedToken.address,
+              0,
+              data,
+              type
+            ),
+          {
+            loading: "Sending...",
+          }
+        );
+      } else {
+        toast.promise(
+          () =>
+            execute(
+              walletAddresses,
+              gasToken,
+              txProof,
+              selectedToken.address,
+              0,
+              data,
+              type
+            ),
+          {
+            loading: "Sending...",
+          }
+        );
+      }
     }
 
     setIsConfirm(false);
@@ -224,16 +278,18 @@ const TransferAction = ({
             handleClick={handleClick}
             disabled={
               txProof
-                ? !isValid ||
-                  isLoading ||
-                  Number(amount) === 0 ||
-                  !(!usdToggle
-                    ? selectedToken
-                      ? amount <= token
-                      : "0.00"
-                    : selectedToken
-                    ? amount <= token * Number(currentTokenConversion)
-                    : "0.00")
+                ? activeTab === "gasless"
+                  ? !gasCredit
+                  : !isValid ||
+                    isLoading ||
+                    Number(amount) === 0 ||
+                    !(!usdToggle
+                      ? selectedToken
+                        ? amount <= token
+                        : "0.00"
+                      : selectedToken
+                      ? amount <= token * Number(currentTokenConversion)
+                      : "0.00")
                 : isLoading || !type
             }
           />

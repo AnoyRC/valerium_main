@@ -29,7 +29,7 @@ export default function SecurityAction({
   const recoveryProof = useSelector((state) => state.proof.recoveryProof);
   const dispatch = useDispatch();
   const email = useSelector((state) => state.proof.email);
-  const { changeRecovery } = useChange();
+  const { changeRecovery, changeRecoveryGasless } = useChange();
 
   const handleClick = async () => {
     try {
@@ -42,9 +42,15 @@ export default function SecurityAction({
         return;
       }
 
-      toast.promise(() => changeRecovery(input, selectedToken), {
-        loading: "Processing Recovery...",
-      });
+      if (activeTab === "gas") {
+        toast.promise(() => changeRecovery(input, selectedToken), {
+          loading: "Processing Recovery...",
+        });
+      } else {
+        toast.promise(() => changeRecoveryGasless(input), {
+          loading: "Processing Recovery...",
+        });
+      }
 
       setIsConfirm(false);
       setInput("");

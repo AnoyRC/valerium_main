@@ -32,7 +32,7 @@ export default function AuthAction({
   selectedToken,
 }) {
   const dispatch = useDispatch();
-  const { executeRecovery } = useRecovery();
+  const { executeRecovery, executeRecoveryGasless } = useRecovery();
   const email = useSelector((state) => state.proof.email);
 
   const handleClick = async () => {
@@ -47,9 +47,15 @@ export default function AuthAction({
         return;
       }
 
-      toast.promise(() => executeRecovery(passkey, password, selectedToken), {
-        loading: "Processing Recovery...",
-      });
+      if (activeTab === "gas") {
+        toast.promise(() => executeRecovery(passkey, password, selectedToken), {
+          loading: "Processing Recovery...",
+        });
+      } else {
+        toast.promise(() => executeRecoveryGasless(passkey, password), {
+          loading: "Processing Recovery...",
+        });
+      }
 
       setIsConfirm(false);
       setPasskey("");

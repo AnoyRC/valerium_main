@@ -51,6 +51,7 @@ const AuthTab = () => {
             selectedToken={selectedToken}
             password={password}
             passkey={passkey}
+            activeTab={activeTab}
           />
         </div>
       </div>

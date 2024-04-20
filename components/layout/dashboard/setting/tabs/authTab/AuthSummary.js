@@ -7,7 +7,12 @@ import useRecovery from "@/hooks/useRecovery";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-export default function AuthSummary({ selectedToken, password, passkey }) {
+export default function AuthSummary({
+  selectedToken,
+  password,
+  passkey,
+  activeTab,
+}) {
   const { estimateGas } = useRecovery();
   const [isLoading, setIsLoading] = useState(false);
   var timeout = null;
@@ -31,7 +36,12 @@ export default function AuthSummary({ selectedToken, password, passkey }) {
 
   useEffect(() => {
     const controller = new AbortController();
-    if (selectedToken && (password || passkey) && recoveryProof) {
+    if (
+      selectedToken &&
+      (password || passkey) &&
+      recoveryProof &&
+      activeTab === "gas"
+    ) {
       if (timeout) {
         clearTimeout(timeout);
         timeout = null;
@@ -49,7 +59,7 @@ export default function AuthSummary({ selectedToken, password, passkey }) {
         clearTimeout(timeout);
       }
     };
-  }, [password, passkey, selectedToken, recoveryProof]);
+  }, [password, passkey, activeTab, selectedToken, recoveryProof]);
 
   return (
     <div className="flex-1">
@@ -65,6 +75,7 @@ export default function AuthSummary({ selectedToken, password, passkey }) {
           gasToken={selectedToken}
           estimatedGas={gas}
           isLoading={isLoading}
+          isGasless={activeTab === "gasless"}
         />
       </section>
     </div>

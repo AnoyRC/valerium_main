@@ -5,6 +5,7 @@ import { Tabs, TabsHeader, Tab, TabsBody } from "@material-tailwind/react";
 import { useSelector } from "react-redux";
 
 import TokenButton from "@/components/ui/buttons/TokenButton";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const GaslessToggle = ({
   style,
@@ -13,6 +14,9 @@ const GaslessToggle = ({
   disabled = false,
 }) => {
   const currentChain = useSelector((state) => state.chain.currentChain);
+  const gasCredit = useSelector((state) => state.user.gasCredit);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const data = [
     {
@@ -67,7 +71,7 @@ const GaslessToggle = ({
           overflow: "visible",
         }}
       >
-        {activeTab !== "gasless" && (
+        {activeTab !== "gasless" ? (
           <TokenButton
             index={1}
             width="1"
@@ -79,6 +83,23 @@ const GaslessToggle = ({
             style="flex items-center w-full !3xl:space-y-0 !space-y-0"
             disabled={disabled}
           />
+        ) : gasCredit === 0 ? (
+          <p className="text-sm">
+            No Credits?{" "}
+            <span
+              style={{
+                color: currentChain.style.colorLight,
+              }}
+              className="hover:cursor-pointer hover:underline"
+              onClick={() => {
+                router.push(`/store?${searchParams.get("domain")}`);
+              }}
+            >
+              Open Store
+            </span>{" "}
+          </p>
+        ) : (
+          ""
         )}
       </TabsBody>
     </Tabs>

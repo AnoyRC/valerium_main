@@ -5,8 +5,16 @@ import { useSelector } from "react-redux";
 import { formatAmount } from "@/utils/formatAmount";
 
 import { Loader2 } from "lucide-react";
+import Image from "next/image";
 
-const SummaryFooter = ({ token, amount, usdToggle, gas, isLoading }) => {
+const SummaryFooter = ({
+  token,
+  amount,
+  usdToggle,
+  gas,
+  isLoading,
+  isGasless = false,
+}) => {
   const [selectedToken, ,] = useSelector((state) => state.selector.token);
   const tokenConversionData = useSelector(
     (state) => state.user.tokenConversionData
@@ -22,6 +30,14 @@ const SummaryFooter = ({ token, amount, usdToggle, gas, isLoading }) => {
     : 0;
 
   const txProof = useSelector((state) => state.proof.txProof);
+
+  const currentChain = useSelector((state) => state.chain.currentChain);
+  const updates = useSelector((state) => state.gasToken.updates);
+
+  const selectedUpdates =
+    currentChain &&
+    updates &&
+    updates.find((update) => update.chainId === currentChain.chainId);
 
   return (
     <ul className="w-full space-y-0.5">
@@ -47,28 +63,47 @@ const SummaryFooter = ({ token, amount, usdToggle, gas, isLoading }) => {
         </span>
       </li> */}
 
-      <li className="flex justify-between">
-        <p className="text-sm font-normal text-text-gray/80">Estimated Gas:</p>
-        <p className="text-sm text-text-gray">
-          {isLoading ? (
-            <Loader2 className="h-5 w-5 animate-spin" />
-          ) : (
-            <>
-              <span>{txProof ? "+" : ""}</span>{" "}
-              {txProof
-                ? (gas / 10 ** token[1].decimals).toFixed(
-                    parseInt(
-                      (gas / 10 ** token[1].decimals)
-                        .toExponential()
-                        .split("e")[1]
-                    ) * -1
-                  )
-                : "-.--"}
-              <span> {token[1]?.symbol || token[0]?.symbol}</span>
-            </>
-          )}
-        </p>
-      </li>
+      {!isGasless && (
+        <li className="flex justify-between">
+          <p className="text-sm font-normal text-text-gray/80">
+            Estimated Gas:
+          </p>
+          <p className="text-sm text-text-gray">
+            {isLoading ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <>
+                <span>{txProof ? "+" : ""}</span>{" "}
+                {txProof
+                  ? (gas / 10 ** token[1].decimals).toFixed(
+                      parseInt(
+                        (gas / 10 ** token[1].decimals)
+                          .toExponential()
+                          .split("e")[1]
+                      ) * -1
+                    )
+                  : "-.--"}
+                <span> {token[1]?.symbol || token[0]?.symbol}</span>
+              </>
+            )}
+          </p>
+        </li>
+      )}
+
+      {isGasless && selectedUpdates && (
+        <li className="flex justify-between">
+          <p className="text-sm font-normal text-text-gray/80">Credit Cost:</p>
+          <div className="flex gap-1">
+            <p>{selectedUpdates?.creditPertx}</p>
+            <Image
+              src="/val-gas-front.png"
+              alt="Valerium Gas Token"
+              width={24}
+              height={24}
+            />
+          </div>
+        </li>
+      )}
     </ul>
   );
 };

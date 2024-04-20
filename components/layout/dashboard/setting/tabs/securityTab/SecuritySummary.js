@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import validEmail from "@/components/ui/ValidEmail";
 
-export default function SecuritySummary({ selectedToken, input }) {
+export default function SecuritySummary({ selectedToken, input, activeTab }) {
   const { estimateGas } = useChange();
   const [isLoading, setIsLoading] = useState(false);
   const [gas, setGas] = useState(0);
@@ -37,7 +37,8 @@ export default function SecuritySummary({ selectedToken, input }) {
       selectedToken &&
       validEmail(input) &&
       input !== email &&
-      recoveryProof
+      recoveryProof &&
+      activeTab === "gas"
     ) {
       if (timeout) {
         clearTimeout(timeout);
@@ -56,7 +57,7 @@ export default function SecuritySummary({ selectedToken, input }) {
         clearTimeout(timeout);
       }
     };
-  }, [input, selectedToken, recoveryProof]);
+  }, [input, selectedToken, activeTab, recoveryProof]);
 
   return (
     <div className="flex-1">
@@ -72,6 +73,7 @@ export default function SecuritySummary({ selectedToken, input }) {
           estimatedGas={gas}
           isLoading={isLoading}
           gasToken={selectedToken}
+          isGasless={activeTab === "gasless"}
         />
       </section>
     </div>
