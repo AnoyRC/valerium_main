@@ -4,7 +4,7 @@ import Image from "next/image";
 const Logo = () => {
   return (
     <Link className="flex items-center gap-2.5" href="/dashboard">
-      <div className=" bg-black p-2 rounded-md">
+      <div className=" rounded-md bg-black p-2">
         <Image
           src="/valerium-logo.svg"
           alt="Valerium Logo"
@@ -13,7 +13,10 @@ const Logo = () => {
         />
       </div>
 
-      <span className="text-xl font-gloock tracking-wider"> Valerium</span>
+      <span className="hidden font-gloock text-xl tracking-wider sm:block">
+        {" "}
+        Valerium
+      </span>
     </Link>
   );
 };

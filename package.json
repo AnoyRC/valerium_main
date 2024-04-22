@@ -16,6 +16,7 @@
     "@reduxjs/toolkit": "^2.2.3",
     "axios": "^1.6.8",
     "ethers": "^5.7.2",
+    "gsap": "^3.12.5",
     "lucide-react": "^0.364.0",
     "magic-sdk": "^28.0.2",
     "next": "14.1.4",

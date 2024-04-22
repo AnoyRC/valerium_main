@@ -33,12 +33,14 @@ body {
 }
 
 .light-onboard-background {
-  background: url(/background-shade.svg) left -380px top 0px no-repeat,
+  background:
+    url(/background-shade.svg) left -380px top 0px no-repeat,
     url(/light-background-grid.svg) 0% / cover no-repeat;
 }
 
 .light-dashboard-background {
-  background: url(/light-background-shade.svg) center top -100px no-repeat,
+  background:
+    url(/light-background-shade.svg) center top -100px no-repeat,
     url(/light-background-grid.svg) 0% / cover no-repeat;
   background-attachment: fixed;
 }
@@ -53,4 +55,103 @@ body {
     rgba(233, 233, 233, 0.85) 0%,
     rgba(216, 216, 216, 0.85) 100.4%
   );
+}
+
+.block_top {
+  background: #213f29;
+  height: 400px;
+  color: #faebbb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+  margin-top: 50px;
+  border-radius: 50px;
+}
+.next_block {
+  background: #213f29;
+  height: 400px;
+  color: #faebbb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+  margin-top: 150px;
+  border-radius: 50px;
+}
+.cards {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  margin-bottom: 90px;
+}
+.custom-card {
+  position: absolute;
+  width: 100%;
+  top: 0px;
+  height: 70vh;
+  background-color: #213f29;
+  color: #faebbb;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
+}
+.card1 {
+}
+.card2 {
+  top: 40px;
+}
+.card3 {
+  top: 80px;
+}
+.opacity {
+  -moz-transition: 0.4s ease;
+  -ms-transition: 0.4s ease;
+  -o-transition: 0.4s ease;
+  transition: 0.4s ease;
+  -webkit-transition: 0.4s ease;
+  opacity: 0.6;
+}
+.scale {
+  moz-transition: 0.4s ease;
+  -ms-transition: 0.4s ease;
+  -o-transition: 0.4s ease;
+  transition: 0.4s ease;
+  -webkit-transition: 0.4s ease;
+  width: 95%;
+}
+.nav {
+  display: block;
+  position: absolute;
+  left: 30px;
+  top: 45%;
+  z-index: 10;
+}
+.nav li {
+  padding: 2px;
+}
+.nav li a {
+  text-decoration: none;
+}
+.nav .circle {
+  border: 1px solid #faebbb;
+  color: #faebbb;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  border-radius: 25px;
+  -moz-transition: 0.4s ease;
+  -ms-transition: 0.4s ease;
+  -o-transition: 0.4s ease;
+  transition: 0.4s ease;
+  -webkit-transition: 0.4s ease;
+}
+.nav .active {
+  background: #faebbb;
+  color: #213f29;
 }
