@@ -5,6 +5,7 @@ import ValeriumProxyFactoryABI from "@/lib/abi/ValeriumProxyFactory.json";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  setDeployed,
   setGasCredit,
   setTokenBalanceData,
   setTokenConversionData,
@@ -21,6 +22,7 @@ import {
 import { toast } from "sonner";
 import { setCurrentChain } from "@/redux/slice/chainSlice";
 import { setUpdates } from "@/redux/slice/gasTokenSlice";
+import baseChain from "@/lib/baseChain";
 
 export default function useWallet() {
   const dispatch = useDispatch();
@@ -158,6 +160,17 @@ export default function useWallet() {
         chainId: currentChain.chainId,
         address,
       });
+    }
+
+    const baseChainAddress = addresses.find(
+      (address) => address.chainId === baseChain.chainId
+    );
+
+    if (
+      baseChainAddress === undefined ||
+      baseChainAddress.address === ethers.constants.AddressZero
+    ) {
+      dispatch(setDeployed(false));
     }
 
     dispatch(setWalletAddresses(addresses));
