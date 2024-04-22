@@ -9,6 +9,7 @@ import SummaryFooter from "../Wallet/summarySection/SummaryFooter";
 import SummaryTotal from "../Wallet/summarySection/SummaryTotal";
 import useBuy from "@/hooks/useBuy";
 import { useEffect } from "react";
+import Disclaimer from "./Disclaimer";
 
 const GasTokenSummary = () => {
   const [selectedToken, gasToken] = useSelector(
@@ -96,6 +97,8 @@ const GasTokenSummary = () => {
           (quantity * selectedPrice?.creditCost) / 10 ** selectedToken.decimals
         }
       />
+
+      <Disclaimer />
     </section>
   );
 };

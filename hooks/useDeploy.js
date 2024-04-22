@@ -91,6 +91,7 @@ export default function useDeploy() {
         domain: searchParams.get("domain") + ".valerium.id",
         proof,
         initializer,
+        type: type === "Password" ? "password" : "signature",
       };
 
       const response = await axios.post(

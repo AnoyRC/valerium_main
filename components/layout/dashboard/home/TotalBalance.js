@@ -25,6 +25,10 @@ const TotalBalance = () => {
       }
       setUsdBalance(totalUsdBalance);
     }
+
+    return () => {
+      setUsdBalance(0);
+    };
   }, [tokenBalanceData, tokenConversionData]);
 
   return (

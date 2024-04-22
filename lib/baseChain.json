@@ -1,25 +1,51 @@
 {
-  "chainId": 1891,
-  "chainName": "LightLink Pegasus Testnet",
+  "chainId": 10,
+  "chainName": "Optimism",
   "isBase": true,
-  "rpcUrl": "https://replicator.pegasus.lightlink.io/rpc/v1",
+  "rpcUrl": "https://optimism-rpc.publicnode.com",
+  "convert_id": "2781",
+  "id": "1027",
+  "symbol": "ETH",
+  "logo": "/eth-logo.svg",
   "addresses": {
-    "Valerium": "0x0560f6B73E570b4eCD2018E4AC450E773E60bED5",
-    "ValeriumForwarder": "0x16BB4A38944d00821bb15dBc2BACd8Ad0F57d8F0",
-    "FactoryForwarder": "0xAf02c5B217214bCecA60257A038E9BBcF02b92db",
-    "ValeriumProxyFactory": "0x8B9EeB8d12C85EE73d3ae6FaB0d0726625C80e7d",
-    "ValeriumVault": "0x1FdD0B22E4208F6CeE8F8C1Bdbf28bBBc359A86F",
-    "PasswordVerifier": "0x8c196a2cd0d097CE21726a6D8D6ccb56Cbcb8274",
-    "SignatureVerifier": "0x248263304f8B869A7645Dc2510bA5B2A8bA03795",
-    "ValeriumGasTank": "0x51781cc1439BD05a85185C8c8CEc979b263236e3"
+    "Valerium": "0xd17Dd62290EcdEa48e5029a4fBd519245C911c19",
+    "ValeriumForwarder": "0x40C92d2E370b3d3944fDd90c922a407F02D286d1",
+    "FactoryForwarder": "0x44950f083691828A07c17d2A927B435e8B272F6D",
+    "ValeriumProxyFactory": "0x0B62BDA8EcE17AFfa7adAe16bBaBBC8584A30016",
+    "ValeriumVault": "0x1275917daAE6389C61c7B1E8199724D0b46Ed10f",
+    "PasswordVerifier": "0x0c17B9e142a0DDb42f075b0E2f1988691ea1d75a",
+    "SignatureVerifier": "0xC4e20B3BD1922A02c6DAC500De5754E3CC4046BB",
+    "ValeriumGasTank": "0xd276eC25c2C4670B067b9CF726b7BfCADB191107"
+  },
+  "style": {
+    "baseTextColor": "#FFFFFF",
+    "colorDark": "#FF0420",
+    "colorLight": "#FF0420",
+    "gradientColorDark": "linear-gradient(93deg, rgba(255, 4, 32, 0.40) 0%, rgba(153, 2, 19, 0.40) 100%)",
+    "gradientColorLight": "linear-gradient(93deg, rgba(255, 4, 32, 0.80) 0%, rgba(153, 2, 19, 0.80) 100%)",
+    "backgroundColorDark": "rgba(255, 4, 32, 0.40)",
+    "backgroundColorLight": "rgba(255, 4, 32, 0.20)",
+    "backgroundShadowEffect": "linear-gradient(40deg, rgba(255, 255, 255, 0.00) 60%, rgba(255, 74, 94, 0.00) 60%, rgba(255, 4, 32, 0.80) 100%)",
+    "logo": "/optimism-logo.svg"
   },
   "tokens": [
     {
-      "name": "BNB",
-      "address": "0x60d7966bdf03f0Ec0Ac6de7269CE0E57aAd6e9c2",
-      "convert_id": "1839",
-      "id": "1027",
-      "decimals": 18
+      "name": "ETH",
+      "symbol": "ETH",
+      "address": null,
+      "convert_id": "1027",
+      "usd_id": "2781",
+      "decimals": 18,
+      "logo": "/eth-logo.svg"
+    },
+    {
+      "name": "USDC",
+      "symbol": "USDC",
+      "address": "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85",
+      "convert_id": "3408",
+      "usd_id": "2781",
+      "decimals": 6,
+      "logo": "/bnb-logo.svg"
     }
   ]
 }

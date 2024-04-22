@@ -17,7 +17,7 @@ const AccountBalance = () => {
 
   const tokenBalanceData = useSelector((state) => state.user.tokenBalanceData);
   const tokenConversionData = useSelector(
-    (state) => state.user.tokenConversionData,
+    (state) => state.user.tokenConversionData
   );
   const currentChain = useSelector((state) => state.chain.currentChain);
 
@@ -28,11 +28,14 @@ const AccountBalance = () => {
 
     if (tokenBalanceData && tokenConversionData) {
       setUsdBalance(
-        tokenBalanceData[0].balance /
-          10 ** 18 /
-          tokenConversionData[0].usdValue,
+        tokenBalanceData[0].balance / 10 ** 18 / tokenConversionData[0].usdValue
       );
     }
+
+    return () => {
+      setBalance(0);
+      setUsdBalance(0);
+    };
   }, [tokenBalanceData, tokenConversionData, currentChain]);
 
   return (

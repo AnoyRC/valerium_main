@@ -12,7 +12,12 @@ import {
 } from "@/redux/slice/UserSlice";
 import config from "@/lib/config";
 import ValeriumABI from "@/lib/abi/Valerium.json";
-import { setEmail, setType } from "@/redux/slice/proofSlice";
+import {
+  setEmail,
+  setRecoveryProof,
+  setTxProof,
+  setType,
+} from "@/redux/slice/proofSlice";
 import { toast } from "sonner";
 import { setCurrentChain } from "@/redux/slice/chainSlice";
 import { setUpdates } from "@/redux/slice/gasTokenSlice";
@@ -271,6 +276,10 @@ export default function useWallet() {
       return;
     }
 
+    dispatch(setTxProof(null));
+    dispatch(setRecoveryProof(null));
+    dispatch(setTokenConversionData(null));
+    dispatch(setTokenBalanceData(null));
     dispatch(setCurrentChain(chain));
   };
 

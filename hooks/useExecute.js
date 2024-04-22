@@ -100,6 +100,8 @@ export default function useExecute() {
           }?forwardRequest=${JSON.stringify(forwardRequest)}`
         );
 
+        console.log(estimate.data);
+
         if (estimate.data.success) {
           return estimate.data.estimates.estimateFees;
         } else {
@@ -114,6 +116,8 @@ export default function useExecute() {
           gasToken.address
         }`
       );
+
+      console.log(estimate.data);
 
       if (estimate.data.success) {
         return estimate.data.estimates.estimateFees;

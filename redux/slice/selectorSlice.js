@@ -26,7 +26,7 @@ const selectorSlice = createSlice({
       ,
       null,
     ],
-    drawerChain: 1891,
+    drawerChain: 10,
     tokenDrawer: false,
     tokenIndex: 0,
   },

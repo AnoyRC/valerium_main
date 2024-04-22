@@ -47,21 +47,25 @@ const SummaryTotal = ({
                           amount / Number(currentTokenConversion) +
                           gas / 10 ** token[1].decimals
                         ).toFixed(
-                          parseInt(
-                            (gas / 10 ** token[1].decimals)
-                              .toExponential()
-                              .split("e")[1]
-                          ) * -1
+                          Math.abs(
+                            parseInt(
+                              (gas / 10 ** token[1].decimals)
+                                .toExponential()
+                                .split("e")[1]
+                            )
+                          )
                         )
                       : (
                           Number(amount) +
                           gas / 10 ** token[1].decimals
                         ).toFixed(
-                          parseInt(
-                            (gas / 10 ** token[1].decimals)
-                              .toExponential()
-                              .split("e")[1]
-                          ) * -1
+                          Math.abs(
+                            parseInt(
+                              (gas / 10 ** token[1].decimals)
+                                .toExponential()
+                                .split("e")[1]
+                            )
+                          )
                         )
                     : usdToggle
                     ? formatAmount(amount / Number(currentTokenConversion))
@@ -88,22 +92,8 @@ const SummaryTotal = ({
             <div className="flex w-full flex-row-reverse justify-between">
               <p className="text-text-gray">
                 {!isLoading && usdToggle
-                  ? "+ " +
-                    (gas / 10 ** token[1].decimals).toFixed(
-                      parseInt(
-                        (gas / 10 ** token[1].decimals)
-                          .toExponential()
-                          .split("e")[1]
-                      ) * -1
-                    )
-                  : "+ " +
-                    (gas / 10 ** token[1].decimals).toFixed(
-                      parseInt(
-                        (gas / 10 ** token[1].decimals)
-                          .toExponential()
-                          .split("e")[1]
-                      ) * -1
-                    )}
+                  ? "+ " + (gas / 10 ** token[1].decimals).toFixed(parseInt(6))
+                  : "+ " + (gas / 10 ** token[1].decimals).toFixed(6)}
 
                 <span> {token[1]?.symbol}</span>
               </p>

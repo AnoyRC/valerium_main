@@ -1,5 +1,6 @@
 import Header from "@/components/header/Header";
 import Sidebar from "@/components/sidebar/Sidebar";
+import DisclaimerFooter from "@/components/ui/footer/DisclaimerFooter";
 import WalletProvider from "@/provider/WalletProvider";
 
 export const metadata = {
@@ -16,7 +17,11 @@ const LoginLayout = ({ children }) => {
         <main className="relative mx-5 ml-10 flex flex-1 flex-col space-y-4">
           <Header />
 
-          {children}
+          <div className="flex flex-1 flex-col">
+            {children}
+
+            <DisclaimerFooter />
+          </div>
         </main>
       </div>
     </WalletProvider>
