@@ -45,28 +45,9 @@ const SummaryTotal = ({
                     ? usdToggle
                       ? (
                           amount / Number(currentTokenConversion) +
-                          gas / 10 ** token[1].decimals
-                        ).toFixed(
-                          Math.abs(
-                            parseInt(
-                              (gas / 10 ** token[1].decimals)
-                                .toExponential()
-                                .split("e")[1]
-                            )
-                          )
-                        )
-                      : (
-                          Number(amount) +
-                          gas / 10 ** token[1].decimals
-                        ).toFixed(
-                          Math.abs(
-                            parseInt(
-                              (gas / 10 ** token[1].decimals)
-                                .toExponential()
-                                .split("e")[1]
-                            )
-                          )
-                        )
+                          gas / 10 ** 18
+                        ).toFixed(6)
+                      : (Number(amount) + gas / 10 ** 18).toFixed(6)
                     : usdToggle
                     ? formatAmount(amount / Number(currentTokenConversion))
                     : amount || "0.00"}
@@ -92,8 +73,8 @@ const SummaryTotal = ({
             <div className="flex w-full flex-row-reverse justify-between">
               <p className="text-text-gray">
                 {!isLoading && usdToggle
-                  ? "+ " + (gas / 10 ** token[1].decimals).toFixed(parseInt(6))
-                  : "+ " + (gas / 10 ** token[1].decimals).toFixed(6)}
+                  ? "+ " + (gas / 10 ** 18).toFixed(parseInt(6))
+                  : "+ " + (gas / 10 ** 18).toFixed(6)}
 
                 <span> {token[1]?.symbol}</span>
               </p>

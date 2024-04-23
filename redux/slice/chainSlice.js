@@ -14,7 +14,7 @@ const chainSlice = createSlice({
       symbol: "ETH",
       logo: "/eth-logo.svg",
       addresses: {
-        Valerium: "0xd17Dd62290EcdEa48e5029a4fBd519245C911c19",
+        Valerium: "0xE2863dBFFC36100cd77160d74F4bb97344E0AD42",
         ValeriumForwarder: "0x40C92d2E370b3d3944fDd90c922a407F02D286d1",
         FactoryForwarder: "0x44950f083691828A07c17d2A927B435e8B272F6D",
         ValeriumProxyFactory: "0x0B62BDA8EcE17AFfa7adAe16bBaBBC8584A30016",

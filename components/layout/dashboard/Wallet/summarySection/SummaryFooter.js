@@ -74,17 +74,7 @@ const SummaryFooter = ({
             ) : (
               <>
                 <span>{txProof ? "+" : ""}</span>{" "}
-                {txProof
-                  ? (gas / 10 ** token[1].decimals).toFixed(
-                      Math.abs(
-                        parseInt(
-                          (gas / 10 ** token[1].decimals)
-                            .toExponential()
-                            .split("e")[1]
-                        )
-                      )
-                    )
-                  : "-.--"}
+                {txProof ? (gas / 10 ** 18).toFixed(Math.abs(6)) : "-.--"}
                 <span> {token[1]?.symbol || token[0]?.symbol}</span>
               </>
             )}
