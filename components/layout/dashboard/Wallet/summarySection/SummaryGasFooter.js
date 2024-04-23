@@ -33,7 +33,7 @@ export default function SummaryGasFooter({
                 {isLoading ? (
                   <Loader2 className="h-5 w-5 animate-spin -mr-2" />
                 ) : estimatedGas ? (
-                  (estimatedGas / 10 ** gasToken.decimals).toFixed(6)
+                  (estimatedGas / 10 ** 18).toFixed(6)
                 ) : (
                   "-.--"
                 )}
@@ -65,7 +65,7 @@ export default function SummaryGasFooter({
             {isLoading ? (
               <Loader2 className="h-5 w-5 animate-spin" />
             ) : estimatedGas ? (
-              (estimatedGas / 10 ** gasToken.decimals).toFixed(6)
+              (estimatedGas / 10 ** 18).toFixed(6)
             ) : (
               "-.--"
             )}

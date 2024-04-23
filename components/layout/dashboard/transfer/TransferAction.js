@@ -64,7 +64,7 @@ const TransferAction = ({
     : "0.00";
 
   const currentTokenConversion = selectedToken
-    ? tokenConversionData
+    ? tokenConversionData !== null
       ? 1 /
           tokenConversionData.find(
             (token) => token.address === selectedToken.address

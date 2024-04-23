@@ -20,7 +20,7 @@ const TotalBalance = () => {
       for (let i = 0; i < tokenBalanceData.length; i++) {
         totalUsdBalance +=
           tokenBalanceData[i].balance /
-          10 ** 18 /
+          10 ** tokenBalanceData[i].decimals /
           tokenConversionData[i].usdValue;
       }
       setUsdBalance(totalUsdBalance);
