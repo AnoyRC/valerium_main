@@ -1,6 +1,6 @@
 import NavItem from "./NavItem";
 
-import { navItems } from "@/utils/data/NavListData";
+import { navItems } from "@/utils/data/navListData";
 
 const Nav = () => {
   const largeItems = navItems.filter((item) => item.size === "lg");
@@ -21,7 +21,7 @@ const Nav = () => {
           </NavItem>
         ))}
       </ul>
-      
+
       <ul className="space-y-1">
         {smallItems.map((item, index) => (
           <NavItem key={index} label={item.label} href={item.href}>

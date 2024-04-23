@@ -7,8 +7,7 @@ const Anywhere = () => {
       style={{
         background:
           "radial-gradient(1067.57% 100.06% at 0% 49.75%, rgba(196, 28, 203, 0.40) 0%, rgba(196, 24, 45, 0.40) 60.4%, rgba(196, 28, 203, 0.40) 100%)",
-        boxShadow:
-          "0px 8px 16px 0px rgba(0, 0, 0, 0.25), 0px -8px 16px 0px rgba(0, 0, 0, 0.25)",
+        boxShadow: "0px -8px 16px 0px rgba(0, 0, 0, 0.25)",
       }}
     >
       <div className="mx-auto space-y-6 text-center">
