@@ -1,4 +1,5 @@
 import { Gloock, Noto_Sans } from "next/font/google";
+import Head from "next/head";
 
 import "./globals.css";
 
@@ -19,14 +20,14 @@ const notoSans = Noto_Sans({
 export const metadata = {
   title: "Valerium",
   description: "Valerium - ZK-based Smart Contract Wallet",
-  icons: {
-    shortcut: [{ url: "/favicon.ico", sizes: "16x16", type: "image/ico" }],
-  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <Head>
+        <link rel="icon" href="/favicon.ico" sizes="64x64" />
+      </Head>
       <body className={`${gloock.variable} ${notoSans.variable}`}>
         {children}
       </body>
