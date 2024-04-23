@@ -4,7 +4,7 @@ export const footerListsData = [
     lists: [
       {
         name: "Web App",
-        link: "#",
+        link: "https://www.valerium.id/login",
       },
       {
         name: "Mobile App",
@@ -42,7 +42,7 @@ export const footerListsData = [
     lists: [
       {
         name: "GitHub",
-        link: "#",
+        link: "https://github.com/Muziris-Labs",
       },
       {
         name: "FAQ",

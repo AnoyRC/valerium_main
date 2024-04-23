@@ -23,7 +23,7 @@ const NavBar = () => {
             <Button
               size="sm"
               onClick={handleLaunchApp}
-              className="rounded-full bg-gradient-primary-light lg:inline-block"
+              className="rounded-full bg-gradient-primary-light font-noto p-4 px-8 lg:inline-block"
             >
               Launch App
             </Button>

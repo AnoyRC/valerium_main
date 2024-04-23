@@ -11,11 +11,11 @@ const Anywhere = () => {
       }}
     >
       <div className="mx-auto space-y-6 text-center">
-        <h2 className="text-7xl font-semibold text-black">
+        <h2 className="text-7xl font-semibold font-noto text-black">
           Valerium Coming <br /> Soon Everywhere
         </h2>
 
-        <p className="text-base">
+        <p className="text-base font-noto">
           Access your wallet anywhere without compromising on security with our
           ZK-based seedless and <br /> permissionless interface.
         </p>

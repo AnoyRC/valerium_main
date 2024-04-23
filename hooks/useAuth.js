@@ -17,12 +17,12 @@ export default function useAuth() {
       });
 
       try {
-        await magic.webauthn.registerNewUser({
+        await magic.webauthn.login({
           username: searchParams.get("domain") + ".valerium.id",
         });
       } catch (error) {
         console.log(error.message);
-        await magic.webauthn.login({
+        await magic.webauthn.registerNewUser({
           username: searchParams.get("domain") + ".valerium.id",
         });
       }

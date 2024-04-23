@@ -21,7 +21,7 @@ const Social = () => {
         </li>
 
         <li className="w-fit rounded-full bg-black p-2.5">
-          <Link href="#">
+          <Link href="https://discord.gg/uWcsSJsXun">
             <Image
               src="/social/discord.svg"
               alt="Discord"
@@ -32,7 +32,7 @@ const Social = () => {
         </li>
 
         <li className="w-fit rounded-full bg-black p-2.5">
-          <Link href="#">
+          <Link href="https://t.me/OxBaer">
             <Image
               src="/social/telegram.svg"
               alt="Telegram"

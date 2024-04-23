@@ -95,6 +95,7 @@ export function TxProofDrawer() {
                 onClick={() => {
                   generatePasskeyProof();
                 }}
+                disabled={isLoading}
               >
                 <div className="flex h-full w-16 items-center justify-center rounded-lg bg-black/90">
                   {txProof ? (

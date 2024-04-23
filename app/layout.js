@@ -19,6 +19,9 @@ const notoSans = Noto_Sans({
 export const metadata = {
   title: "Valerium",
   description: "Valerium - ZK-based Smart Contract Wallet",
+  icons: {
+    shortcut: [{ url: "/favicon.ico", sizes: "16x16", type: "image/ico" }],
+  },
 };
 
 export default function RootLayout({ children }) {

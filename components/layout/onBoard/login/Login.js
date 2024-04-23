@@ -1,7 +1,6 @@
 "use client";
 
 import { Input, Button } from "@material-tailwind/react";
-import { useDispatch, useSelector } from "react-redux";
 import { useRef, useState, useEffect } from "react";
 import useLogin from "@/hooks/useLogin";
 import { Info, Loader2 } from "lucide-react";
@@ -112,7 +111,7 @@ const Login = () => {
       {!isLoading && !isUsed && domain.length > 3 && (
         <p className="mt-2 flex text-sm text-red-500">
           <Info size={20} className="mr-1 inline" />
-          This domain is not available.
+          This domain is not registered.
         </p>
       )}
 
