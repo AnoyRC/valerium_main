@@ -20,6 +20,7 @@ const BuyGasTokenButton = () => {
   const type = useSelector((state) => state.proof.type);
   const [isConfirm, setIsConfirm] = useState(false);
   const { buy } = useBuy();
+  const isRunning = useSelector((state) => state.tx.isRunning);
 
   const handleBuyGasToken = () => {
     if (!txProof) {
@@ -29,6 +30,11 @@ const BuyGasTokenButton = () => {
 
     if (!isConfirm) {
       setIsConfirm(true);
+      return;
+    }
+
+    if (isRunning) {
+      toast.error("Transaction is already in progress.");
       return;
     }
 

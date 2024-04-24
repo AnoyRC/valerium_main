@@ -30,6 +30,7 @@ export default function SecurityAction({
   const dispatch = useDispatch();
   const email = useSelector((state) => state.proof.email);
   const { changeRecovery, changeRecoveryGasless } = useChange();
+  const isRunning = useSelector((state) => state.tx.isRunning);
 
   const handleClick = async () => {
     try {
@@ -39,6 +40,11 @@ export default function SecurityAction({
       }
       if (!isConfirm) {
         setIsConfirm(true);
+        return;
+      }
+
+      if (isRunning) {
+        toast.error("Transaction is already in progress.");
         return;
       }
 

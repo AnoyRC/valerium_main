@@ -1,17 +1,19 @@
 "use client";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ethers } from "ethers";
 import ValeriumForwarderABI from "@/lib/abi/ValeriumForwarder.json";
 import axios from "axios";
 import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
 import useWallet from "./useWallet";
+import { setIsRunning } from "@/redux/slice/TxSlice";
 
 export default function useExecute() {
   const currentChain = useSelector((state) => state.chain.currentChain);
   const searchParams = useSearchParams();
   const { loadGasCredit } = useWallet();
+  const dispatch = useDispatch();
 
   const estimateGas = async (
     walletAddresses,
@@ -139,6 +141,7 @@ export default function useExecute() {
     type
   ) => {
     try {
+      dispatch(setIsRunning(true));
       const provider = new ethers.providers.JsonRpcProvider(
         currentChain.rpcUrl
       );
@@ -246,6 +249,8 @@ export default function useExecute() {
       console.log(error);
       toast.error("Transaction failed");
       return false;
+    } finally {
+      dispatch(setIsRunning(false));
     }
   };
 
@@ -258,6 +263,7 @@ export default function useExecute() {
     type
   ) => {
     try {
+      dispatch(setIsRunning(true));
       const provider = new ethers.providers.JsonRpcProvider(
         currentChain.rpcUrl
       );
@@ -351,6 +357,8 @@ export default function useExecute() {
       console.log(error);
       toast.error("Transaction failed");
       return false;
+    } finally {
+      dispatch(setIsRunning(false));
     }
   };
 

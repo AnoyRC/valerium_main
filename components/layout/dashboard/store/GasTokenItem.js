@@ -4,6 +4,7 @@ import { Button } from "@material-tailwind/react";
 
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
 
 import TokenImage from "./GasTokenImage";
 
@@ -16,6 +17,7 @@ const GasTokenItem = ({ quantity }) => {
   const [selectedToken, ,] = useSelector((state) => state.selector.token);
   const updates = useSelector((state) => state.gasToken.updates);
   const currentChain = useSelector((state) => state.chain.currentChain);
+  const isRunning = useSelector((state) => state.tx.isRunning);
 
   const selectedUpdates =
     currentChain &&
@@ -29,6 +31,10 @@ const GasTokenItem = ({ quantity }) => {
     );
 
   const handleGasTokenClick = () => {
+    if (isRunning) {
+      toast.error("Transaction is already in progress.");
+      return;
+    }
     dispatch(setQuantity(quantity));
   };
 

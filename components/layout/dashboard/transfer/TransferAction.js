@@ -49,6 +49,7 @@ const TransferAction = ({
   const tokenConversionData = useSelector(
     (state) => state.user.tokenConversionData
   );
+  const isRunning = useSelector((state) => state.tx.isRunning);
   const [isConfirm, setIsConfirm] = useState(false);
   const walletAddresses = useSelector((state) => state.user.walletAddresses);
   const { execute, executeGasless } = useExecute();
@@ -73,6 +74,11 @@ const TransferAction = ({
     : 0;
 
   const handleExecute = async () => {
+    if (isRunning) {
+      toast.error("Transaction is already in progress.");
+      return;
+    }
+
     if (selectedToken.address === null) {
       if (!usdToggle) {
         if (activeTab === "gasless")

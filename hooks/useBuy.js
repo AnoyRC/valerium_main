@@ -1,13 +1,14 @@
 "use client";
 
 import { ethers } from "ethers";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ValeriumForwarderABI from "@/lib/abi/ValeriumForwarder.json";
 import ValeriumVaultABI from "@/lib/abi/ValeriumVault.json";
 import axios from "axios";
 import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
 import useWallet from "./useWallet";
+import { setIsRunning } from "@/redux/slice/TxSlice";
 
 export default function useBuy() {
   const txProof = useSelector((state) => state.proof.txProof);
@@ -21,6 +22,7 @@ export default function useBuy() {
   const searchParams = useSearchParams();
   const { loadGasCredit } = useWallet();
   const type = useSelector((state) => state.proof.type);
+  const dispatch = useDispatch();
 
   const selectedUpdates =
     currentChain &&
@@ -294,6 +296,7 @@ export default function useBuy() {
 
   const buy = async (proof) => {
     try {
+      dispatch(setIsRunning(true));
       const provider = new ethers.providers.JsonRpcProvider(
         currentChain.rpcUrl
       );
@@ -590,11 +593,14 @@ export default function useBuy() {
     } catch (error) {
       console.log(error);
       return 0;
+    } finally {
+      dispatch(setIsRunning(false));
     }
   };
 
   const verifyTransaction = async (txHash, selectedToken) => {
     try {
+      dispatch(setIsRunning(true));
       if (selectedToken.address === null) {
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/gasCredit/native/verify/${
@@ -627,6 +633,8 @@ export default function useBuy() {
     } catch (error) {
       toast.error("Failed to verify transaction");
       console.log(error);
+    } finally {
+      dispatch(setIsRunning(false));
     }
   };
 

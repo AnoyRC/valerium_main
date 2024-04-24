@@ -2,13 +2,14 @@
 
 import { ethers } from "ethers";
 import ValeriumForwarderABI from "@/lib/abi/ValeriumForwarder.json";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "sonner";
 import { Magic } from "magic-sdk";
 import useCircuit from "./useCircuit";
 import useWallet from "./useWallet";
 import { useSearchParams } from "next/navigation";
+import { setIsRunning } from "@/redux/slice/TxSlice";
 
 export default function useChange() {
   const type = useSelector((state) => state.proof.type);
@@ -18,6 +19,7 @@ export default function useChange() {
   const { hashKey } = useCircuit();
   const { loadPublicStorage, loadGasCredit } = useWallet();
   const searchParams = useSearchParams();
+  const dispatch = useDispatch();
 
   const estimateGas = async (email, gasToken) => {
     try {
@@ -133,6 +135,7 @@ export default function useChange() {
 
   const changeRecovery = async (email, gasToken) => {
     try {
+      dispatch(setIsRunning(true));
       const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_API_KEY);
       const isLoggedIn = await magic.user.isLoggedIn();
       if (isLoggedIn) {
@@ -278,11 +281,14 @@ export default function useChange() {
       console.log(error);
       toast.error("Failed to execute recovery");
       return 0;
+    } finally {
+      dispatch(setIsRunning(false));
     }
   };
 
   const changeRecoveryGasless = async (email) => {
     try {
+      dispatch(setIsRunning(true));
       const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_API_KEY);
       const isLoggedIn = await magic.user.isLoggedIn();
       if (isLoggedIn) {
@@ -412,6 +418,8 @@ export default function useChange() {
       console.log(error);
       toast.error("Failed to execute recovery");
       return 0;
+    } finally {
+      dispatch(setIsRunning(false));
     }
   };
 

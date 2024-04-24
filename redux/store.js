@@ -8,6 +8,7 @@ import userSlice from "./slice/UserSlice.js";
 import selectorSlice from "./slice/selectorSlice.js";
 import proofSlice from "./slice/proofSlice.js";
 import gasTokenSlice from "./slice/gasTokenSlice.js";
+import TxSlice from "./slice/TxSlice.js";
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     selector: selectorSlice,
     proof: proofSlice,
     gasToken: gasTokenSlice,
+    tx: TxSlice,
   },
 
   middleware: (getDefaultMiddleware) =>

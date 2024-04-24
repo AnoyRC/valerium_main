@@ -28,6 +28,7 @@ export default function useWallet() {
   const dispatch = useDispatch();
   const currentChain = useSelector((state) => state.chain.currentChain);
   const walletAddresses = useSelector((state) => state.user.walletAddresses);
+  const isRunning = useSelector((state) => state.tx.isRunning);
 
   const getBalance = async (currentChain, address) => {
     try {
@@ -270,6 +271,11 @@ export default function useWallet() {
   };
 
   const switchChain = (chainId) => {
+    if (isRunning) {
+      toast.error("Transaction in progress");
+      return;
+    }
+
     const chain = config.find((chain) => chain.chainId === chainId);
 
     const walletAddress =

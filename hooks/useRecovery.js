@@ -5,9 +5,10 @@ import { ethers } from "ethers";
 import ValeriumForwarderABI from "@/lib/abi/ValeriumForwarder.json";
 import axios from "axios";
 import { toast } from "sonner";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useWallet from "./useWallet";
 import { useSearchParams } from "next/navigation";
+import { setIsRunning } from "@/redux/slice/TxSlice";
 
 export default function useRecovery() {
   const { hashKey, hashPassword } = useCircuit();
@@ -17,6 +18,7 @@ export default function useRecovery() {
   const proof = useSelector((state) => state.proof.recoveryProof);
   const { loadPublicStorage, loadGasCredit } = useWallet();
   const searchParams = useSearchParams();
+  const dispatch = useDispatch();
 
   const estimateGas = async (passkey, password, gasToken) => {
     try {
@@ -144,6 +146,7 @@ export default function useRecovery() {
 
   const executeRecovery = async (passkey, password) => {
     try {
+      dispatch(setIsRunning(true));
       const provider = new ethers.providers.JsonRpcProvider(
         currentChain.rpcUrl
       );
@@ -269,11 +272,14 @@ export default function useRecovery() {
     } catch (error) {
       toast.error("Failed to execute recovery");
       return 0;
+    } finally {
+      dispatch(setIsRunning(false));
     }
   };
 
   const executeRecoveryGasless = async (passkey, password) => {
     try {
+      dispatch(setIsRunning(true));
       const provider = new ethers.providers.JsonRpcProvider(
         currentChain.rpcUrl
       );
@@ -383,6 +389,8 @@ export default function useRecovery() {
     } catch (error) {
       toast.error("Failed to execute recovery");
       return 0;
+    } finally {
+      dispatch(setIsRunning(false));
     }
   };
 

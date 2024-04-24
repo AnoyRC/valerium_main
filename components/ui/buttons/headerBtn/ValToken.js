@@ -32,7 +32,9 @@ const ValToken = () => {
           />
         </div>
 
-        <p className="text-base font-semibold">{gasCredit ? gasCredit : 0}</p>
+        <p className="text-base font-semibold">
+          {gasCredit ? gasCredit.toFixed(2) : 0}
+        </p>
 
         <div className="rounded-full bg-gradient-primary-light p-1">
           <Plus size={16} color="white" />
