@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRef, useState, useEffect } from "react";
 import useSignup from "@/hooks/useSignup";
 import { Info, Loader2 } from "lucide-react";
+import CurrentChainInfo from "@/components/ui/chains/CurrentChainInfo";
 
 const Step1 = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,9 @@ const Step1 = () => {
         setDomain(e.target.value.slice(0, 20).replace(/[^a-zA-Z0-9]/g, ""))
       );
     } else {
-      dispatch(setDomain(e.target.value.replace(/[^a-zA-Z0-9]/g, "")));
+      dispatch(
+        setDomain(e.target.value.replace(/[^a-zA-Z0-9]/g, "")?.toLowerCase())
+      );
     }
   };
 
@@ -32,7 +35,7 @@ const Step1 = () => {
     if (domain.length < 3) return;
     if (domain.length > 20) return;
 
-    const isUsed = await isValidValerium(domain);
+    const isUsed = await isValidValerium(domain?.toLowerCase());
 
     setIsUsed(isUsed);
     setIsLoading(false);
@@ -61,7 +64,8 @@ const Step1 = () => {
 
   return (
     <div className="flex flex-col">
-      <h1 className="font-gloock text-4xl">Setup your new Wallet</h1>
+      <CurrentChainInfo label="Deploying on" />
+      <h1 className="font-gloock text-4xl mt-5">Setup your new Wallet</h1>
       <p className="mt-2 font-noto text-sm text-gray-600">
         Find your Favorite Multi Chain Valerium Domain.
       </p>

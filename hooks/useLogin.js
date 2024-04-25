@@ -17,7 +17,7 @@ export default function useLogin() {
       );
 
       const valeriumAddress = await factory.getValeriumProxy(
-        domain + ".valerium.id"
+        domain?.toLowerCase() + ".valerium.id"
       );
 
       return valeriumAddress;

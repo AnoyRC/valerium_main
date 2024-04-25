@@ -398,7 +398,7 @@ export default function useChange() {
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/change/gasless/${
-          searchParams.get("domain") + ".valerium.id"
+          searchParams.get("domain")?.toLowerCase() + ".valerium.id"
         }/${currentChain.chainId}`,
         {
           forwardRequest,
@@ -407,7 +407,9 @@ export default function useChange() {
       );
       if (response.data.success) {
         await loadPublicStorage(currentChain, walletAddresses);
-        await loadGasCredit(searchParams.get("domain") + ".valerium.id");
+        await loadGasCredit(
+          searchParams.get("domain")?.toLowerCase() + ".valerium.id"
+        );
         toast.success("Recovery successfully");
         return true;
       } else {

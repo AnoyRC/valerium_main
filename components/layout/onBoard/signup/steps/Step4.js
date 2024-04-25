@@ -15,7 +15,7 @@ export default function Step4() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [message, setMessage] = useState("");
-  const domain = useSelector((state) => state.signup.domain);
+  const domain = useSelector((state) => state.signup.domain)?.toLowerCase();
   const router = useRouter();
   return (
     <div className="flex flex-col">
@@ -23,15 +23,15 @@ export default function Step4() {
         {isSuccess
           ? "Wallet Deployed"
           : isLoading
-            ? "Deploying Wallet"
-            : "Ready to Deploy"}
+          ? "Deploying Wallet"
+          : "Ready to Deploy"}
       </h1>
       <p className="mt-2 font-noto text-sm text-gray-600">
         {isSuccess
           ? "Your wallet has been deployed successfully."
           : isLoading
-            ? "Hold tight, we are deploying your wallet."
-            : "Your Wallet is ready to deploy. Click the button below to deploy your wallet."}
+          ? "Hold tight, we are deploying your wallet."
+          : "Your Wallet is ready to deploy. Click the button below to deploy your wallet."}
       </p>
 
       {!isLoading && !isSuccess && (

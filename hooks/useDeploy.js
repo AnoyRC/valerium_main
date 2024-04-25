@@ -72,12 +72,10 @@ export default function useDeploy() {
         [
           ethers.utils.keccak256(
             ethers.utils.toUtf8Bytes(
-              searchParams.get("domain") + ".valerium.id"
+              searchParams.get("domain")?.toLowerCase() + ".valerium.id"
             )
           ),
-          type === "Password"
-            ? chain.addresses.PasswordVerifier
-            : chain.addresses.SignatureVerifier,
+          chain.addresses.PasswordVerifier,
           chain.addresses.SignatureVerifier,
           chain.addresses.ValeriumForwarder,
           chain.addresses.ValeriumGasTank,
@@ -88,10 +86,10 @@ export default function useDeploy() {
       );
 
       const chainDeployRequest = {
-        domain: searchParams.get("domain") + ".valerium.id",
+        domain: searchParams.get("domain")?.toLowerCase() + ".valerium.id",
         proof,
         initializer,
-        type: type === "Password" ? "password" : "signature",
+        type: "password",
       };
 
       const response = await axios.post(

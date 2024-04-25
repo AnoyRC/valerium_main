@@ -56,7 +56,7 @@ export default function useWallet() {
         provider
       );
 
-      const address = await factory.getValeriumProxy(domain);
+      const address = await factory.getValeriumProxy(domain?.toLowerCase());
 
       return address;
     } catch (error) {
@@ -155,7 +155,10 @@ export default function useWallet() {
     for (const chain in config) {
       const currentChain = config[chain];
 
-      const address = await getValeriumAddress(currentChain, domain);
+      const address = await getValeriumAddress(
+        currentChain,
+        domain?.toLowerCase()
+      );
 
       addresses.push({
         chainId: currentChain.chainId,
@@ -305,7 +308,9 @@ export default function useWallet() {
   const loadGasCredit = async (domain) => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/gasCredit/balance/${domain}`
+        `${
+          process.env.NEXT_PUBLIC_BACKEND_URL
+        }/api/gasCredit/balance/${domain?.toLowerCase()}`
       );
 
       if (response.data.success) {

@@ -26,7 +26,7 @@ export default function WalletProvider({ children }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const domain = searchParams.get("domain");
+    const domain = searchParams.get("domain")?.toLowerCase();
     if (domain) {
       loadAllData(domain + ".valerium.id");
       loadTokenData(currentChain, domain + ".valerium.id");
@@ -43,7 +43,7 @@ export default function WalletProvider({ children }) {
 
   useEffect(() => {
     currentTimeout = setInterval(() => {
-      const domain = searchParams.get("domain");
+      const domain = searchParams.get("domain")?.toLowerCase();
       if (domain) {
         loadTokenData(currentChain, domain + ".valerium.id");
         loadGasCredit(domain + ".valerium.id");

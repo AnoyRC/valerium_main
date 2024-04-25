@@ -13,7 +13,7 @@ const ValToken = () => {
   const searchParams = useSearchParams();
 
   const handleTokenClick = () => {
-    router.push(`/store?domain=${searchParams.get("domain")}`);
+    router.push(`/store?domain=${searchParams.get("domain")?.toLowerCase()}`);
   };
 
   return (

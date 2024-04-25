@@ -102,8 +102,6 @@ export default function useExecute() {
           }?forwardRequest=${JSON.stringify(forwardRequest)}`
         );
 
-        console.log(estimate.data);
-
         if (estimate.data.success) {
           return estimate.data.estimates.estimateFees;
         } else {
@@ -118,8 +116,6 @@ export default function useExecute() {
           gasToken.address
         }`
       );
-
-      console.log(estimate.data);
 
       if (estimate.data.success) {
         return estimate.data.estimates.estimateFees;
@@ -218,7 +214,7 @@ export default function useExecute() {
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/execute/native/${currentChain.chainId}`,
           {
             forwardRequest,
-            mode: type === "Password" ? "password" : "signature",
+            mode: "password",
           }
         );
 
@@ -235,7 +231,7 @@ export default function useExecute() {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/execute/erc20/${currentChain.chainId}?address=${gasToken.address}`,
         {
           forwardRequest,
-          mode: type === "Password" ? "password" : "signature",
+          mode: "password",
         }
       );
       if (response.data.success) {
@@ -337,16 +333,18 @@ export default function useExecute() {
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/execute/gasless/${
-          searchParams.get("domain") + ".valerium.id"
+          searchParams.get("domain")?.toLowerCase() + ".valerium.id"
         }/${currentChain.chainId}`,
         {
           forwardRequest,
-          mode: type === "Password" ? "password" : "signature",
+          mode: "password",
         }
       );
 
       if (response.data.success) {
-        await loadGasCredit(searchParams.get("domain") + ".valerium.id");
+        await loadGasCredit(
+          searchParams.get("domain")?.toLowerCase() + ".valerium.id"
+        );
         toast.success("Transaction sent successfully");
         return true;
       } else {

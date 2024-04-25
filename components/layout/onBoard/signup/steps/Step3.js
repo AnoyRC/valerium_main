@@ -1,5 +1,6 @@
 "use client";
 
+import CurrentChainInfo from "@/components/ui/chains/CurrentChainInfo";
 import SignupFooter from "@/components/ui/footer/SignupFooter";
 import useSignup from "@/hooks/useSignup";
 import { setEmail } from "@/redux/slice/SignupSlice";
@@ -15,7 +16,8 @@ const Step3 = () => {
   const dispatch = useDispatch();
   return (
     <div className="flex flex-col">
-      <h1 className="font-gloock text-4xl">Setup your new Wallet</h1>
+      <CurrentChainInfo label="Deploying on" />
+      <h1 className="font-gloock text-4xl mt-5">Setup your new Wallet</h1>
       <p className="mt-2 font-noto text-sm text-gray-600">
         Verify your Email to Deploy your wallet.
       </p>

@@ -40,7 +40,9 @@ const ChainSwitcher = () => {
         background: currentChain.style.gradientColorLight,
       }}
       onClick={() => {
-        router.push(`/network?domain=${searchParams.get("domain")}`);
+        router.push(
+          `/network?domain=${searchParams.get("domain")?.toLowerCase()}`
+        );
       }}
     >
       <div className="flex">

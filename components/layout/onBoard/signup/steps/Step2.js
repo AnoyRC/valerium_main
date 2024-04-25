@@ -7,6 +7,7 @@ import { Input, Button } from "@material-tailwind/react";
 import { Check, Fingerprint, Info, Loader2Icon } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import CurrentChainInfo from "@/components/ui/chains/CurrentChainInfo";
 
 const Step2 = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,8 @@ const Step2 = () => {
 
   return (
     <div className="flex flex-col">
-      <h1 className="font-gloock text-4xl">Setup your new Wallet</h1>
+      <CurrentChainInfo label="Deploying on" />
+      <h1 className="font-gloock text-4xl mt-5">Setup your new Wallet</h1>
       <p className="mt-2 font-noto text-sm text-gray-600">
         Give your Password or Passkey to add Authentication to your wallet.
       </p>
@@ -74,8 +76,8 @@ const Step2 = () => {
             {passkey
               ? "Passkey Added"
               : isLoading
-                ? "Adding Passkey"
-                : "Add Passkey"}
+              ? "Adding Passkey"
+              : "Add Passkey"}
           </h1>
           <p className="mt-1 w-72 text-xs font-normal text-gray-500">
             This will be used to execute transactions

@@ -66,13 +66,19 @@ export default function RecipientAddress({
       return;
     }
 
-    if (input.split(".valerium.id")[0] === searchParams.get("domain")) {
+    if (
+      input.split(".valerium.id")[0]?.toLowerCase() ===
+      searchParams.get("domain")?.toLowerCase()
+    ) {
       setIsValid(false);
       setIsLoading(false);
       return;
     }
 
-    const address = await getValeriumAddress(currentChain, input);
+    const address = await getValeriumAddress(
+      currentChain,
+      input?.toLowerCase()
+    );
 
     if (address === ethers.constants.AddressZero) {
       setIsValid(false);

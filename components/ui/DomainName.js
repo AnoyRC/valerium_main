@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 
 const DomainName = ({ usernameSize, domainSize }) => {
   const searchParams = useSearchParams();
-  const domainName = searchParams.get("domain");
+  const domainName = searchParams.get("domain")?.toLowerCase();
 
   return (
     <h2

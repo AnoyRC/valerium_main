@@ -4,7 +4,6 @@ import baseChain from "@/lib/baseChain";
 import ValeriumProxyFactoryABI from "@/lib/abi/ValeriumProxyFactory.json";
 import { ethers } from "ethers";
 import { Magic } from "magic-sdk";
-import { WebAuthnExtension } from "@magic-ext/webauthn";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setEmail,
@@ -18,15 +17,17 @@ import ValeriumABI from "@/lib/abi/Valerium.json";
 import FactoryForwarderABI from "@/lib/abi/FactoryForwarder.json";
 import axios from "axios";
 import { toast } from "sonner";
+import useWebAuthn from "./useWebAuthn";
 
 export default function useSignup() {
-  const domain = useSelector((state) => state.signup.domain);
+  const domain = useSelector((state) => state.signup.domain)?.toLowerCase();
   const dispatch = useDispatch();
   const email = useSelector((state) => state.signup.email);
   const { hashKey, hashPassword } = useCircuit();
   const password = useSelector((state) => state.signup.password);
   const passkey = useSelector((state) => state.signup.passkey);
   const recoveryAddress = useSelector((state) => state.signup.recoveryAddress);
+  const { register } = useWebAuthn();
 
   const isValidValerium = async (domain) => {
     const provider = new ethers.providers.JsonRpcProvider(baseChain.rpcUrl);
@@ -37,7 +38,9 @@ export default function useSignup() {
       provider
     );
 
-    const isValid = await factory.domainExists(domain + ".valerium.id");
+    const isValid = await factory.domainExists(
+      domain?.toLowerCase() + ".valerium.id"
+    );
 
     return isValid;
   };
@@ -45,39 +48,9 @@ export default function useSignup() {
   const handlePasskey = async (setIsLoading) => {
     try {
       setIsLoading(true);
-
-      const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_API_KEY, {
-        extensions: [new WebAuthnExtension()],
-      });
-
-      try {
-        await magic.webauthn.registerNewUser({
-          username: domain + ".valerium.id",
-        });
-      } catch (error) {
-        console.log(error.message);
-        await magic.webauthn.login({
-          username: domain + ".valerium.id",
-        });
-      }
-
-      const provider = new ethers.providers.Web3Provider(magic.rpcProvider);
-      const signer = provider.getSigner();
-
-      const signature = await signer.signMessage("Valerium_New_User_Sign_Up");
-
-      const pubKey_uncompressed = ethers.utils.recoverPublicKey(
-        ethers.utils.hashMessage(
-          ethers.utils.toUtf8Bytes("Valerium_New_User_Sign_Up")
-        ),
-        signature
-      );
-
-      let pubKey = pubKey_uncompressed.slice(4);
-      let pub_key_x = pubKey.substring(0, 64);
-
+      const id = await register(domain + ".valerium.id");
       dispatch(setPassword(""));
-      dispatch(setPasskey(pub_key_x));
+      dispatch(setPasskey(id));
     } catch (error) {
       console.log(error);
     } finally {
@@ -128,7 +101,7 @@ export default function useSignup() {
       let TxHash;
 
       if (passkey) {
-        TxHash = await hashKey("0x" + passkey);
+        TxHash = await hashPassword(passkey);
       } else {
         TxHash = await hashPassword(password);
       }
@@ -158,9 +131,7 @@ export default function useSignup() {
           ethers.utils.keccak256(
             ethers.utils.toUtf8Bytes(domain + ".valerium.id")
           ),
-          passkey
-            ? baseChain.addresses.SignatureVerifier
-            : baseChain.addresses.PasswordVerifier,
+          baseChain.addresses.PasswordVerifier,
           baseChain.addresses.SignatureVerifier,
           baseChain.addresses.ValeriumForwarder,
           baseChain.addresses.ValeriumGasTank,

@@ -42,7 +42,7 @@ export default function useRecovery() {
       let TxHash;
 
       if (passkey) {
-        TxHash = await hashKey("0x" + passkey);
+        TxHash = await hashPassword(passkey);
       } else {
         TxHash = await hashPassword(password);
       }
@@ -63,9 +63,7 @@ export default function useRecovery() {
         gas: 1000000,
         proof: proof,
         newTxHash: TxHash,
-        newTxVerifier: passkey
-          ? currentChain.addresses.SignatureVerifier
-          : currentChain.addresses.PasswordVerifier,
+        newTxVerifier: currentChain.addresses.PasswordVerifier,
         publicStorage: publicInputs,
       };
 
@@ -144,7 +142,7 @@ export default function useRecovery() {
     }
   };
 
-  const executeRecovery = async (passkey, password) => {
+  const executeRecovery = async (passkey, password, gasToken) => {
     try {
       dispatch(setIsRunning(true));
       const provider = new ethers.providers.JsonRpcProvider(
@@ -167,7 +165,7 @@ export default function useRecovery() {
       let TxHash;
 
       if (passkey) {
-        TxHash = await hashKey("0x" + passkey);
+        TxHash = await hashPassword(passkey);
       } else {
         TxHash = await hashPassword(password);
       }
@@ -188,9 +186,7 @@ export default function useRecovery() {
         gas: 1000000,
         proof: proof,
         newTxHash: TxHash,
-        newTxVerifier: passkey
-          ? currentChain.addresses.SignatureVerifier
-          : currentChain.addresses.PasswordVerifier,
+        newTxVerifier: currentChain.addresses.PasswordVerifier,
         publicStorage: publicInputs,
       };
 
@@ -270,6 +266,7 @@ export default function useRecovery() {
         return false;
       }
     } catch (error) {
+      console.log(error);
       toast.error("Failed to execute recovery");
       return 0;
     } finally {
@@ -300,7 +297,7 @@ export default function useRecovery() {
       let TxHash;
 
       if (passkey) {
-        TxHash = await hashKey("0x" + passkey);
+        TxHash = await hashPassword(passkey);
       } else {
         TxHash = await hashPassword(password);
       }
@@ -321,9 +318,7 @@ export default function useRecovery() {
         gas: 1000000,
         proof: proof,
         newTxHash: TxHash,
-        newTxVerifier: passkey
-          ? currentChain.addresses.SignatureVerifier
-          : currentChain.addresses.PasswordVerifier,
+        newTxVerifier: currentChain.addresses.PasswordVerifier,
         publicStorage: publicInputs,
       };
 
@@ -370,7 +365,7 @@ export default function useRecovery() {
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/recovery/gasless/${
-          searchParams.get("domain") + ".valerium.id"
+          searchParams.get("domain")?.toLowerCase() + ".valerium.id"
         }/${currentChain.chainId}`,
         {
           forwardRequest,
@@ -379,7 +374,9 @@ export default function useRecovery() {
       );
       if (response.data.success) {
         await loadPublicStorage(currentChain, walletAddresses);
-        await loadGasCredit(searchParams.get("domain") + ".valerium.id");
+        await loadGasCredit(
+          searchParams.get("domain")?.toLowerCase() + ".valerium.id"
+        );
         toast.success("Recovery successfully");
         return true;
       } else {

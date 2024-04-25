@@ -24,9 +24,14 @@ const Login = () => {
 
   const handleName = (e) => {
     if (e.target.value.length > 20) {
-      setDomain(e.target.value.slice(0, 20).replace(/[^a-zA-Z0-9]/g, ""));
+      setDomain(
+        e.target.value
+          .slice(0, 20)
+          .replace(/[^a-zA-Z0-9]/g, "")
+          ?.toLowerCase()
+      );
     } else {
-      setDomain(e.target.value.replace(/[^a-zA-Z0-9]/g, ""));
+      setDomain(e.target.value.replace(/[^a-zA-Z0-9]/g, "")?.toLowerCase());
     }
   };
 
@@ -34,7 +39,7 @@ const Login = () => {
     if (domain.length < 3) return;
     if (domain.length > 20) return;
 
-    const address = await getValerium(domain);
+    const address = await getValerium(domain.toLowerCase());
 
     if (address === ethers.constants.AddressZero) {
       setIsUsed(false);
@@ -118,7 +123,7 @@ const Login = () => {
       <Button
         className="mt-8 w-fit bg-gradient-primary-light font-noto font-normal normal-case disabled:cursor-not-allowed"
         onClick={() => {
-          router.push(`/home?domain=${domain}`);
+          router.push(`/home?domain=${domain?.toLowerCase()}`);
         }}
         disabled={
           domain.length <= 3 ||

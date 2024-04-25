@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -10,7 +10,7 @@ const NavItem = ({ children, label, href, size }) => {
     <li>
       <Link
         className="flex cursor-pointer items-center"
-        href={`${href}?domain=${searchParams.get("domain")}`}
+        href={`${href}?domain=${searchParams.get("domain")?.toLowerCase()}`}
         style={{ fontSize: size === "sm" ? "14px" : "16px" }}
       >
         {children} <span className="ml-2">{label}</span>

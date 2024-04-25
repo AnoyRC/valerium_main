@@ -15,6 +15,7 @@ import { useSearchParams } from "next/navigation";
 import { ethers } from "ethers";
 import useWallet from "./useWallet";
 import useCircuit from "./useCircuit";
+import useWebAuthn from "./useWebAuthn";
 
 export default function useGenerateProof() {
   const dispatch = useDispatch();
@@ -23,49 +24,24 @@ export default function useGenerateProof() {
   const { getNonce } = useWallet();
   const walletAddresses = useSelector((state) => state.user.walletAddresses);
   const { signature_prove, password_prove } = useCircuit();
+  const { login } = useWebAuthn();
 
   const generatePasskeyProof = async () => {
     try {
       dispatch(setLoading(true));
 
-      const domain = searchParams.get("domain");
+      const domain = searchParams.get("domain")?.toLowerCase();
 
       if (!domain) {
         toast.error("Invalid Domain");
         return;
       }
+
+      const id = await login();
+
       const nonce = Number(await getNonce(currentChain, walletAddresses));
 
-      const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_API_KEY, {
-        extensions: [new WebAuthnExtension()],
-      });
-
-      await magic.webauthn.login({
-        username: domain + ".valerium.id",
-      });
-
-      const provider = new ethers.providers.Web3Provider(magic.rpcProvider);
-      const signer = provider.getSigner();
-
-      const signature = await signer.signMessage(nonce.toString());
-
-      const pubKey_uncompressed = ethers.utils.recoverPublicKey(
-        ethers.utils.hashMessage(ethers.utils.toUtf8Bytes(nonce.toString())),
-        signature
-      );
-
-      const message = ethers.utils.hashMessage(nonce.toString());
-
-      let pubKey = pubKey_uncompressed.slice(4);
-      let pub_key_x = pubKey.substring(0, 64);
-      let pub_key_y = pubKey.substring(64);
-
-      const proof = await signature_prove(
-        "0x" + pub_key_x,
-        "0x" + pub_key_y,
-        Array.from(ethers.utils.arrayify(signature)),
-        Array.from(ethers.utils.arrayify(message))
-      );
+      const proof = await password_prove(id, nonce);
 
       if (!proof) {
         toast.error("Error Generating Proof");
@@ -86,7 +62,7 @@ export default function useGenerateProof() {
     try {
       dispatch(setLoading(true));
 
-      const domain = searchParams.get("domain");
+      const domain = searchParams.get("domain")?.toLowerCase();
 
       if (!domain) {
         toast.error("Invalid Domain");
@@ -115,7 +91,7 @@ export default function useGenerateProof() {
     try {
       dispatch(setLoading(true));
 
-      const domain = searchParams.get("domain");
+      const domain = searchParams.get("domain")?.toLowerCase();
 
       if (!domain) {
         toast.error("Invalid Domain");

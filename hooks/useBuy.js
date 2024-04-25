@@ -385,7 +385,7 @@ export default function useBuy() {
             `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/execute/native/${currentChain.chainId}`,
             {
               forwardRequest,
-              mode: type === "Password" ? "password" : "signature",
+              mode: "password",
             }
           );
 
@@ -411,7 +411,7 @@ export default function useBuy() {
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/execute/erc20/${currentChain.chainId}?address=${gasToken.address}`,
           {
             forwardRequest,
-            mode: type === "Password" ? "password" : "signature",
+            mode: "password",
           }
         );
         if (response.data.success) {
@@ -544,7 +544,7 @@ export default function useBuy() {
             `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/executeBatch/native/${currentChain.chainId}`,
             {
               forwardRequest,
-              mode: type === "Password" ? "password" : "signature",
+              mode: "password",
             }
           );
 
@@ -570,7 +570,7 @@ export default function useBuy() {
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/executeBatch/erc20/${currentChain.chainId}?address=${gasToken.address}`,
           {
             forwardRequest,
-            mode: type === "Password" ? "password" : "signature",
+            mode: "password",
           }
         );
         if (response.data.success) {
@@ -605,11 +605,15 @@ export default function useBuy() {
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/gasCredit/native/verify/${
             currentChain.chainId
-          }?tx=${txHash}&domain=${searchParams.get("domain") + ".valerium.id"}`
+          }?tx=${txHash}&domain=${
+            searchParams.get("domain")?.toLowerCase() + ".valerium.id"
+          }`
         );
 
         if (response.data.success) {
-          await loadGasCredit(searchParams.get("domain") + ".valerium.id");
+          await loadGasCredit(
+            searchParams.get("domain")?.toLowerCase() + ".valerium.id"
+          );
           toast.success("Transaction verified");
         } else {
           toast.error("Failed to verify transaction");
@@ -619,12 +623,14 @@ export default function useBuy() {
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/gasCredit/erc20/verify/${
             currentChain.chainId
           }?tx=${txHash}&domain=${
-            searchParams.get("domain") + ".valerium.id"
+            searchParams.get("domain")?.toLowerCase() + ".valerium.id"
           }&address=${selectedToken.address}`
         );
 
         if (response.data.success) {
-          await loadGasCredit(searchParams.get("domain") + ".valerium.id");
+          await loadGasCredit(
+            searchParams.get("domain")?.toLowerCase() + ".valerium.id"
+          );
           toast.success("Transaction verified");
         } else {
           toast.error("Failed to verify transaction");
