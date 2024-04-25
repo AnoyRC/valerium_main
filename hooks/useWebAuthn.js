@@ -10,8 +10,8 @@ export default function useWebAuthn() {
       "1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef";
 
     const registration = await client.register(id, challenge, {
-      authenticatorType: "auto",
-      userVerification: "discouraged",
+      authenticatorType: "both",
+      userVerification: "required",
       timeout: 60000,
       attestation: true,
       debug: false,
@@ -57,7 +57,7 @@ export default function useWebAuthn() {
       "1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef";
 
     const authentication = await client.authenticate([], challenge, {
-      authenticatorType: "auto",
+      authenticatorType: "both",
       userVerification: "required",
       timeout: 60000,
     });

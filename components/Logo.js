@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Logo = () => {
   return (
-    <Link className="flex items-center gap-2.5" href="/dashboard">
+    <Link className="flex items-center gap-2.5" href="/">
       <div className=" rounded-md bg-black p-2">
         <Image
           src="/valerium-logo.svg"
