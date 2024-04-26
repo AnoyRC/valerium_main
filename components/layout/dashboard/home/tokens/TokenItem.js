@@ -2,17 +2,25 @@
 
 import Image from "next/image";
 import { Send } from "lucide-react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 
 import { formatAmount } from "@/utils/formatAmount";
+import { setToken } from "@/redux/slice/selectorSlice";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const TokenItem = ({ token }) => {
   const [conversionData, setConversionData] = useState();
 
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const tokenConversionData = useSelector(
     (state) => state.user.tokenConversionData
   );
+
+  const currentChain = useSelector((state) => state.chain.currentChain);
 
   useEffect(() => {
     if (tokenConversionData) {
@@ -57,8 +65,20 @@ const TokenItem = ({ token }) => {
             : "0"}
         </td>
 
-        <td className="rounded-r-xl py-3">
-          <div className="mx-auto flex h-8 w-8 -translate-x-1/2 cursor-pointer items-center justify-center rounded-full bg-text-gray p-2">
+        <td className="rounded-r-xl py-3 ">
+          <div
+            className="mx-auto flex h-8 w-8 -translate-x-1/2 cursor-pointer items-center justify-center rounded-full bg-text-gray p-2"
+            onClick={() => {
+              const selectedToken = currentChain.tokens.find(
+                (t) => t.address === token.address
+              );
+
+              dispatch(setToken({ token: selectedToken, index: 0 }));
+              router.push(
+                `/transfer?domain=${searchParams.get("domain")?.toLowerCase()}`
+              );
+            }}
+          >
             <Send color="white" />
           </div>
         </td>

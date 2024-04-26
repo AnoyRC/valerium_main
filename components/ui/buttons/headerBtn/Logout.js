@@ -4,11 +4,24 @@ import { Power } from "lucide-react";
 import { Button } from "@material-tailwind/react";
 
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import {
+  setTokenBalanceData,
+  setTokenConversionData,
+  setWalletAddresses,
+} from "@/redux/slice/UserSlice";
+import baseChain from "@/lib/baseChain";
+import { setCurrentChain } from "@/redux/slice/chainSlice";
 
 const Logout = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleLogoutClick = () => {
+    dispatch(setWalletAddresses(null));
+    dispatch(setTokenBalanceData(null));
+    dispatch(setTokenConversionData(null));
+    dispatch(setCurrentChain(baseChain));
     router.push("/login");
   };
 

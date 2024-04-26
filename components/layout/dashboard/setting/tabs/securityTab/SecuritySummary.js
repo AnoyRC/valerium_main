@@ -19,7 +19,11 @@ export default function SecuritySummary({ selectedToken, input, activeTab }) {
   const handleEstimate = async () => {
     try {
       setIsLoading(true);
-      const gas = await estimateGas(input, selectedToken);
+      const gas = await estimateGas(
+        input,
+        selectedToken,
+        activeTab === "gasless"
+      );
       setGas(gas);
       setIsLoading(false);
     } catch (error) {
@@ -37,8 +41,7 @@ export default function SecuritySummary({ selectedToken, input, activeTab }) {
       selectedToken &&
       validEmail(input) &&
       input !== email &&
-      recoveryProof &&
-      activeTab === "gas"
+      recoveryProof
     ) {
       if (timeout) {
         clearTimeout(timeout);

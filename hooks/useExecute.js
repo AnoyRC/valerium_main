@@ -21,7 +21,8 @@ export default function useExecute() {
     proof,
     to,
     value,
-    data
+    data,
+    isGasless
   ) => {
     try {
       const provider = new ethers.providers.JsonRpcProvider(
@@ -94,6 +95,22 @@ export default function useExecute() {
         data: message.data,
         signature: signature,
       };
+
+      if (isGasless) {
+        const estimate = await axios.get(
+          `${
+            process.env.NEXT_PUBLIC_BACKEND_URL
+          }/api/execute/estimate/gasless/${
+            currentChain.chainId
+          }?forwardRequest=${JSON.stringify(forwardRequest)}`
+        );
+
+        if (estimate.data.success) {
+          return estimate.data.estimates.estimateFees;
+        } else {
+          return 0;
+        }
+      }
 
       if (gasToken.address == null) {
         const estimate = await axios.get(

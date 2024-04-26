@@ -20,7 +20,7 @@ export default function useRecovery() {
   const searchParams = useSearchParams();
   const dispatch = useDispatch();
 
-  const estimateGas = async (passkey, password, gasToken) => {
+  const estimateGas = async (passkey, password, gasToken, isGasless) => {
     try {
       const provider = new ethers.providers.JsonRpcProvider(
         currentChain.rpcUrl
@@ -107,6 +107,22 @@ export default function useRecovery() {
         publicStorage: message.publicStorage,
         signature: signature,
       };
+
+      if (isGasless) {
+        const estimate = await axios.get(
+          `${
+            process.env.NEXT_PUBLIC_BACKEND_URL
+          }/api/recovery/estimate/gasless/${
+            currentChain.chainId
+          }?forwardRequest=${JSON.stringify(forwardRequest)}`
+        );
+
+        if (estimate.data.success) {
+          return estimate.data.estimates.estimateFees;
+        } else {
+          return 0;
+        }
+      }
 
       if (gasToken.address == null) {
         const estimate = await axios.get(

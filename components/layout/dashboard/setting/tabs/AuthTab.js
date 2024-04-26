@@ -25,12 +25,12 @@ const AuthTab = () => {
     <Suspense>
       <div className="mt-4">
         <p className="mt-3 text-base font-normal text-black">
-          Update your old Authentication method to update you Valerium Account
+          Update your old Authentication method to update your Valerium Account
           to have a Secured Transaction. An OTP will be sent to your registered
-          Email Address to have a successful transaction.
+          Email Address to change the Authentication method.
         </p>
 
-        <div className="flex gap-4">
+        <div className="flex flex-col 2xl:flex-row gap-4">
           <AuthAction
             currentChain={currentChain}
             activeTab={activeTab}

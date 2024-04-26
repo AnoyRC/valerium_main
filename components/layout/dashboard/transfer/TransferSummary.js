@@ -47,7 +47,8 @@ const TransferSummary = ({
             txProof,
             recipient,
             Number(amount * 10 ** selectedToken[0].decimals).toFixed(0),
-            "0x"
+            "0x",
+            activeTab === "gasless"
           );
         } else {
           gas = await estimateGas(
@@ -59,7 +60,8 @@ const TransferSummary = ({
               (amount / currentTokenConversion) *
                 10 ** selectedToken[0].decimals
             ).toFixed(0),
-            "0x"
+            "0x",
+            activeTab === "gasless"
           );
         }
       } else {
@@ -94,7 +96,8 @@ const TransferSummary = ({
           txProof,
           selectedToken[0].address,
           0,
-          data
+          data,
+          activeTab === "gasless"
         );
       }
       setGas(gas);
@@ -113,8 +116,7 @@ const TransferSummary = ({
       selectedToken &&
       recipient &&
       isValid &&
-      txProof &&
-      activeTab === "gas"
+      txProof
     ) {
       clearTimeout(GasTimeout);
       setIsLoading(true);

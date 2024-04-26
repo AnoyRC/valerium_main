@@ -37,7 +37,7 @@ const Setting = () => {
     },
 
     {
-      label: "Security/Login",
+      label: "Security",
       value: "login",
       desc: <DynamicSecurity />,
     },

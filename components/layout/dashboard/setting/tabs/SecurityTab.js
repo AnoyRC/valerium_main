@@ -17,12 +17,12 @@ const SecurityTab = () => {
     <Suspense>
       <div className="mt-4">
         <p className="mt-3 text-base font-normal text-black">
-          Update your Email address to add recovery to your Valerium Account if
-          you ever lose access. Updating the Account email address will require
-          a OTP.
+          Update your Email address to update recovery to your Valerium Account
+          if you ever lose access. Updating the Account email address will
+          require an OTP.
         </p>
 
-        <div className="flex gap-4">
+        <div className="flex gap-4 flex-col 2xl:flex-row">
           <SecurityAction
             input={input}
             setInput={setInput}

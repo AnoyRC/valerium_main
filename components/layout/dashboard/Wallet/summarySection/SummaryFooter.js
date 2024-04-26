@@ -85,8 +85,12 @@ const SummaryFooter = ({
       {isGasless && selectedUpdates && (
         <li className="flex justify-between">
           <p className="text-sm font-normal text-text-gray/80">Credit Cost:</p>
-          <div className="flex gap-1">
-            <p>{selectedUpdates?.creditPertx}</p>
+          <div className="flex gap-1 items-center">
+            {isLoading ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <>{txProof ? (gas / 10 ** 18).toFixed(Math.abs(6)) : "-.--"}</>
+            )}
             <Image
               src="/val-gas-front.png"
               alt="Valerium Gas Token"

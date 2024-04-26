@@ -20,7 +20,7 @@ export default function RecipientAddress({
   const [isTyping, setIsTyping] = useState(false);
   const inputRef = useRef(null);
   const searchParams = useSearchParams();
-  const { getValeriumAddress } = useWallet();
+  const { getValeriumAddress, getENSAddress } = useWallet();
   const currentChain = useSelector((state) => state.chain.currentChain);
   const walletAddresses = useSelector((state) => state.user.walletAddresses);
 
@@ -60,7 +60,18 @@ export default function RecipientAddress({
       return;
     }
 
-    if (!input.includes(".valerium.id") && input.length < 6) {
+    if (!input.includes(".valerium.id") && input.length >= 6) {
+      const address = await getENSAddress(input);
+
+      if (address !== ethers.constants.AddressZero && address !== null) {
+        setInput(address);
+        setIsValid(true);
+        setIsLoading(false);
+        return;
+      }
+    }
+
+    if (input.length < 6) {
       setIsValid(false);
       setIsLoading(false);
       return;
@@ -109,7 +120,7 @@ export default function RecipientAddress({
         {!input && (
           <div className={"mt-2 text-sm flex text-gray-600 "}>
             <Info size={17} className="inline mt-0.5 mr-1" />
-            Enter a valid Valerium domain or an arbitrary address.
+            Enter a valid Valerium/ENS domain or an arbitrary address.
           </div>
         )}
 
@@ -123,14 +134,14 @@ export default function RecipientAddress({
         {!isLoading && input && !isValid && (
           <div className={"mt-2 text-sm flex text-red-600 "}>
             <Info size={17} className="inline mt-0.5 mr-1" />
-            Valerium domain or address is invalid.
+            Valerium/ENS domain or address is invalid.
           </div>
         )}
 
         {!isLoading && input && isValid && (
           <div className={"mt-2 text-sm flex text-green-600 "}>
             <Info size={17} className="inline mt-0.5 mr-1" />
-            Valerium domain or address is valid.
+            The Address is valid.
           </div>
         )}
       </div>

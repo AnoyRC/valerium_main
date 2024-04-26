@@ -19,12 +19,13 @@ const ContainerButton = () => {
         </Link>
       </Button>
 
-      <Button className="rounded-full border-2 border-black bg-gradient-primary-light p-3 text-white">
-        <div
-          onClick={() => {
-            toast.error("Coming Soon");
-          }}
-        >
+      <Button
+        className="rounded-full border-2 border-black bg-gradient-primary-light p-3 text-white"
+        onClick={() => {
+          toast.error("Coming Soon");
+        }}
+      >
+        <div>
           <Send
             size={24}
             className="-translate-y-0.5 translate-x-0.5 rotate-180"

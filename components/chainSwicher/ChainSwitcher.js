@@ -46,7 +46,7 @@ const ChainSwitcher = () => {
       }}
     >
       <div className="flex">
-        <div className="mr-2 rounded-full border border-black">
+        <div className="mr-2 h-9 w-9 rounded-full border border-black">
           <Image
             src={`/tokens/${currentChain.style.logo}`}
             width={36}

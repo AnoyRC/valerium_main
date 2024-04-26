@@ -93,7 +93,7 @@ export default function useSignup() {
     }
   };
 
-  const deployWallet = async (setIsLoading, setSuccess, setMessage) => {
+  const deployWallet = async (setIsLoading, setSuccess, setMessage, code) => {
     try {
       setIsLoading(true);
       setMessage("Hashing Inputs");
@@ -203,6 +203,7 @@ export default function useSignup() {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/deploy/${baseChain.chainId}`,
         {
           forwardRequest,
+          code,
         }
       );
 

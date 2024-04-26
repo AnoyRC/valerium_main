@@ -93,7 +93,7 @@ const GaslessToggle = ({
               className="hover:cursor-pointer hover:underline"
               onClick={() => {
                 router.push(
-                  `/store?${searchParams.get("domain")?.toLowerCase()}`
+                  `/store?domain=${searchParams.get("domain")?.toLowerCase()}`
                 );
               }}
             >

@@ -45,7 +45,15 @@ export default function SummaryGasFooter({
           )}
           {isGasless && (
             <>
-              <p>{selectedUpdates?.creditPertx}</p>
+              <p>
+                {isLoading ? (
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                ) : estimatedGas ? (
+                  (estimatedGas / 10 ** 18).toFixed(6)
+                ) : (
+                  "-.--"
+                )}
+              </p>
               <Image
                 src="/val-gas-front.png"
                 alt="Valerium Gas Token"

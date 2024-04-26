@@ -21,7 +21,7 @@ export default function useChange() {
   const searchParams = useSearchParams();
   const dispatch = useDispatch();
 
-  const estimateGas = async (email, gasToken) => {
+  const estimateGas = async (email, gasToken, isGasless) => {
     try {
       const provider = new ethers.providers.JsonRpcProvider(
         currentChain.rpcUrl
@@ -101,6 +101,19 @@ export default function useChange() {
         publicStorage: message.publicStorage,
         signature: signature,
       };
+
+      if (isGasless) {
+        const estimate = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/change/estimate/gasless/${
+            currentChain.chainId
+          }?forwardRequest=${JSON.stringify(forwardRequest)}`
+        );
+        if (estimate.data.success) {
+          return estimate.data.estimates.estimateFees;
+        } else {
+          return 0;
+        }
+      }
 
       if (gasToken.address == null) {
         const estimate = await axios.get(
@@ -254,7 +267,7 @@ export default function useChange() {
 
         if (response.data.success) {
           await loadPublicStorage(currentChain, walletAddresses);
-          toast.success("Recovery successfully");
+          toast.success("Successfully changed recovery");
           return true;
         } else {
           toast.error(response.data.error);
@@ -271,7 +284,7 @@ export default function useChange() {
       );
       if (response.data.success) {
         await loadPublicStorage(currentChain, walletAddresses);
-        toast.success("Recovery successfully");
+        toast.success("Successfully changed recovery");
         return true;
       } else {
         toast.error(response.data.error);
@@ -410,7 +423,7 @@ export default function useChange() {
         await loadGasCredit(
           searchParams.get("domain")?.toLowerCase() + ".valerium.id"
         );
-        toast.success("Recovery successfully");
+        toast.success("Successfully changed recovery");
         return true;
       } else {
         toast.error(response.data.error);

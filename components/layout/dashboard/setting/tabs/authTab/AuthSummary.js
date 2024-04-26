@@ -22,7 +22,12 @@ export default function AuthSummary({
   const handleEstimate = async () => {
     try {
       setIsLoading(true);
-      const gas = await estimateGas(passkey, password, selectedToken);
+      const gas = await estimateGas(
+        passkey,
+        password,
+        selectedToken,
+        activeTab === "gasless"
+      );
       setGas(gas);
       setIsLoading(false);
     } catch (error) {
@@ -36,12 +41,7 @@ export default function AuthSummary({
 
   useEffect(() => {
     const controller = new AbortController();
-    if (
-      selectedToken &&
-      (password || passkey) &&
-      recoveryProof &&
-      activeTab === "gas"
-    ) {
+    if (selectedToken && (password || passkey) && recoveryProof) {
       if (timeout) {
         clearTimeout(timeout);
         timeout = null;

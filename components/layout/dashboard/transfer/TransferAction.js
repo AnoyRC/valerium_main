@@ -284,18 +284,17 @@ const TransferAction = ({
             handleClick={handleClick}
             disabled={
               txProof
-                ? activeTab === "gasless"
-                  ? !gasCredit
-                  : !isValid ||
-                    isLoading ||
-                    Number(amount) === 0 ||
-                    !(!usdToggle
-                      ? selectedToken
-                        ? amount <= token
-                        : "0.00"
-                      : selectedToken
-                      ? amount <= token * Number(currentTokenConversion)
-                      : "0.00")
+                ? (activeTab === "gasless" && !gasCredit) ||
+                  !isValid ||
+                  isLoading ||
+                  Number(amount) === 0 ||
+                  !(!usdToggle
+                    ? selectedToken
+                      ? amount <= token
+                      : "0.00"
+                    : selectedToken
+                    ? amount <= token * Number(currentTokenConversion)
+                    : "0.00")
                 : isLoading || !type
             }
           />

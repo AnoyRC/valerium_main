@@ -23,6 +23,7 @@ import { toast } from "sonner";
 import { setCurrentChain } from "@/redux/slice/chainSlice";
 import { setUpdates } from "@/redux/slice/gasTokenSlice";
 import baseChain from "@/lib/baseChain";
+import { setToken } from "@/redux/slice/selectorSlice";
 
 export default function useWallet() {
   const dispatch = useDispatch();
@@ -303,6 +304,18 @@ export default function useWallet() {
     dispatch(setTokenConversionData(null));
     dispatch(setTokenBalanceData(null));
     dispatch(setCurrentChain(chain));
+    dispatch(
+      setToken({
+        token: chain.tokens[0],
+        index: 0,
+      })
+    );
+    dispatch(
+      setToken({
+        token: chain.tokens[0],
+        index: 1,
+      })
+    );
   };
 
   const loadGasCredit = async (domain) => {
@@ -337,6 +350,20 @@ export default function useWallet() {
     }
   };
 
+  const getENSAddress = async (domain) => {
+    try {
+      const provider = new ethers.providers.JsonRpcProvider(
+        process.env.NEXT_PUBLIC_MAINNET_RPCURL
+      );
+
+      const address = await provider.resolveName(domain);
+
+      return address;
+    } catch (error) {
+      return ethers.constants.AddressZero;
+    }
+  };
+
   return {
     getBalance,
     getValeriumAddress,
@@ -352,5 +379,6 @@ export default function useWallet() {
     switchChain,
     loadGasCredit,
     getGasUpdates,
+    getENSAddress,
   };
 }
