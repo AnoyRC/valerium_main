@@ -8,7 +8,7 @@ const chainSlice = createSlice({
       chainId: 10,
       chainName: "Optimism",
       isBase: true,
-      rpcUrl: "https://optimism-rpc.publicnode.com",
+      rpcUrl: "https://lb.nodies.app/v1/9aa344a56a444c88a87b6d767eebbe8a",
       convert_id: "2781",
       id: "1027",
       symbol: "ETH",
