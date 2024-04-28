@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
       <Head>
         <link rel="icon" href="/favicon.ico" sizes="64x64" />
       </Head>
-      <body className={`${gloock.variable} ${notoSans.variable}`}>
+      <body className={`${gloock.variable} ${notoSans.variable} font-noto`}>
         {children}
       </body>
     </html>

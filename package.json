@@ -17,6 +17,7 @@
     "@passwordless-id/webauthn": "^1.6.1",
     "@reduxjs/toolkit": "^2.2.3",
     "axios": "^1.6.8",
+    "codemod": "^0.10.13",
     "ethers": "^5.7.2",
     "lucide-react": "^0.364.0",
     "magic-sdk": "^28.0.2",

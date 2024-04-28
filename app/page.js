@@ -1,4 +1,5 @@
 import Anywhere from "@/components/layout/landingPage/anywhere/Anywhere";
+import Bento from "@/components/layout/landingPage/bento/Bento";
 import FAQ from "@/components/layout/landingPage/faq/FAQ";
 import Features from "@/components/layout/landingPage/features/Features";
 import Footer from "@/components/layout/landingPage/footer/Footer";
