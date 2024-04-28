@@ -21,7 +21,7 @@ const Social = () => {
         </li>
 
         <li className="w-fit rounded-full bg-black p-2.5">
-          <Link href="https://discord.gg/uWcsSJsXun">
+          <Link href="https://discord.gg/H2rG8nddeD">
             <Image
               src="/social/discord.svg"
               alt="Discord"

@@ -14,7 +14,7 @@ const FooterBottom = () => {
       </div>
 
       <div className="flex items-center justify-between border-t border-text-light-gray py-5 text-sm font-medium">
-        <span className="text-black">© 2024 Valerium</span>
+        <span className="text-black">© 2024 Muziris Labs</span>
         <span className="text-gray">Terms & Condition Privacy Policy</span>
       </div>
     </div>
