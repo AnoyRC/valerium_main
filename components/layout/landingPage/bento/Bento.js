@@ -1,5 +1,6 @@
 import Image from "next/image";
 import CardContainer from "./card/Card";
+
 import Tags from "@/components/ui/Tags";
 
 const Bento = () => {
@@ -176,33 +177,110 @@ const Bento = () => {
       >
         <h3 className="mb-2 font-gloock text-4xl font-bold">More Chains</h3>
 
+        <p>
+          Don't see you Favorite chains here. Email your chain you want to be
+          added.
+        </p>
+
+        <div className="mt-2 flex">
+          <div className="h-12 w-12 overflow-hidden rounded-full border border-black">
+            <Image
+              src="/tokens/ancient8-logo.jpeg"
+              alt="Valerium Logo"
+              width={48}
+              height={48}
+            />
+          </div>
+
+          <div className="h-12 w-12 -translate-x-2 rounded-full border border-black">
+            <Image
+              src="/tokens/fraxscan-logo.svg"
+              alt="Valerium Logo"
+              width={48}
+              height={48}
+            />
+          </div>
+
+          <div className="h-12 w-12 -translate-x-4 rounded-full border border-black">
+            <Image
+              src="/tokens/zora-logo.png"
+              alt="Valerium Logo"
+              width={48}
+              height={48}
+            />
+          </div>
+
+          <div className="flex h-12 w-12 -translate-x-6 items-center justify-center rounded-full border border-black bg-white">
+            <Image
+              src="/tokens/lisk-logo.png"
+              alt="Valerium Logo"
+              width={28}
+              height={28}
+            />
+          </div>
+        </div>
+
         <Tags label="Coming soon" position="absolute bottom-5 left-5 " />
       </div>
 
       <div
-        className="col-span-6 row-span-4 rounded-xl border-[3px] border-white p-10 shadow-lg"
+        className="relative col-span-6 row-span-4 rounded-xl border-[3px] border-white p-10 shadow-lg"
         style={{
           // background:
           //   "linear-gradient(180deg, rgba(233, 233, 233, 0.85) 0%, rgba(216, 216, 216, 0.85) 100.4%)",
           background: "linear-gradient(95deg, #c51ccb40 0%, #c4182c40 100%)",
         }}
-      ></div>
+      >
+        <h3 className="mb-2 font-gloock text-4xl font-bold">
+          Built-in On-Chain bank accounts
+        </h3>
+
+        <p className="text-base text-text-gray">
+          Create and manage your bank accounts on-chain.
+        </p>
+
+        <Image
+          src="/home/money.png"
+          alt=""
+          width={400}
+          height={400}
+          className="absolute bottom-5 right-5 translate-x-24"
+        />
+
+        <Tags label="Coming soon" position="absolute bottom-5 left-5 " />
+      </div>
+
       <div
-        className="col-span-2 row-span-2 rounded-xl border-[3px] border-white p-10 shadow-lg"
+        className="col-span-2 row-span-2 flex items-center rounded-xl border-[3px] border-white p-5 font-gloock shadow-lg"
         style={{
           // background:
           //   "linear-gradient(180deg, rgba(233, 233, 233, 0.85) 0%, rgba(216, 216, 216, 0.85) 100.4%)",
           background: "linear-gradient(95deg, #c51ccb40 0%, #c4182c40 100%)",
         }}
-      ></div>
+      >
+        <Image
+          src="/home/Val3d.png"
+          alt="Valerium Logo"
+          width={80}
+          height={80}
+        />
+        Valerium
+      </div>
+
       <div
-        className="col-span-6 row-span-2 rounded-xl border-[3px] border-white p-10 shadow-lg"
+        className="relative col-span-6 row-span-2 rounded-xl border-[3px] border-white p-10 shadow-lg"
         style={{
           // background:
           //   "linear-gradient(180deg, rgba(233, 233, 233, 0.85) 0%, rgba(216, 216, 216, 0.85) 100.4%)",
           background: "linear-gradient(95deg, #c51ccb40 0%, #c4182c40 100%)",
         }}
-      ></div>
+      >
+        <h3 className="mb-2 font-gloock text-4xl font-bold">
+          Multi-chain Domain
+        </h3>
+
+        <Tags label="valerium.id" position="absolute right-5 " />
+      </div>
     </section>
   );
 };
