@@ -24,29 +24,42 @@ const ChainApproveButton = () => {
   return (
     currentChain.chainId === baseChain.chainId &&
     isDeployed && (
-      <Button
-        className="flex items-center gap-2 rounded-full"
-        style={{
-          background: style.gradientColorLight,
-        }}
-        onClick={() => {
-          if (!txProof) {
-            dispatch(toggleProofDrawer());
-          } else {
-            dispatch(setTxProof(null));
-          }
-        }}
+      <div
+        className="absolute z-10 bottom-8 flex flex-col items-center transform -translate-x-1/2 left-1/2 
+    "
       >
-        {txProof ? (
-          <>
-            Remove Approval <X size={16} />
-          </>
-        ) : (
-          <>
-            Approve <MoveUpRight size={16} />
-          </>
-        )}
-      </Button>
+        <Button
+          className="flex items-center w-64 justify-center p-4 gap-2 rounded-full"
+          style={{
+            background: style.gradientColorLight,
+          }}
+          onClick={() => {
+            if (!txProof) {
+              dispatch(toggleProofDrawer());
+            } else {
+              dispatch(setTxProof(null));
+            }
+          }}
+        >
+          {txProof ? (
+            <>
+              Remove Approval <X size={16} />
+            </>
+          ) : (
+            <>
+              Approve <MoveUpRight size={16} />
+            </>
+          )}
+        </Button>
+        <p
+          className="text-xs text-center
+         text-gray-500 mt-2"
+        >
+          {txProof
+            ? "Remove approval to cancel deployment to other chains"
+            : "Approve to deploy to other chains"}
+        </p>
+      </div>
     )
   );
 };

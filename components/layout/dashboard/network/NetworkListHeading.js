@@ -1,7 +1,6 @@
 import ChainName from "@/components/ui/chains/ChainName";
 import ChainAddress from "@/components/ui/chains/ChainAddress";
 import CurrentChainImage from "@/components/ui/chains/CurrentChainImage";
-import ChainApproveButton from "@/components/ui/buttons/ChainApproveButton";
 
 const NetworkListHeading = () => {
   return (
@@ -14,8 +13,6 @@ const NetworkListHeading = () => {
           <ChainAddress style={"text-sm"} />
         </div>
       </div>
-
-      <ChainApproveButton />
     </div>
   );
 };

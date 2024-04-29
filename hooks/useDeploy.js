@@ -12,7 +12,7 @@ import { setIsDeploying } from "@/redux/slice/proofSlice";
 export default function useDeploy() {
   const searchParams = useSearchParams();
   const walletAddresses = useSelector((state) => state.user.walletAddresses);
-  const { getPublicStorage } = useWallet();
+  const { getPublicStorage, loadAllData } = useWallet();
   const dispatch = useDispatch();
 
   const deploy = async (chain, proof, currentChain) => {
@@ -101,6 +101,9 @@ export default function useDeploy() {
 
       if (response.data.success) {
         toast.success("Successfully Deployed to chain");
+        await loadAllData(
+          searchParams.get("domain")?.toLowerCase() + ".valerium.id"
+        );
       } else {
         toast.error("Failed to deploy to chain");
         console.log(response.data.error);

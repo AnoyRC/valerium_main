@@ -1,3 +1,4 @@
+import ChainApproveButton from "@/components/ui/buttons/ChainApproveButton";
 import NetworkItem from "./NetworkItem";
 import NetworkListHeading from "./NetworkListHeading";
 
@@ -14,6 +15,8 @@ const NetworkList = () => {
             <NetworkItem key={chain.chainId} chain={chain} />
           ))}
         </ul>
+
+        <ChainApproveButton />
       </div>
     </div>
   );
