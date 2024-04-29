@@ -1,9 +1,34 @@
+"use client";
+
 import Image from "next/image";
 import CardContainer from "./card/Card";
 
 import Tags from "@/components/ui/Tags";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/all";
 
 const Bento = () => {
+  const container = useRef();
+
+  useGSAP(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const chains = gsap.utils.toArray(".chains");
+
+    chains.forEach((chain, index) => {
+      gsap.to(chain, {
+        x: index % 2 === 0 ? 25 : -80,
+        scrollTrigger: {
+          trigger: container.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    });
+  }, []);
+
   return (
     <section className="mx-auto mb-16 grid max-w-7xl grid-cols-12 grid-rows-12 gap-5">
       <div
@@ -23,7 +48,7 @@ const Bento = () => {
 
         <CardContainer />
 
-        <Tags label="Coming soon" position="absolute bottom-5 left-5 " />
+        <Tags label="Coming soon" position="absolute bottom-5 left-10 " />
       </div>
 
       <div
@@ -33,6 +58,7 @@ const Bento = () => {
           //   "linear-gradient(180deg, rgba(233, 233, 233, 0.85) 0%, rgba(216, 216, 216, 0.85) 100.4%)",
           background: "linear-gradient(95deg, #c51ccb40 0%, #c4182c40 100%)",
         }}
+        ref={container}
       >
         <h3 className="mb-2 font-gloock text-4xl font-bold">
           Chains Supported
@@ -48,7 +74,73 @@ const Bento = () => {
         </ul>
 
         <div className="absolute bottom-6 left-0 space-y-4">
-          <div className="flex w-fit -translate-x-7 gap-2">
+          <div className="flex w-fit -translate-x-96 gap-2 chains">
+            <div className="flex w-fit flex-shrink-0 gap-2 rounded-full border border-[#0153FF] bg-white px-2.5 py-1.5">
+              <Image
+                src="/tokens/base-logo.svg"
+                alt="Valerium Logo"
+                width={24}
+                height={24}
+              />
+              <p className="font-medium">BASE</p>
+            </div>
+            <div className="flex w-fit flex-shrink-0 gap-2 rounded-full border border-[#DFFE00] bg-white px-2.5 py-1.5">
+              <Image
+                src="/tokens/mode-logo.svg"
+                alt="Valerium Logo"
+                width={24}
+                height={24}
+              />
+              <p className="font-medium">MODE</p>
+            </div>
+            <div className="flex w-fit flex-shrink-0 gap-2 rounded-full border border-[#FF0420] bg-white px-2.5 py-1.5">
+              <Image
+                src="/tokens/optimism-logo.svg"
+                alt="Valerium Logo"
+                width={24}
+                height={24}
+              />
+              <p className="font-medium">OPTIMISM</p>
+            </div>
+            <div className="flex w-fit flex-shrink-0 gap-2 rounded-full border border-[#0153FF] bg-white px-2.5 py-1.5">
+              <Image
+                src="/tokens/base-logo.svg"
+                alt="Valerium Logo"
+                width={24}
+                height={24}
+              />
+              <p className="font-medium">BASE</p>
+            </div>
+            <div className="flex w-fit flex-shrink-0 gap-2 rounded-full border border-[#DFFE00] bg-white px-2.5 py-1.5">
+              <Image
+                src="/tokens/mode-logo.svg"
+                alt="Valerium Logo"
+                width={24}
+                height={24}
+              />
+              <p className="font-medium">MODE</p>
+            </div>
+            <div className="flex w-fit flex-shrink-0 gap-2 rounded-full border border-[#FF0420] bg-white px-2.5 py-1.5">
+              <Image
+                src="/tokens/optimism-logo.svg"
+                alt="Valerium Logo"
+                width={24}
+                height={24}
+              />
+              <p className="font-medium">OPTIMISM</p>
+            </div>
+          </div>
+
+          <div className="flex w-fit gap-2 chains">
+            <div className="flex w-fit flex-shrink-0 gap-2 rounded-full border border-[#0153FF] bg-white px-2.5 py-1.5">
+              <Image
+                src="/tokens/base-logo.svg"
+                alt="Valerium Logo"
+                width={24}
+                height={24}
+              />
+              <p className="font-medium">BASE</p>
+            </div>
             <div className="flex w-fit flex-shrink-0 gap-2 rounded-full border border-[#DFFE00] bg-white px-2.5 py-1.5">
               <Image
                 src="/tokens/mode-logo.svg"
@@ -87,16 +179,7 @@ const Bento = () => {
             </div>
           </div>
 
-          <div className="flex w-fit gap-2">
-            <div className="flex w-fit flex-shrink-0 gap-2 rounded-full border border-[#0153FF] bg-white px-2.5 py-1.5">
-              <Image
-                src="/tokens/base-logo.svg"
-                alt="Valerium Logo"
-                width={24}
-                height={24}
-              />
-              <p className="font-medium">BASE</p>
-            </div>
+          <div className="flex w-fit -translate-x-64 gap-2 chains">
             <div className="flex w-fit flex-shrink-0 gap-2 rounded-full border border-[#DFFE00] bg-white px-2.5 py-1.5">
               <Image
                 src="/tokens/mode-logo.svg"
@@ -124,36 +207,16 @@ const Bento = () => {
               />
               <p className="font-medium">BASE</p>
             </div>
-          </div>
+            <div className="flex w-fit flex-shrink-0 gap-2 rounded-full border border-[#DFFE00] bg-white px-2.5 py-1.5">
+              <Image
+                src="/tokens/mode-logo.svg"
+                alt="Valerium Logo"
+                width={24}
+                height={24}
+              />
+              <p className="font-medium">MODE</p>
+            </div>
 
-          <div className="flex w-fit -translate-x-10 gap-2">
-            <div className="flex w-fit flex-shrink-0 gap-2 rounded-full border border-[#FF0420] bg-white px-2.5 py-1.5">
-              <Image
-                src="/tokens/optimism-logo.svg"
-                alt="Valerium Logo"
-                width={24}
-                height={24}
-              />
-              <p className="font-medium">OPTIMISM</p>
-            </div>
-            <div className="flex w-fit flex-shrink-0 gap-2 rounded-full border border-[#0153FF] bg-white px-2.5 py-1.5">
-              <Image
-                src="/tokens/base-logo.svg"
-                alt="Valerium Logo"
-                width={24}
-                height={24}
-              />
-              <p className="font-medium">BASE</p>
-            </div>
-            <div className="flex w-fit flex-shrink-0 gap-2 rounded-full border border-[#DFFE00] bg-white px-2.5 py-1.5">
-              <Image
-                src="/tokens/mode-logo.svg"
-                alt="Valerium Logo"
-                width={24}
-                height={24}
-              />
-              <p className="font-medium">MODE</p>
-            </div>
             <div className="flex w-fit flex-shrink-0 gap-2 rounded-full border border-[#FF0420] bg-white px-2.5 py-1.5">
               <Image
                 src="/tokens/optimism-logo.svg"
@@ -177,17 +240,14 @@ const Bento = () => {
       >
         <h3 className="mb-2 font-gloock text-4xl font-bold">More Chains</h3>
 
-        <p>
-          Don't see you Favorite chains here. Email your chain you want to be
-          added.
-        </p>
+        <p>More chains will be added to the Valerium Wallet in the future. </p>
 
         <div className="mt-2 flex">
-          <div className="h-12 w-12 overflow-hidden rounded-full border border-black">
+          <div className="h-12 w-12 overflow-hidden flex items-center justify-center rounded-full border bg-black border-white">
             <Image
-              src="/tokens/ancient8-logo.jpeg"
+              src="/tokens/ancient8-logo.png"
               alt="Valerium Logo"
-              width={48}
+              width={30}
               height={48}
             />
           </div>
@@ -220,7 +280,7 @@ const Bento = () => {
           </div>
         </div>
 
-        <Tags label="Coming soon" position="absolute bottom-5 left-5 " />
+        <Tags label="Coming soon" position="absolute bottom-5 left-10 " />
       </div>
 
       <div
@@ -244,31 +304,37 @@ const Bento = () => {
           alt=""
           width={400}
           height={400}
-          className="absolute bottom-5 right-5 translate-x-24"
+          className="absolute bottom-5 right-0 translate-x-24"
         />
 
-        <Tags label="Coming soon" position="absolute bottom-5 left-5 " />
+        <Tags label="Coming soon" position="absolute bottom-5 left-10 " />
       </div>
 
       <div
-        className="col-span-2 row-span-2 flex items-center rounded-xl border-[3px] border-white p-5 font-gloock shadow-lg"
+        className="col-span-2 row-span-2 flex flex-col justify-center  rounded-xl border-[3px] border-white p-5 px-7 font-gloock shadow-lg"
         style={{
           // background:
           //   "linear-gradient(180deg, rgba(233, 233, 233, 0.85) 0%, rgba(216, 216, 216, 0.85) 100.4%)",
           background: "linear-gradient(95deg, #c51ccb40 0%, #c4182c40 100%)",
         }}
       >
-        <Image
-          src="/home/Val3d.png"
-          alt="Valerium Logo"
-          width={80}
-          height={80}
-        />
-        Valerium
+        <div className="flex justify-between">
+          <div>
+            <h3 className="text-xl font-bold">Made</h3>
+            <p className="font-noto">With love</p>
+          </div>
+          <Image
+            src="/home/heart.png"
+            alt="Valerium Logo"
+            width={50}
+            height={80}
+            className=" animate-pulse"
+          />
+        </div>
       </div>
 
       <div
-        className="relative col-span-6 row-span-2 rounded-xl border-[3px] border-white p-10 shadow-lg"
+        className="relative col-span-6 row-span-2 rounded-xl border-[3px] border-white p-10 py-7 shadow-lg"
         style={{
           // background:
           //   "linear-gradient(180deg, rgba(233, 233, 233, 0.85) 0%, rgba(216, 216, 216, 0.85) 100.4%)",
@@ -279,7 +345,9 @@ const Bento = () => {
           Multi-chain Domain
         </h3>
 
-        <Tags label="valerium.id" position="absolute right-5 " />
+        <p>
+          Your domains are stored on-chain and in every chain that you deploy.
+        </p>
       </div>
     </section>
   );

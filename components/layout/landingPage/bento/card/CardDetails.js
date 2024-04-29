@@ -40,12 +40,12 @@ const CardDetails = ({ style }) => {
             <span className="text-lg lg:text-xl">val@valerium.id</span>
           </div>
 
-          <div>
+          {/* <div>
             <span className="block text-sm opacity-50 lg:text-base">
               Your Name
             </span>{" "}
             <span className="text-lg lg:text-xl">Valerium</span>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

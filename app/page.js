@@ -13,9 +13,9 @@ const Home = () => {
     <>
       <NavBar />
       <Header />
-      <Bento />
       <Mentions />
       <Features />
+      <Bento />
       <Anywhere />
       <FAQ />
       <Border />

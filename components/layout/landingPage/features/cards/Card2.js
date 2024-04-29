@@ -3,23 +3,30 @@ import Image from "next/image";
 export default function Card2() {
   return (
     <div className="bg-pink-100 relative overflow-hidden shadow-lg rounded-3xl w-full h-full flex flex-col p-8">
-      <div className="text-5xl font-bold font-noto">
-        Built-in On-Chain bank accounts
-      </div>
+      <div className="text-5xl font-bold font-noto">Superchain Native</div>
       <div className="text-lg mt-4 font-noto">
-        Create and manage your bank accounts on-chain.
+        The Superchain is Built on the cutting-edge OP Stack codebase.
       </div>
 
-      <div className="mt-4 border-black border-[2px] w-36 p-2 flex items-center justify-center rounded-full font-noto">
-        COMING SOON
+      <div className="mt-4">
+        <div className="text-2xl font-bold font-noto">Benefits</div>
+        <div className="text-lg mt-3 font-noto">
+          1. Combined power of Optimism and Ethereum.
+        </div>
+        <div className="text-lg mt-2 font-noto">
+          2. Best-in-class infrastructure for DeFi.
+        </div>
+        <div className="text-lg mt-2 font-noto">
+          3. Fast and secure transactions.
+        </div>
       </div>
 
       <Image
-        src="/home/money.png"
+        src="/tokens/optimism-logo.svg"
         alt="Gas Credits"
-        width={900}
+        width={400}
         height={400}
-        className="absolute -bottom-16 -right-64 "
+        className="absolute -bottom-20 right-10 "
       />
     </div>
   );
