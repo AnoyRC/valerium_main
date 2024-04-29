@@ -72,21 +72,18 @@ export default function Mentions() {
         <div className="text-lg font-noto flex-col mt-16">
           <p>Powered by</p>
           <div className="flex gap-20 mt-5 items-center">
-            <Image src="/home/noir.svg" alt="Noir" width={200} height={100} />
-            <div className="text-red-500 font-extrabold items-center italic gap-3 text-2xl flex">
-              <Image
-                src="/tokens/optimism-logo.svg"
-                alt="Magic"
-                width={75}
-                height={100}
-                className=""
-              />
-              SUPERCHAIN
-            </div>
+            <Image src="/home/noir.svg" alt="Noir" width={150} height={100} />
+            <Image
+              src="/home/op-super.svg"
+              alt="SuperChain"
+              width={200}
+              height={100}
+              className="mt-1"
+            />
             <Image
               src="/home/magic.svg"
               alt="Magic"
-              width={200}
+              width={150}
               height={100}
               className=""
             />
