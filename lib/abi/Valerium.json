@@ -1,5 +1,73 @@
 [
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "bytes4",
+        "name": "magicValue",
+        "type": "bytes4"
+      }
+    ],
+    "name": "ExecutionResult",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "domain",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "txVerifier",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "recoveryVerifier",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "forwarder",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "gasTank",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "txHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "recoveryHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes",
+        "name": "publicStorage",
+        "type": "bytes"
+      }
+    ],
+    "name": "SetupValerium",
+    "type": "event"
+  },
+  {
     "stateMutability": "payable",
     "type": "fallback"
   },
@@ -149,6 +217,11 @@
         "type": "bytes"
       },
       {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
         "internalType": "bytes32",
         "name": "_newRecoveryHash",
         "type": "bytes32"
@@ -235,6 +308,11 @@
         "internalType": "bytes",
         "name": "_proof",
         "type": "bytes"
+      },
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
       },
       {
         "internalType": "address[]",
@@ -325,6 +403,11 @@
         "type": "bytes"
       },
       {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
         "internalType": "bytes32",
         "name": "_newTxHash",
         "type": "bytes32"
@@ -411,6 +494,11 @@
         "internalType": "bytes",
         "name": "_proof",
         "type": "bytes"
+      },
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
       },
       {
         "internalType": "address",

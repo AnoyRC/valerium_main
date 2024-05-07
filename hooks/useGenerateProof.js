@@ -25,12 +25,15 @@ export default function useGenerateProof() {
   const walletAddresses = useSelector((state) => state.user.walletAddresses);
   const { signature_prove, password_prove } = useCircuit();
   const { login } = useWebAuthn();
+  const { initializeProofWallet } = useWallet();
 
   const generatePasskeyProof = async () => {
     try {
       dispatch(setLoading(true));
 
       const domain = searchParams.get("domain")?.toLowerCase();
+
+      const wallet = await initializeProofWallet();
 
       if (!domain) {
         toast.error("Invalid Domain");
@@ -41,7 +44,7 @@ export default function useGenerateProof() {
 
       const nonce = Number(await getNonce(currentChain, walletAddresses));
 
-      const proof = await password_prove(id, nonce);
+      const proof = await password_prove(id, nonce, wallet.address);
 
       if (!proof) {
         toast.error("Error Generating Proof");
@@ -62,6 +65,8 @@ export default function useGenerateProof() {
     try {
       dispatch(setLoading(true));
 
+      const wallet = await initializeProofWallet();
+
       const domain = searchParams.get("domain")?.toLowerCase();
 
       if (!domain) {
@@ -70,7 +75,7 @@ export default function useGenerateProof() {
       }
       const nonce = Number(await getNonce(currentChain, walletAddresses));
 
-      const proof = await password_prove(password, nonce);
+      const proof = await password_prove(password, nonce, wallet.address);
 
       if (!proof) {
         toast.error("Error Generating Proof");
@@ -97,6 +102,9 @@ export default function useGenerateProof() {
         toast.error("Invalid Domain");
         return;
       }
+
+      const wallet = await initializeProofWallet();
+
       const nonce = Number(await getNonce(currentChain, walletAddresses));
 
       const magic = new Magic(process.env.NEXT_PUBLIC_MAGIC_API_KEY);
@@ -127,7 +135,8 @@ export default function useGenerateProof() {
         "0x" + pub_key_x,
         "0x" + pub_key_y,
         Array.from(ethers.utils.arrayify(signature)),
-        Array.from(ethers.utils.arrayify(message))
+        Array.from(ethers.utils.arrayify(message)),
+        wallet.address
       );
 
       if (!proof) {

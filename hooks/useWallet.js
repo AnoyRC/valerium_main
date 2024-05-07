@@ -18,6 +18,7 @@ import {
   setRecoveryProof,
   setTxProof,
   setType,
+  setWallet,
 } from "@/redux/slice/proofSlice";
 import { toast } from "sonner";
 import { setCurrentChain } from "@/redux/slice/chainSlice";
@@ -30,6 +31,7 @@ export default function useWallet() {
   const currentChain = useSelector((state) => state.chain.currentChain);
   const walletAddresses = useSelector((state) => state.user.walletAddresses);
   const isRunning = useSelector((state) => state.tx.isRunning);
+  const wallet = useSelector((state) => state.proof.wallet);
 
   const getBalance = async (currentChain, address) => {
     try {
@@ -364,6 +366,18 @@ export default function useWallet() {
     }
   };
 
+  const initializeProofWallet = async () => {
+    if (!wallet) {
+      const newWallet = ethers.Wallet.createRandom();
+
+      dispatch(setWallet(newWallet));
+
+      return newWallet;
+    }
+
+    return wallet;
+  };
+
   return {
     getBalance,
     getValeriumAddress,
@@ -380,5 +394,6 @@ export default function useWallet() {
     loadGasCredit,
     getGasUpdates,
     getENSAddress,
+    initializeProofWallet,
   };
 }

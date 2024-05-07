@@ -5,6 +5,11 @@
         "internalType": "address",
         "name": "CurrentSingleton_",
         "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "_isBaseChain",
+        "type": "bool"
       }
     ],
     "stateMutability": "nonpayable",

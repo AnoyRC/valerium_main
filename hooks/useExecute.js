@@ -12,7 +12,7 @@ import { setIsRunning } from "@/redux/slice/TxSlice";
 export default function useExecute() {
   const currentChain = useSelector((state) => state.chain.currentChain);
   const searchParams = useSearchParams();
-  const { loadGasCredit } = useWallet();
+  const { loadGasCredit, initializeProofWallet } = useWallet();
   const dispatch = useDispatch();
 
   const estimateGas = async (
@@ -41,7 +41,7 @@ export default function useExecute() {
         provider
       );
 
-      const keypair = ethers.Wallet.createRandom();
+      const keypair = await initializeProofWallet();
 
       const message = {
         from: keypair.address,
@@ -171,7 +171,7 @@ export default function useExecute() {
         provider
       );
 
-      const keypair = ethers.Wallet.createRandom();
+      const keypair = await initializeProofWallet();
 
       const message = {
         from: keypair.address,
@@ -293,7 +293,7 @@ export default function useExecute() {
         provider
       );
 
-      const keypair = ethers.Wallet.createRandom();
+      const keypair = await initializeProofWallet();
 
       const message = {
         from: keypair.address,

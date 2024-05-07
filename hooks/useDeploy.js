@@ -12,7 +12,7 @@ import { setIsDeploying } from "@/redux/slice/proofSlice";
 export default function useDeploy() {
   const searchParams = useSearchParams();
   const walletAddresses = useSelector((state) => state.user.walletAddresses);
-  const { getPublicStorage, loadAllData } = useWallet();
+  const { getPublicStorage, loadAllData, initializeProofWallet } = useWallet();
   const dispatch = useDispatch();
 
   const deploy = async (chain, proof, currentChain) => {
@@ -25,6 +25,8 @@ export default function useDeploy() {
       const providerExternal = new ethers.providers.JsonRpcProvider(
         chain.rpcUrl
       );
+
+      const wallet = await initializeProofWallet();
 
       const walletAddress = walletAddresses.find(
         (address) => address.chainId === currentChain.chainId
@@ -90,6 +92,7 @@ export default function useDeploy() {
         proof,
         initializer,
         type: "password",
+        address: wallet.address,
       };
 
       const response = await axios.post(

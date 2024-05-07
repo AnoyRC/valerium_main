@@ -40,7 +40,7 @@ export function TokenDrawer() {
               Select a Token
             </Typography>
 
-            {currentChain.tokens.map((token, index) => (
+            {currentChain?.tokens.map((token, index) => (
               <Button
                 key={index}
                 className="w-full rounded-2xl border border-border-light bg-white px-4 py-3.5 text-left font-noto text-base normal-case text-gray-600 shadow-none outline-none"

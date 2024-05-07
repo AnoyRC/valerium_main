@@ -5,23 +5,23 @@ const chainSlice = createSlice({
 
   initialState: {
     currentChain: {
-      chainId: 10,
-      chainName: "Optimism",
+      chainId: 1891,
+      chainName: "LightLink",
       isBase: true,
-      rpcUrl: "https://lb.nodies.app/v1/9aa344a56a444c88a87b6d767eebbe8a",
+      rpcUrl: "https://replicator.pegasus.lightlink.io/rpc/v1",
       convert_id: "2781",
       id: "1027",
       symbol: "ETH",
       logo: "/eth-logo.svg",
       addresses: {
-        Valerium: "0xE2863dBFFC36100cd77160d74F4bb97344E0AD42",
-        ValeriumForwarder: "0x40C92d2E370b3d3944fDd90c922a407F02D286d1",
-        FactoryForwarder: "0x44950f083691828A07c17d2A927B435e8B272F6D",
-        ValeriumProxyFactory: "0x0B62BDA8EcE17AFfa7adAe16bBaBBC8584A30016",
-        ValeriumVault: "0x1275917daAE6389C61c7B1E8199724D0b46Ed10f",
-        PasswordVerifier: "0x0c17B9e142a0DDb42f075b0E2f1988691ea1d75a",
-        SignatureVerifier: "0xC4e20B3BD1922A02c6DAC500De5754E3CC4046BB",
-        ValeriumGasTank: "0xd276eC25c2C4670B067b9CF726b7BfCADB191107",
+        Valerium: "0x403C415b937670D1cE5990085D1d2a4bfBcD963d",
+        ValeriumForwarder: "0x317EA248E82581b42cbec0969e21EB5cd66F0685",
+        FactoryForwarder: "0xB182B9d882BD096dA31BCEA102B87B3649857f98",
+        ValeriumProxyFactory: "0x9b6f84C2BCd64616dB448D8ED82038cC07E1fe59",
+        ValeriumVault: "0x1FdD0B22E4208F6CeE8F8C1Bdbf28bBBc359A86F",
+        PasswordVerifier: "0x3D3851032b6485dD65AdBB45bA37b18615006493",
+        SignatureVerifier: "0x62CB235Cf18Af7b62B918d93DA89212bc89daFdc",
+        ValeriumGasTank: "0x51781cc1439BD05a85185C8c8CEc979b263236e3",
       },
       style: {
         baseTextColor: "#FFFFFF",
@@ -50,7 +50,7 @@ const chainSlice = createSlice({
         {
           name: "USDC",
           symbol: "USDC",
-          address: "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85",
+          address: "0x3cf2c147d43C98Fa96d267572e3FD44A4D3940d4",
           convert_id: "3408",
           usd_id: "2781",
           decimals: 6,

@@ -43,7 +43,13 @@ export default function useCircuit() {
     return output.returnValue;
   };
 
-  const signature_prove = async (pubkeyx, pubkeyy, signature, message) => {
+  const signature_prove = async (
+    pubkeyx,
+    pubkeyy,
+    signature,
+    message,
+    address
+  ) => {
     try {
       const backend = new BarretenbergBackend(signatureProve, {
         threads: navigator.hardwareConcurrency,
@@ -53,12 +59,16 @@ export default function useCircuit() {
 
       signature.pop();
 
+      const bytes32Address = ethers.utils.hexZeroPad(address, 32);
+
       const inputs = {
         pub_key_x: Array.from(ethers.utils.arrayify(pubkeyx)),
         pub_key_y: Array.from(ethers.utils.arrayify(pubkeyy)),
         signature: signature,
         hashed_message: message,
         pub_key_x_hash: recoveryHash,
+        signing_address: bytes32Address,
+        proving_address: bytes32Address,
       };
 
       const noir = new Noir(signatureProve, backend);
@@ -72,7 +82,7 @@ export default function useCircuit() {
     }
   };
 
-  const password_prove = async (password, nonce) => {
+  const password_prove = async (password, nonce, address) => {
     const backend = new BarretenbergBackend(passwordProve, {
       threads: navigator.hardwareConcurrency,
     });
@@ -83,6 +93,8 @@ export default function useCircuit() {
 
     const message = ethers.utils.hashMessage(nonce.toString());
 
+    const bytes32Address = ethers.utils.hexZeroPad(address, 32);
+
     const inputs = {
       password: ethers.utils.hexlify(
         ethers.utils.ripemd160(ethers.utils.toUtf8Bytes(password))
@@ -90,6 +102,8 @@ export default function useCircuit() {
       flagged_message: Array.from(ethers.utils.arrayify(message)),
       hashed_message: Array.from(ethers.utils.arrayify(message)),
       password_hash: passwordHex,
+      signing_address: bytes32Address,
+      proving_address: bytes32Address,
     };
 
     const output = await noir.generateFinalProof(inputs);

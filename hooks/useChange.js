@@ -17,7 +17,11 @@ export default function useChange() {
   const currentChain = useSelector((state) => state.chain.currentChain);
   const walletAddresses = useSelector((state) => state.user.walletAddresses);
   const { hashKey } = useCircuit();
-  const { loadPublicStorage, loadGasCredit } = useWallet();
+  const {
+    loadPublicStorage,
+    loadGasCredit,
+    initializeProofWallet,
+  } = useWallet();
   const searchParams = useSearchParams();
   const dispatch = useDispatch();
 
@@ -46,7 +50,7 @@ export default function useChange() {
         provider
       );
 
-      const keypair = ethers.Wallet.createRandom();
+      const keypair = await initializeProofWallet();
 
       const message = {
         from: keypair.address,
@@ -201,7 +205,7 @@ export default function useChange() {
         provider
       );
 
-      const keypair = ethers.Wallet.createRandom();
+      const keypair = await initializeProofWallet();
 
       const message = {
         from: keypair.address,
@@ -354,7 +358,7 @@ export default function useChange() {
         provider
       );
 
-      const keypair = ethers.Wallet.createRandom();
+      const keypair = await initializeProofWallet();
 
       const message = {
         from: keypair.address,

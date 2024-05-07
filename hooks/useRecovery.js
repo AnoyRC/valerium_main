@@ -16,7 +16,11 @@ export default function useRecovery() {
   const email = useSelector((state) => state.proof.email);
   const currentChain = useSelector((state) => state.chain.currentChain);
   const proof = useSelector((state) => state.proof.recoveryProof);
-  const { loadPublicStorage, loadGasCredit } = useWallet();
+  const {
+    loadPublicStorage,
+    loadGasCredit,
+    initializeProofWallet,
+  } = useWallet();
   const searchParams = useSearchParams();
   const dispatch = useDispatch();
 
@@ -53,7 +57,7 @@ export default function useRecovery() {
         provider
       );
 
-      const keypair = ethers.Wallet.createRandom();
+      const keypair = await initializeProofWallet();
 
       const message = {
         from: keypair.address,
@@ -192,7 +196,7 @@ export default function useRecovery() {
         provider
       );
 
-      const keypair = ethers.Wallet.createRandom();
+      const keypair = await initializeProofWallet();
 
       const message = {
         from: keypair.address,
@@ -324,7 +328,7 @@ export default function useRecovery() {
         provider
       );
 
-      const keypair = ethers.Wallet.createRandom();
+      const keypair = await initializeProofWallet();
 
       const message = {
         from: keypair.address,

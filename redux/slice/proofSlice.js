@@ -14,6 +14,7 @@ const proofSlice = createSlice({
     password: null,
     passkey: null,
     isDeploying: false,
+    wallet: null,
   },
 
   reducers: {
@@ -56,6 +57,10 @@ const proofSlice = createSlice({
     setIsDeploying: (state, action) => {
       state.isDeploying = action.payload;
     },
+
+    setWallet: (state, action) => {
+      state.wallet = action.payload;
+    },
   },
 });
 
@@ -70,6 +75,7 @@ export const {
   setPassword,
   setPasskey,
   setIsDeploying,
+  setWallet,
 } = proofSlice.actions;
 
 export default proofSlice.reducer;

@@ -20,7 +20,7 @@ export default function useBuy() {
   const currentChain = useSelector((state) => state.chain.currentChain);
   const walletAddresses = useSelector((state) => state.user.walletAddresses);
   const searchParams = useSearchParams();
-  const { loadGasCredit } = useWallet();
+  const { loadGasCredit, initializeProofWallet } = useWallet();
   const type = useSelector((state) => state.proof.type);
   const dispatch = useDispatch();
 
@@ -59,7 +59,7 @@ export default function useBuy() {
         provider
       );
 
-      const keypair = ethers.Wallet.createRandom();
+      const keypair = await initializeProofWallet();
 
       if (selectedToken.address === null) {
         const deposit = ValeriumVault.interface.encodeFunctionData("deposit", [
@@ -319,7 +319,7 @@ export default function useBuy() {
         provider
       );
 
-      const keypair = ethers.Wallet.createRandom();
+      const keypair = await initializeProofWallet();
 
       if (selectedToken.address === null) {
         const deposit = ValeriumVault.interface.encodeFunctionData("deposit", [
