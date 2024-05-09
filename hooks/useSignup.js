@@ -157,7 +157,6 @@ export default function useSignup() {
         gas: 1000000,
         domain: domain + ".valerium.id",
         initializer: initializer,
-        salt: 1,
       };
 
       const data712 = {
@@ -170,7 +169,6 @@ export default function useSignup() {
             { name: "gas", type: "uint256" },
             { name: "domain", type: "string" },
             { name: "initializer", type: "bytes" },
-            { name: "salt", type: "uint256" },
           ],
         },
         domain: {
@@ -195,7 +193,6 @@ export default function useSignup() {
         gas: message.gas,
         domain: message.domain,
         initializer: message.initializer,
-        salt: message.salt,
         signature: signature,
       };
 

@@ -1,6 +1,6 @@
 {
   "chainId": 11155420,
-  "chainName": "Optimism Sepolia",
+  "chainName": "OP Sepolia",
   "isBase": true,
   "rpcUrl": "https://public.stackup.sh/api/v1/node/optimism-sepolia",
   "convert_id": "2781",
@@ -10,8 +10,8 @@
   "addresses": {
     "Valerium": "0x98A4913E2c87FcBabcDAE1f056EA31da33eEF954",
     "ValeriumForwarder": "0xE04CD87ce9bC58b049F196796236C134b3E9c2bf",
-    "FactoryForwarder": "0xbC26835C8351FD8EFeCC27946893d137b6213f61",
-    "ValeriumProxyFactory": "0xd89146B592f407DDE49Ed4018e60b9F5c64deB9C",
+    "FactoryForwarder": "0xeeDae90A904555ed770d22d8ec8453db0da23CAF",
+    "ValeriumProxyFactory": "0x1262Cb3C586C95ffca465CAD303257F24246a8A9",
     "ValeriumVault": "0xE3Da83526a082867729182d4b656ee28b0AD2bD5",
     "PasswordVerifier": "0x008Ca969293633dFDeBe7b1aD133213Aa47D1004",
     "SignatureVerifier": "0xa7378013Cf8dB10ce44aAf8934cE1E674C56Acec",

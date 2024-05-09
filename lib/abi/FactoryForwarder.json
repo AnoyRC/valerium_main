@@ -154,11 +154,6 @@
             "type": "bytes"
           },
           {
-            "internalType": "uint256",
-            "name": "salt",
-            "type": "uint256"
-          },
-          {
             "internalType": "bytes",
             "name": "signature",
             "type": "bytes"
